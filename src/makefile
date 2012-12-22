@@ -13,6 +13,8 @@
 # I've added some extra comments above several of the makefile fields which
 # you will have to deal with.
 
+AVRLIB = ../thirdparty/avrlib
+
 ########### change this lines according to your project ##################
 #put the name of the target mcu here (at90s8515, at90s8535, attiny22, atmega603 etc.)
 MCU = atmega32
