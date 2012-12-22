@@ -21,7 +21,7 @@
 #define R_DOWN_BUTTON_DOWN    bit_is_clear(PINA,3)
 #define NEST_BUTTON_DOWN      bit_is_clear(PINB,0)
 
-#define BREAK_BEAM_TRIGGERED  bit_is_clear(PINB,1)
+#define BREAK_BEAM_TRIGGERED  bit_is_set(PINB,1)
 
 #define BOTH_RIGHT_BUTTONS_PRESSED   ( (justPressed(R_UP_BUTTON) && justPressed(R_DOWN_BUTTON)) || (justPressed(R_UP_BUTTON) && isDown[R_DOWN_BUTTON]) || (justPressed(R_DOWN_BUTTON) && isDown[R_UP_BUTTON]) )
 #define BOTH_LEFT_BUTTONS_PRESSED    ( (justPressed(L_UP_BUTTON) && justPressed(L_DOWN_BUTTON)) || (justPressed(L_UP_BUTTON) && isDown[L_DOWN_BUTTON]) || (justPressed(L_DOWN_BUTTON) && isDown[L_UP_BUTTON]) )
@@ -35,10 +35,10 @@ u08 downCount[NUM_BUTTONS];
 
 void initButtons(void);
 void waitFor(u08 button);
-BOOL justPressed(u08 button);
-BOOL justReleased(u08 button);
+inline BOOL justPressed(u08 button);
+inline BOOL justReleased(u08 button);
 void debounceButtons(void);
-BOOL isPressed(u08 button);
+inline BOOL isPressed(u08 button);
 
 
 

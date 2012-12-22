@@ -27,13 +27,22 @@ int main(void)
 
    //disableMotors();
    //baseSpeedTest();
-
+/*
+   moveToJunction(1,FALSE);
+   tickWheels(20,20,255);
+   msDelay(0x50);
+   moveStraight(-20,255);
+   
+   tickWheels(-29, 29, 250);
+   //moveStraight(7, 255);
+   tankTurn(245, -58);
+*/
 #if DEBUGGING
    runTest();
 #else
    runBot();
 #endif
-   
+
    
 
    brake(BOTH);
@@ -48,7 +57,7 @@ int main(void)
 /*
  * Timer, PWM, UART, rprintf, LCD initialization, CMUcam
  */
-void initAtmel(void)
+inline void initAtmel(void)
 {
    // Initialize Timer
    timerInit();

@@ -13,13 +13,14 @@ u08 numUnreachedGoals = NUM_GOALS;
 inline void runBot( void )
 {
    BOOL justTurned = FALSE;
+   BOOL firstRun = TRUE;
+   
+   updatePath();
    
    // run through first leg, skipping positionBot
    junctionCode();
    moveToJunction(1, justTurned);
    
-   // Lower lift           // skipped junction code, so lower lift incase ball at node 1
-   liftDown = TRUE;
    
 #if DEBUGGING
       if( lcdMode == NAV_LCD_MODE )
@@ -38,6 +39,17 @@ inline void runBot( void )
       junctionCode();                  // ball search, bonous ball pickup, best path code
       
       justTurned = positionBot();      // turning, preparing for linetracking
+      
+      
+      if( firstRun )
+      {
+         firstRun = FALSE;
+         setServo(LIFT, LIFT_OPEN);    // Lower lift, on first run, b/c skipping seek at node 21
+         msDelay(30);
+         upComingBallNum = 1;
+         liftDown = TRUE;
+      }
+      
       
 #if DEBUGGING
       if( lcdMode == NAV_LCD_MODE )
@@ -68,25 +80,18 @@ inline void runBot( void )
 /*
  *  Initializes some of bot's global variables
  */
-void initBotGlobals(void)
-{
-   u08 i;
-   
+inline void initBotGlobals(void)
+{   
    // init bot's path to INITIAL_PATH_LIST
    pathListIndex = 0;
    pathListSize = INITIAL_PATH_LIST_SIZE;
    // (pathList initialized in updatePath.c)
    
-   // init checkedList to FALSE
-   for( i = 0; i < NUM_BALL_NODES; i++ )
-   {
-      checkedList[i] = FALSE;
-   }
-   
    initGoalList();
    numKnownGoals = NUM_FIXED_GOALS;
    
    liftDown = FALSE;
+   upComingBallNum = 0;
 }
 
 
@@ -114,36 +119,59 @@ inline BOOL positionBot(void)
    {
       bbPositioning(BB1_HEADING, nextHeading);
       removeFromGoalList(BONUS_BALL_1);
-      numUnreachedGoals--;
    }
    else if( botNode == BONUS_BALL_2 && isInGoalList(BONUS_BALL_2) )
    {
       bbPositioning(BB2_HEADING, nextHeading);
       removeFromGoalList(BONUS_BALL_2);
-      numUnreachedGoals--;
    }
    
    // TURN/STRAIGHT CHECK
    else if( bradsToTurn != 0 )
    {
-      if( bradsToTurn == -128 )
-      {
-         tankTurn(245, -120);      
-      }
-      else
-      {
-         // fixed ticks forward here?
-         
-         // convert brads to turn to ticks and turn
-         if( bradsToTurn < 0 )
-         {
-            ticksToTurn = bradsToTurn + turnSubtract;
-         }
-         else
-         {
-            ticksToTurn = bradsToTurn - turnSubtract;
-         }
-         tractorTurn(255, ticksToTurn);
+         switch( (s08)bradsToTurn ){
+         case (-128):              // A -128 brad turn (180 degrees)
+            if( botNode == 37 )
+            {
+               moveToJunction(1,FALSE);
+               tickWheels(20,20,255);
+               msDelay(0x50);
+               moveStraight(-20,255);
+            }
+            //tankTurn(245, -58);
+            tickWheels(-29, 29, 250);
+            tankTurn(245, -58);
+            break;
+         case (-105):               // Hard Diagonal
+            tickWheels(28, 28, 250);     //28
+            tractorTurn(255, -tempTweak4);
+            tankTurn(250, -70);         //-80
+            break;
+         case (23):                 // Soft Diagonal
+            tractorTurn(255, 23);       //23
+            break;
+         case (-23):
+            //tickWheels(10, 10, 250);
+            tractorTurn(255, -28);
+            break;
+         case (105):
+            tickWheels(17, 17, 250);
+            tankTurn(250, 80);          //80
+            break;
+         default:
+            // fixed ticks forward here?
+            
+            // convert brads to turn to ticks and turn
+            if( bradsToTurn < 0 )
+            {
+               ticksToTurn = bradsToTurn + turnSubtract;
+            }
+            else
+            {
+               ticksToTurn = bradsToTurn - turnSubtract;
+            }
+            tractorTurn(255, ticksToTurn);
+            break;
       }
    }
    else
@@ -154,20 +182,29 @@ inline BOOL positionBot(void)
    if( botNode == SENSOR_NODE )
    {
       removeFromGoalList(SENSOR_NODE);
-      numUnreachedGoals--;
    }
    
    // update botHeading
    botHeading = nextHeading;
    
    // GB PICKUP CHECK: lower lift, if bot knows it will travel over ball
-   if( nextBallNodesInGoalList() )
+   upComingBallNum = getUpcomingBallNum();
+/*
+#if DEBUGGING
+   lcdWriteStr("                ", 0, 0);
+   lcdWriteStr("                ", 0, 0);
+   lcdPrintDecU08(botNode, 0, 0);
+   lcdPrintHex(botHeading, 0, 3);
+   lcdPrintDecU08(pathListIndex, 0, 6);
+   lcdPrintDecU08(upComingBallNum, 1, 0);
+   brake(BOTH);
+   waitFor(RED_BUTTON);
+#endif
+*/
+   if( upComingBallNum != 0 )
    {
-      //brake(BOTH);            // need to brake here?
-      //msDelay(600);
       setServo(LIFT, LIFT_OPEN);
-      //msDelay(600);
-      
+      msDelay(30);
       liftDown = TRUE;
    }
    
@@ -226,16 +263,16 @@ inline void bbPositioning( s08 bbHeading, s08 nextHeading )
    {
       case 96:
          // example of 96 brad rotation
-         tickWheels(28, 0, 250);  // allows fluid motion (no overshoot correction)
-         tankTurn(250, 58);
+         tickWheels(28, 0, 255);  // allows fluid motion (no overshoot correction)
+         tankTurn(255, 58);      //58
          break;
       case -96:
-         tickWheels(0, 28, 250);  // allows fluid motion (no overshoot correction)
-         tankTurn(250, -58);
+         tickWheels(0, 28, 255);  // allows fluid motion (no overshoot correction)  
+         tankTurn(255, -64);     //-64
          break;
       case -32:
-         tickWheels(5, 5, 240);   // Move bot forward a few ticks to make it correctly aligned
-         tickWheels(0, 28, 250);
+         tickWheels(10, 10, 255);   //10 Move bot forward a few ticks to make it correctly aligned
+         tickWheels(0, 32, 255);                   //28
          break;
       default:
          #if DEBUGGING
@@ -252,7 +289,29 @@ inline void bbPositioning( s08 bbHeading, s08 nextHeading )
          
    // Rotate by (nextHeading - bbHeading)
    // (This should only be 32, -32, or -96)
-   tankTurn(250, nextHeading - bbHeading);  // May need adjusting for brads turned?
+     switch( (s08)(nextHeading - bbHeading) ){
+      case 32:
+         tankTurn(250, 32);  //32
+         break;
+      case -32:
+         tankTurn(250, -32);
+         break;
+      case -96:
+         tankTurn(250, -90); //-90
+         break;
+      default:         // Error, this should only be 32, -32, or -96
+         #if DEBUGGING
+            lcdWriteStr("ERROR:          ", 0, 0);
+            lcdWriteStr("nH - bbH =      ", 1, 0);   // "nextHeading - bbHeading = "
+            lcdPrintDecS08(bbHeading - botHeading, 1, 11);
+            brake(BOTH);
+            while(1) ;
+         #endif
+         break;
+   }
+   // Was this belo
+   //tankTurn(250, nextHeading - bbHeading);     // May need adjusting for brads turned?
+
 }
 
 
@@ -274,6 +333,12 @@ inline void moveToJunction( u08 numJunctions, BOOL justTurned )
    {
       ignoreJuncCount = 0;
    }
+   
+   u08 pickingUp = FALSE;
+   u08 pickingUpCount = 0;
+   
+   u08 ignoreBreakBeamCount = BEAM_IGNORE_COUNT;
+   
    
    //u08 ballCheckCounter = 0;
    
@@ -335,27 +400,67 @@ inline void moveToJunction( u08 numJunctions, BOOL justTurned )
          }
       }
       
-      // BALL CHECK
-      if( liftDown /* && BREAK_BEAM_TRIGGERED && !startedPickup */ )
+      // STOP IGNORING BEAM CHECK
+      if( liftDown && ignoreBreakBeamCount != 0 )
       {
-         liftDown = FALSE;
-         /*
-         // Perhaps raise it slowly if there are pick-up problems
-         setServo(LIFT, LIFT_UP); // Raise the Lift
-         msDelay(3000);           // Give the lift time to move up
-         
-         // Set new botnode to node where this ball is with below function
-         //botNode = findAndRemoveNextGoalFromGoalList();
-         
-         numUnreachedGoals--;
-         
-         streamModeOff();  // Turn off line tracking
-         positionBot();    // In case we want to make a -128 brad turn after picking up ball
-         trackLineInit();  // Turn line tracking back on
-         */
+         ignoreBreakBeamCount--;
       }
       
-      /* OLD BALL CHECK
+      // BEGIN PICKUP CHECK
+      if( liftDown && ignoreBreakBeamCount == 0 && BREAK_BEAM_TRIGGERED )
+      {
+         streamModeOff();
+         setServo(LIFT, LIFT_CORRAL); // Perhaps raise it slowly if there are pick-up problems
+         msDelay(30);
+         trackLineInit();
+         
+         liftDown = FALSE;
+         pickingUp = TRUE;
+         pickingUpCount = 0;
+      }
+      
+      // COMPLETE/STOP LIFTING CHECK
+      if( pickingUp )
+      {
+         pickingUpCount++;
+         
+         if( pickingUpCount == CORRAL_COUNT )
+         {
+            streamModeOff();
+            setServo(LIFT, LIFT_UP);
+            trackLineInit();
+         }
+         
+         if( pickingUpCount == LIFT_DONE_COUNT )
+         {
+            pickingUp = FALSE;
+            
+            // Set current botNode to node where this ball is
+            botNode = upComingBallNum;
+            removeFromGoalList(upComingBallNum);
+            
+            if( upComingBallNum == 1 )   // account for ball not found by camera prior to pickup
+            {
+               numKnownGoals++;
+            }
+            
+            // Find correct pathListIndex
+            while( botNode != pathList[pathListIndex] )
+            {
+               pathListIndex++;
+            }
+            
+            streamModeOff();      // Turn off line tracking
+            disableServo(LIFT);
+            positionBot();        // In case we want to make a -128 brad turn after picking up ball
+            ignoreBreakBeamCount = BEAM_IGNORE_COUNT;
+            trackLineInit();      // Turn line tracking back on
+         }
+         
+      }
+      
+      
+      /* OLD BALL CHECK: (color mode)
       ballCheckCounter = (ballCheckCounter + 1) % BALL_CHECK_RAIO;
       if( onLine && ballCheckCounter == 0 )
       {
@@ -371,7 +476,7 @@ inline void moveToJunction( u08 numJunctions, BOOL justTurned )
       }
       */
       
-      /*
+      /* OLD BALL CHECK: (line mode)
       if ( possibleBallY > 0 ) 
       {
          ballConfidence++;
@@ -396,24 +501,41 @@ inline void moveToJunction( u08 numJunctions, BOOL justTurned )
    // Make sure lift is up (in case we missed a ball or incorrectly thought one was there)
    if( liftDown )
    {
-      /*
+      //NODE nextNode;            // info about nodes adjacent to botNode
+      brake(BOTH);
+#if DEBUGGING
+         lcdWriteStr("No ball         ",0,0);
+#endif
       setServo(LIFT, LIFT_UP);    // Raise the lift
-      msDelay(300);               // Give the lift time to rise
-      disableServo(LIFT);         // Disable the servo
-      
-      // fix bot node and pathListIndex
-      */
+      msDelay(700);
+      disableServo(LIFT);
       liftDown = FALSE;
+      
+      // correct goal state
+      removeFromGoalList(upComingBallNum);
+      numUnreachedGoals--;
+      numKnownGoals--;
+      
+      /*  UNTESTED ERROR CORRECTION CODE
+      // if should have done -128 brad turn,
+      if( botHeading != getNextHeading(pathList[pathListIndex + 1]) )
+      {
+         
+#if DEBUGGING
+         lcdWriteStr("        bot lost",0,0);
+         msDelay(700);
+#endif
+         
+         // fix botNode, so path can be updated
+         do
+         {
+            getNode(botNode, &nextNode);
+            botNode = getNodeAtHeading( &nextNode, botHeading );
+         } while( !isJunction(botNode) );
+         updatePathWithPerms();
+      }
+      */
    }
-}
-
-void stopBotOverJunction ()
-{
-   //PWM_LEFT(0);
-   //PWM_RIGHT(0);
-   //while(1);
-   
-   disableMotors();
 }
 
 void nestSequence( void )

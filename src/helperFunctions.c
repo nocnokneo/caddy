@@ -54,26 +54,35 @@ inline void initGoalList( void )
 
 inline void addToGoalList( u08 nodeNum )
 {
-   goalList[goalListSize++] = nodeNum;
+   if( !isInGoalList( nodeNum ) )
+   {
+      goalList[goalListSize++] = nodeNum;
+      numKnownGoals++;
+   }
 }
 
 BOOL removeFromGoalList( u08 nodeNum )
 {
    s08 i = getIndex( nodeNum, goalList, goalListSize );
    if( i == -1 )
+   {
+      numUnreachedGoals--;
+      numKnownGoals++;
       return FALSE;
+   }
    
    for(; i < goalListSize-1; i++ )
    {
       goalList[i] = goalList[i+1];
    }
    goalListSize--;
+   numUnreachedGoals--;
    
    return TRUE;
 }
 
-
-BOOL nextBallNodesInGoalList( void )
+// returns 0 if no ball is in goalList
+u08 getUpcomingBallNum( void )
 {
    u08 i = 1;
    u08 nodeNum = pathList[pathListIndex + i];
@@ -81,15 +90,14 @@ BOOL nextBallNodesInGoalList( void )
    {
       if( isInGoalList( nodeNum ) )
       {
-         return TRUE;
+         return nodeNum;
       }
       i++;
       nodeNum = pathList[pathListIndex + i];
    }
    
-   return FALSE;
+   return 0;
 }
-
 
 inline BOOL isInGoalList( u08 nodeNum )
 {
@@ -102,7 +110,6 @@ inline void printGoalList( void )
    u08 i;
    
    lcdWriteStr("                ", 0, 0);
-   lcdWriteStr("                ", 1, 0);
    
    if( goalListSize == 0 )
    {
@@ -116,4 +123,11 @@ inline void printGoalList( void )
       }
    }
 #endif
+}
+
+inline void copyList(u08 srcList[], u08 destList[], u08 numElements)
+{
+   u08 i;
+   for( i = 0; i < numElements; i++ )
+      destList[i] = srcList[i];
 }

@@ -14,9 +14,11 @@ u08 goalListSize;
 u08 numKnownGoals;
 
 void junctionCode(void);
-BOOL standardBallSearch(u08 nodesWithBalls[], u08 *numNodesWithBalls);
-inline void nodeCode0(u08 nodesWithBalls[], u08 *numNodesWithBalls);
-inline void nodeCode22(u08 nodesWithBalls[], u08 *numNodesWithBalls);
-inline void nodeCode30(u08 nodesWithBalls[], u08 *numNodesWithBalls);
+BOOL standardBallSearch( void );
+inline BOOL nodeCode0( void );
+inline BOOL nodeCode22( void );
+inline BOOL diagNodeCode(void);
+inline BOOL nodeCode37( void );
+
 
 #endif

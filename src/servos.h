@@ -23,6 +23,7 @@
 
 #define TILT_BB_GRAB       133
 #define TILT_VERT          128   // requires boom to be MAX_UP
+#define TILT_LOOKUP        186
 #define TILT_BACK          MAX_TILT_BACK
 #define TILT_FORWARD       MAX_TILT_FORWARD
 #define MAX_TILT_BACK      195
@@ -34,7 +35,7 @@
 #define MAX_BOOM_DOWN      148
 
 #define LIFT_OPEN          MAX_LIFT_OPEN
-#define LIFT_CLOSED        145
+#define LIFT_CORRAL        150
 #define LIFT_UP            MAX_LIFT_UP
 #define LIFT_BB_READY      114   // "V" 3 inces off ground
 #define MAX_LIFT_OPEN      183

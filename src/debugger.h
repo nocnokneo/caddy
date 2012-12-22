@@ -27,6 +27,7 @@
 
 
 #define DELTA_SLOPE_COEF    8
+#define DELTA_TEMP_2        2
 
 
 #define turnOnRemoteLight()   sbi(PORTD, 7)
@@ -40,10 +41,10 @@
 
 u08 tweakMode;
 
-void runDebugger(void);
-void updateTweaks(void);
-void printValues(void);
-void toggleTweakMode( s08 i );
+inline void runDebugger(void);
+inline void updateTweaks(void);
+inline void printValues(void);
+inline void toggleTweakMode( u08 i );
 
 
 #endif  // #ifndef

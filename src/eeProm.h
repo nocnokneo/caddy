@@ -15,8 +15,8 @@
 #define EE_ADDR_TURN_SUBTRACT       0x59
 #define EE_ADDR_PAN_OFFSET          0x5A
 #define EE_ADDR_TILT_OFFSET         0x5B
-#define EE_ADDR_TRACTOR_OVERSHOOT_DELAY 0x5C
-//unused #define EE_ADDR_?          0x5E
+#define EE_ADDR_TRACTOR_OVERSHOOT_DELAY 0x5C //u16
+#define EE_ADDR_TEST_MODE           0x5E
 #define EE_ADDR_TEMP_TWEAK1         0x5F
 #define EE_ADDR_TEMP_TWEAK2         0x60
 #define EE_ADDR_TEMP_TWEAK3         0x61 //u16
@@ -70,7 +70,7 @@ s08 panOffset;
 s08 tiltOffset;
 u16 tractorOvershootDelay;
 u08 tempTweak1;
-u08 tempTweak2;
+s08 tempTweak2;
 u16 tempTweak3;
 u16 tempTweak4;
 
@@ -79,8 +79,8 @@ u16 tempTweak4;
 u08 lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
 u08 testMode; // <- need to save this in eeProm
 
-void loadTweakValues( void );
-void storeTweakValues( void );
+inline void loadTweakValues( void );
+inline void storeTweakValues( void );
 u08 EEPROM_read(unsigned int uiAddress);
 void EEPROM_write(unsigned int uiAddress, u08 ucData);
 #endif  // #ifndef

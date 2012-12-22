@@ -40,11 +40,6 @@ void trackLineInit(void)
    
    lineStatsProcessed = TRUE;
    
-   // Set pan, tilt, boom postions
-   setServo(BOOM, BOOM_UP);
-   setServo(PAN, PAN_CENTER+panOffset);
-   setServo(TILT, TILT_FORWARD);
-   
    // Initialize wheel speeds to forward, zero pwm
    forward(BOTH, 0);
    PWM_LEFT( l_base );

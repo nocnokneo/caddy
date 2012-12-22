@@ -8,7 +8,10 @@
 #include "junctionCode.h"
 
 
-BOOL checkedList[NUM_BALL_NODES];  // initialized in initBotGlobals
+BOOL checkedList[] = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
+                        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
+                        FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
+                        FALSE, FALSE, FALSE };  // initialized in initBotGlobals
 u08 goalList[NUM_GOALS];           // initialized in initBotGlobals
 
 /*
@@ -16,42 +19,79 @@ u08 goalList[NUM_GOALS];           // initialized in initBotGlobals
  */
 void junctionCode(void)
 {
-   u08 nodesWithBalls[NUM_RANDOM_GOALS];
-   u08 numNodesWithBalls = NUM_RANDOM_GOALS;
+   BOOL foundBall = FALSE;
    
    switch( botNode )
    {
-      case(0):
-         nodeCode0(nodesWithBalls, &numNodesWithBalls);
+      case(0):                                      // old virtual windowing look for ball 7 and 8
+         foundBall = nodeCode0();
          break;
-      case(21):
-         break;
+      case(21):                                     // supress standard seek, should already
+         break;                                     // skip junction code at this node
       case(22):
-         nodeCode22(nodesWithBalls, &numNodesWithBalls);
+         foundBall = standardBallSearch();         // standard seek and
+         foundBall |= nodeCode22();                  // tilt look for ball 9, 11, and 12
          break;
-      case(30):
-         nodeCode30(nodesWithBalls, &numNodesWithBalls);
+      case(31):                                     // rotate bot for diagonal ball search
+      case(34):                                     // from any heading at node 31 or 34
+         foundBall = diagNodeCode();
+         break;
+      case(37):                                     // seek for top balls from nest sensor
+         if( numKnownGoals < NUM_GOALS && (!checkedList[13] || !checkedList[17]) )
+         {
+            botNode = 35;
+            moveStraight(10, 255);
+            foundBall = diagNodeCode();
+            moveStraight(-10, 255);
+            botNode = 37;
+
+            //pathList[pathListIndex--] = 36;
+            //pathList[pathListIndex--] = 35;
+         }
          break;
       default:
-         standardBallSearch(nodesWithBalls, &numNodesWithBalls);
+         foundBall = standardBallSearch();
          break;
    }
    
-   if( numNodesWithBalls > 0 )
+   if( foundBall )
    {
-      // add to goal list
+/*
+#if DEBUGGING
+      lcdWriteStr("Updating path:   ", 0, 0);
+      waitFor(RED_BUTTON);
+#endif
+*/
       // clear checked list, if last ball found
-      // updatePath()
-      // re-order goal list according to pathList (optional for LCD debugging)
+      if( numKnownGoals == NUM_GOALS )
+      {
+         u08 i;
+         for( i = 0; i < NUM_BALL_NODES+1; i++ )
+         {
+            checkedList[i] = TRUE;
+         }
+      }
+      updatePath();
+      printGoalList();
+/*
+   else
+   {
+#if DEBUGGING
+      lcdWriteStr("No path update  ", 0, 0);
+      waitFor(RED_BUTTON);
+#endif
+*/
    }
 }
+
 
 /* 
  * Returns true if a ball is found and the goal list is updated
  */
-BOOL standardBallSearch(u08 nodesWithBalls[], u08 *numNodesWithBalls)
+BOOL standardBallSearch( void )
 {
-   NODE curNode, nextNode;
+   NODE curNode;
+   NODE nextNode;
    //u08 curNodeNum;
    u08 nextNodeNum;
    s08 lookDir = -1;                   // look left first
@@ -61,6 +101,10 @@ BOOL standardBallSearch(u08 nodesWithBalls[], u08 *numNodesWithBalls)
    u08 numUncheckedBalls = 0;
    BOOL foundBall = FALSE;
    u08 i;
+   //u08 j;
+   
+   BOOL stopped = FALSE;
+   inSeekPosition = FALSE;
    
    // Check for balls in two directions (left/right)
    for(i = 0; i < 2; i++)
@@ -72,6 +116,14 @@ BOOL standardBallSearch(u08 nodesWithBalls[], u08 *numNodesWithBalls)
       // Continue traversing nodes left of right until you hit the end
       while( nextNodeNum > 0 )
       {
+/*
+#if DEBUGGING
+         lcdWriteStr("N:   H:   ", 0, 0);
+         lcdPrintHex(nextNodeNum, 0, 2);
+         lcdPrintHex(hallHeading, 0, 7);
+         waitFor(RED_BUTTON);
+#endif
+*/
          getNode(nextNodeNum, &curNode);
          nextNodeNum = getNodeAtHeading(&curNode, hallHeading);
          if( nextNodeNum > 0 )
@@ -88,41 +140,157 @@ BOOL standardBallSearch(u08 nodesWithBalls[], u08 *numNodesWithBalls)
             }
          }
       }
+      // Set pan, tilt, hi-res, etc...
       
-      if(lookDir == -1 && numUncheckedBalls > 0) 
-         foundBall |= cameraSeekLeft(uncheckedBalls, numUncheckedBalls);
-      else if(lookDir == 1 && numUncheckedBalls > 0) 
-         foundBall |= cameraSeekRight(uncheckedBalls, numUncheckedBalls);
-      lookDir *= -1;
+      
+      if( numUncheckedBalls > 0 )
+      {
+         stopped = TRUE;
+         trackColorInit(lookDir);
+         
+         if( lookDir == -1 )
+         {
+            foundBall |= cameraSeekLeft(uncheckedBalls, numUncheckedBalls);
+         }
+         else if( lookDir == 1 )
+         {
+            foundBall |= cameraSeekRight(uncheckedBalls, numUncheckedBalls);
+         }
+      }
+      
+/*
+#if DEBUGGING
+      lcdWriteStr("Seek (  ) for:  ", 0, 0);
+      lcdPrintHex(lookDir, 0, 6); 
+      lcdWriteStr("                ", 1, 0);
+      for(j = 0; j < numUncheckedBalls; j++)
+      {
+         lcdPrintHex(uncheckedBalls[j][BALL_NODE_NUM], 1, 0);
+         lcdPrintHex(uncheckedBalls[j][BALL_DIST], 1, 3);
+         waitFor(RED_BUTTON);
+      }
+      waitFor(RED_BUTTON);
+#endif
+*/
+
+      lookDir *= -1;  // Look the other way the next time through
    }
    
-#if DEBUGGING
-   lcdWriteStr("Unchecked balls:", 0, 0);
-   for(i = 0; i < numUncheckedBalls; i++)
+   if( stopped )
    {
-      lcdPrintHex(uncheckedBalls[BALL_NODE_NUM][i], 1, i*3);
+      moveStraight(0xb, 255);
+      setServo(PAN, PAN_CENTER+panOffset);
+      setServo(TILT, TILT_FORWARD);
+      msDelay(600);
    }
-#endif
+   
    // Returns true if one or more balls are found
    return foundBall;
 }
 
-inline void nodeCode0(u08 nodesWithBalls[], u08 *numNodesWithBalls)
-{
 
+inline BOOL nodeCode0(void)
+{
+   BOOL foundBall = FALSE;
+   
+   // two virtual windows
+   
+   return foundBall;
 }
 
 
-inline void nodeCode22(u08 nodesWithBalls[], u08 *numNodesWithBalls)
+inline BOOL nodeCode22()
 {
+   BOOL foundBall = FALSE;    // Return value
+   u08 scanHeight = 4;
+   u08 y = 254;
+   u08 scanLimit = 1;
+   u08 foundBallNum = 0;
+   
+   if (botHeading != 0)
+      return FALSE;
+   
+   trackColorInit(LOOK_UP);
+   
+   // scan from small ground distance to large ground distance
+   while ( y - scanHeight > scanLimit )
+   {
+      y -= scanHeight;
+      setVW(1, y-scanHeight, 174, y);
+      if ( seeBall() )
+      {
+         foundBall = TRUE;
+         
+         // find ball number of ball at this x
+         if( y > 148 )
+            foundBallNum = 9;
+         else if ( y > 50 )
+            foundBallNum = 11;
+         else
+            foundBallNum = 12;
+            
+         addToGoalList( foundBallNum );
+         
+#if DEBUGGING
+         labelColorStats();
+         refreshColorStats();
+         //msDelay(1000);
+         //clearColorStats();
+#endif
 
+/*
+#if DEBUGGING
+         lcdWriteStr("Added:          ",0,0);
+         lcdWriteStr("                ",1,0);
+         lcdPrintHex(foundBallNum,1,0);
+         waitFor(RED_BUTTON);
+#endif
+*/
+         while ( seeBall() )
+         {
+            y -= scanHeight;
+            setVW(1, y-scanHeight, 174, y);
+         }
+      }
+   }
+   
+   setServo(PAN, PAN_CENTER+panOffset);
+   setServo(TILT, TILT_FORWARD);
+   msDelay(300);
+   
+   return foundBall;
 }
 
-inline void nodeCode30(u08 nodesWithBalls[], u08 *numNodesWithBalls)
+
+inline BOOL diagNodeCode(void)
 {
-   // if( !checkedList[14] || !checkedList[15] )
-   // {
-   //    switch(botHeading)
-   //        special seek for balls on diagonal
-   // }
+   BOOL foundBall = FALSE;
+   
+   if( botHeading == N_WEST && (!checkedList[13] || !checkedList[17]) )
+   {
+      tankTurn(255,tempTweak3);   // tank right
+      botHeading += 41;
+      foundBall = standardBallSearch();
+      botHeading -= 41;
+      tankTurn(255, -1*tempTweak3);     // tank left
+   }
+   else if( botHeading != S_EAST && (!checkedList[14] || !checkedList[15]) )
+   {
+      tankTurn(255, -1*tempTweak3);     // tank left
+      botHeading -= 41;
+      foundBall = standardBallSearch();
+      botHeading += 41;
+      tankTurn(255,tempTweak3);   // tank right
+   }
+   
+   return foundBall;
+}
+
+inline BOOL nodeCode37( void )
+{
+   BOOL foundBall = FALSE;
+   
+   // pass special values into cameraSeekLeft
+   
+   return foundBall;
 }

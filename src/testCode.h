@@ -6,7 +6,7 @@
 
 
 // --- CONSTANTS --- //
-#define DEFAULT_TEST_MODE       UPDATE_PATH_TEST_MODE
+#define DEFAULT_TEST_MODE       SEEK_BALL_TEST_MODE
 
 #define RUN_BOT_TEST_MODE       0
 #define BB_TEST_MODE            1
@@ -27,15 +27,13 @@
 void runTest( void );
 void toggleTestMode( s08 i );
 void runFixedPath( void );
-void baseSpeedTest( void );
-void lineStatsTest( void );
-void seeBallTest( void );
 void seekBallTest( void );
-void encoderTest( void );
 inline void refreshColorStats( void );
 inline void clearColorStats( void );
 inline void labelColorStats( void );
 void updatePathTest( void );
+
+void printPathList( void );
 
 
 #endif  // #ifndef

@@ -13,6 +13,8 @@ inline BOOL isInGoalList( u08 nodeNum );
 inline void addToGoalList( u08 nodeNum );
 BOOL removeFromGoalList( u08 nodeNum );
 inline void printGoalList( void );
-BOOL nextBallNodesInGoalList( void );
+inline void copyList(u08 srcList[], u08 destList[], u08 numElements);
+u08 getUpcomingBallNum( void );
+
 
 #endif  // #ifndef

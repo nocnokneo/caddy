@@ -20,16 +20,14 @@
 u08 mode;
 u16 byteNum;
 
-void cameraWhiteBal( void );
-void resetCamera( void );
-BOOL cameraSeesBall( void );
-BOOL cameraSeesNest( void );
+inline void cameraWhiteBal( void );
+inline void resetCamera( void );
 void packetRcv( u08 c );
-void lineMode2Rcv( u08 c );
-void trackColorRcv( u08 c );
-void streamModeOff( void );
+inline void lineMode2Rcv( u08 c );
+inline void trackColorRcv( u08 c );
+inline void streamModeOff( void );
 inline void setVW(u08 x1, u08 y1, u08 x2, u08 y2);
-inline void downSample(u08 x, u08 y);
+//inline void downSample(u08 x, u08 y);
 
 
-#endif  // #ifndef
+#endif  /* #ifndef CAMERA_H */

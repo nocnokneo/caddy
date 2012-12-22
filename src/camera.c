@@ -8,7 +8,7 @@
 #include "camera.h"
 
 
-void cameraWhiteBal()
+inline void cameraWhiteBal()
 {
    // turn white balance on p.31
 #if DEBUGGING
@@ -21,7 +21,7 @@ void cameraWhiteBal()
 }
 
 
-void resetCamera( void )
+inline void resetCamera( void )
 {
    mode = NEW_PACKET;
    byteNum = 0;
@@ -78,7 +78,7 @@ void packetRcv(u08 c)
 }
 
 
-void lineMode2Rcv(u08 c)
+inline void lineMode2Rcv(u08 c)
 {
    if (c == 0xfd) 
    {
@@ -93,7 +93,7 @@ void lineMode2Rcv(u08 c)
 }
 
 
-void trackColorRcv(u08 c) 
+inline void trackColorRcv(u08 c) 
 {
    lineStats[0][byteNum] = c;
    byteNum++;
@@ -105,7 +105,7 @@ void trackColorRcv(u08 c)
 }
 
 
-void streamModeOff( void )
+inline void streamModeOff( void )
 {
    rprintf("\r\r");  // added an extra return as recommended by the manual
    msDelay(32);      // wait for streaming to stop ( 16ms delay ok )
@@ -117,8 +117,9 @@ inline void setVW(u08 x1, u08 y1, u08 x2, u08 y2)
    rprintf("VW %d %d %d %d\r", x1, y1, x2, y2);
 }
 
-
+/*
 inline void downSample(u08 x, u08 y)
 {
    rprintf("DS %d %d\r", x, y);
 }
+*/

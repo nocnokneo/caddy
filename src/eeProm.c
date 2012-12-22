@@ -7,7 +7,7 @@
 #include "eeProm.h"
 
 // Initializes constants that can be tweaked by debugger
-void loadTweakValues( void )
+inline void loadTweakValues( void )
 {
    cli();               // disable all interrupts
 
@@ -35,6 +35,7 @@ void loadTweakValues( void )
    panOffset = EEPROM_read(EE_ADDR_PAN_OFFSET);
    tiltOffset = EEPROM_read(EE_ADDR_TILT_OFFSET);
    tractorOvershootDelay = (EEPROM_read(EE_ADDR_TRACTOR_OVERSHOOT_DELAY)<<8)+EEPROM_read(EE_ADDR_TRACTOR_OVERSHOOT_DELAY+1);
+   testMode = EEPROM_read(EE_ADDR_TEST_MODE);
    tempTweak1 = EEPROM_read(EE_ADDR_TEMP_TWEAK1);
    tempTweak2 = EEPROM_read(EE_ADDR_TEMP_TWEAK2);
    tempTweak3 = (EEPROM_read(EE_ADDR_TEMP_TWEAK3)<<8)+EEPROM_read(EE_ADDR_TEMP_TWEAK3+1);
@@ -44,7 +45,7 @@ void loadTweakValues( void )
 }
 
 // Saves constants after they have been changed by the debugger
-void storeTweakValues( void )
+inline void storeTweakValues( void )
 {
    cli();               // disable all interrupts
    
@@ -63,6 +64,7 @@ void storeTweakValues( void )
    EEPROM_write(EE_ADDR_TILT_OFFSET,tiltOffset);
    EEPROM_write(EE_ADDR_TRACTOR_OVERSHOOT_DELAY,tractorOvershootDelay>>8);
    EEPROM_write(EE_ADDR_TRACTOR_OVERSHOOT_DELAY+1,tractorOvershootDelay);
+   EEPROM_write(EE_ADDR_TEST_MODE,testMode);
    EEPROM_write(EE_ADDR_TEMP_TWEAK1,tempTweak1);
    EEPROM_write(EE_ADDR_TEMP_TWEAK2,tempTweak2);
    EEPROM_write(EE_ADDR_TEMP_TWEAK3,tempTweak3>>8);

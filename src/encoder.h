@@ -105,10 +105,7 @@ typedef struct struct_EncoderState
 
 //! encoderInit() initializes hardware and encoder position readings
 //		Run this init routine once before using any other encoder function.
-void encoderInit(void);
-
-//! encoderOff() disables hardware and stops encoder position updates
-void encoderOff(void);
+inline void encoderInit(void);
 
 //! encoderGetPosition() reads the current position of the encoder 
 u16 encoderGetPosition(u08 encoderNum);

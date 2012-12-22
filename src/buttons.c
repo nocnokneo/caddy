@@ -33,7 +33,7 @@ void waitFor(u08 button)
 /*
  * Returns true when confirmed rising edge at last debouncing.
  */
-BOOL justPressed(u08 button)
+inline BOOL justPressed(u08 button)
 {
    return wasEvent[button] && isDown[button];
 }
@@ -42,7 +42,7 @@ BOOL justPressed(u08 button)
 /*
  * Returns true when confirmed falling edge at last debouncing.
  */
-BOOL justReleased(u08 button)
+inline BOOL justReleased(u08 button)
 {
    return wasEvent[button] && !isDown[button];
 }
@@ -99,7 +99,7 @@ void debounceButtons(void)
 /*
  * Returns true when button is currently down (may be bouncing).
  */
-BOOL isPressed(u08 button)
+inline BOOL isPressed(u08 button)
 {
    BOOL pressed;
    

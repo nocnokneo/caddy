@@ -37,7 +37,7 @@ volatile EncoderStateType EncoderState[NUM_ENCODERS];
 
 // encoderInit() initializes hardware and encoder position readings
 //		Run this init routine once before using any other encoder functions.
-void encoderInit(void)
+inline void encoderInit(void)
 {
 	u08 i;
 
@@ -100,28 +100,6 @@ void encoderInit(void)
 	
 	// enable global interrupts
 	sei();
-}
-
-// encoderOff() disables hardware and stops encoder position updates
-void encoderOff(void)
-{
-	// disable encoder interrupts
-	#ifdef ENC0_SIGNAL
-		// disable interrupts
-		sbi(IMSK, INT0);	// ISMK is auto-defined in encoder.h
-	#endif
-	#ifdef ENC1_SIGNAL
-		// disable interrupts
-		sbi(IMSK, INT1);	// ISMK is auto-defined in encoder.h
-	#endif
-	#ifdef ENC2_SIGNAL
-		// disable interrupts
-		sbi(IMSK, INT2);	// ISMK is auto-defined in encoder.h
-	#endif
-	#ifdef ENC3_SIGNAL
-		// disable interrupts
-		sbi(IMSK, INT3);	// ISMK is auto-defined in encoder.h
-	#endif
 }
 
 // encoderGetPosition() reads the current position of the encoder 

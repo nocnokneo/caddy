@@ -21,6 +21,7 @@
 #include "timer.h"		      // include timer function library (timing, PWM, etc)
 #include "encoder.h"
 #include "linkedList.h"
+#include "perms.h"
 
 #include "global.h"
 #include "botCntrl.h"
@@ -43,20 +44,12 @@
 #include "ourLCD.h"
 #include "debugger.h"
 #include "testCode.h"
-#include "exercises.h"
 #endif
 
 
 
 // Prototypes -------------------------------------------------------
 
-void initAtmel( void );
-
-void runFixedPath( void );
-void baseSpeedTest( void );
-void bbPickupTest( void );
-void lineStatsTest( void );
-void seeBallTest( void );
-void gbPickupTest( void );
+inline void initAtmel( void );
 
 #endif  // #ifndef

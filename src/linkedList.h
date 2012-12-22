@@ -3,14 +3,13 @@
 #define LINKEDLIST_H
 #include "caddy.h"
 
-typedef struct PathList     PATH_LIST;
-typedef struct PathList *   PATH_LIST_PTR;
-struct PathList
+typedef struct PathList
 {
 	u08 nodeNum;
-	PATH_LIST_PTR nextNode;
-};
+	struct PathList * nextNode;
+} PATH_LIST ;
 
+typedef struct PathList *   PATH_LIST_PTR;
 
 
 inline void freeList(PATH_LIST_PTR head);

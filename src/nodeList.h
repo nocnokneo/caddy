@@ -30,21 +30,20 @@
 #define NUM_RANDOM_GOALS   3
 #define NUM_GOALS          NUM_FIXED_GOALS + NUM_RANDOM_GOALS
 
-typedef struct nodeStruct NODE;
-typedef struct nodeStruct* NODE_PTR;
-struct nodeStruct
+typedef struct nodeStruct
 {
   u08 numAdjNodes;                  // number of nodes adjacent to this node
   u08 adjNodes[MAX_ADJ_NODES];      // node numbers of adjacent nodes
   u08 adjCosts[MAX_ADJ_NODES];      // distances to       "       "  (6 inches)
   s08 adjHeadings[MAX_ADJ_NODES];   // directions towards "       "   (brads)
-};
+} NODE;
 
 
 inline BOOL isJunction( u08 nodeNum );
 u08 getCostToNode(NODE *node, u08 nodeNum);
+u08 getNodeAtHeading(NODE *node, s08 heading);
 inline BOOL isBallNode( u08 nodeNum );
 void getNode( u08 nodeNum, NODE *node );
-u08 getNodeAtHeading(NODE *node, s08 heading);
+
 
 #endif  // #ifndef

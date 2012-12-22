@@ -4,44 +4,20 @@
  */
 #include "testCode.h"
 
-u08 testMode = DEFAULT_TEST_MODE;
+u08 testMode; // = DEFAULT_TEST_MODE;
 
 inline void runTest( void )
 {
    switch( testMode )
    {
-      case BB_TEST_MODE:
-         bbPickupTest();
-         break;
-      case GB_TEST_MODE:
-         gbPickupTest();
-         break;
-      case LINE_STATS_TEST_MODE:
-         lineStatsTest();
-         break;
-      case SEE_BALL_TEST_MODE:
-         seeBallTest();
-         break;
       case SEEK_BALL_TEST_MODE:
-//         seekBallTest();
-         break;
-      case NEST_TEST_MODE:
-         nestSequence();
+         seekBallTest();
          break;
       case FIXED_PATH_TEST_MODE:
          runFixedPath();
          break;
-      case ZIG_ZAG_TEST_MODE:
-         zigZagTest();
-         break;
       case UPDATE_PATH_TEST_MODE:
          updatePathTest();
-         break;
-      case DIAG_TEST_MODE:
-         diagTest();
-         break;
-      case NODE_31_TEST_MODE:
-         node31Test();
          break;
       case RUN_BOT_TEST_MODE:
       default:
@@ -61,42 +37,26 @@ void toggleTestMode( s08 i )
 
    switch( testMode )
    {
-      case BB_TEST_MODE:
-         lcdWriteStr("Bonus ball test ",1,0);
-         break;
-      case GB_TEST_MODE:
-         lcdWriteStr("Ground ball test",1,0);
-         break;
-      case LINE_STATS_TEST_MODE:
-         lcdWriteStr("Line stats test ",1,0);
-         break;
-      case SEE_BALL_TEST_MODE:
-         lcdWriteStr("See ball test   ",1,0);
-         break;
       case SEEK_BALL_TEST_MODE:
+#if DEBUGGING
          lcdWriteStr("Seek ball test  ",1,0);
-         break;
-      case NEST_TEST_MODE:
-         lcdWriteStr("Nest test       ",1,0);
+#endif
          break;
       case FIXED_PATH_TEST_MODE:
+#if DEBUGGING
          lcdWriteStr("Fixed path test ",1,0);
-         break;
-      case ZIG_ZAG_TEST_MODE:
-         lcdWriteStr("Zig zag test    ",1,0);
+#endif
          break;
       case UPDATE_PATH_TEST_MODE:
+#if DEBUGGING
          lcdWriteStr("Update path test",1,0);
-         break;
-      case DIAG_TEST_MODE:
-         lcdWriteStr("Diagonal test   ",1,0);
-         break;
-      case NODE_31_TEST_MODE:
-         lcdWriteStr("Node 31 test    ",1,0);
+#endif
          break;
       case RUN_BOT_TEST_MODE:
       default:
+#if DEBUGGING
          lcdWriteStr("Run bot.        ",1,0);
+#endif
          break;
    }
 }
@@ -172,52 +132,76 @@ void runFixedPath( void )
 }
 
 
-void baseSpeedTest( void )
-{     
-   myDelay(70);
-   forward(LEFT_MOTOR, l_base);
-   forward(RIGHT_MOTOR, r_base);
-   myDelay(200);
-   brake(BOTH);
-}
-
-void lineStatsTest( void )
+void seekBallTest( void )
 {
-   disableMotors();
-   trackLineInit();
-   while ( 1 ) 
+   /*
+   trackColorInit(LOOK_LEFT);
+   
+   while( 1 )
    {
-      // line track
-      while(lineStatsProcessed);
-      analyzeLineStats();
-   }
-}
-
-
-void seeBallTest( void )
-{
-   //u08 i = 0;
-   
-   labelColorStats();
-   
-   // change pixel res/range to line mode's settings
-   lowResMode();
-   rprintf("DS %d %d\r", DS_X_LINE, DS_Y_LINE);
-   rprintf("vw %d %d %d %d\r", VW_X1_LINE, VW_Y1_LINE, VW_X2_LINE, VW_Y2_LINE);
-   
-   while (1)
-   {
-      //lcdPrintHex(i++, 0, 14);
-      if ( getBallY() != 0 ) 
+      labelColorStats();
+      if (cameraSeekLeft() )
       {
-         refreshColorStats();
+         //msDelay(1000);
+         //lcdWriteStr("BALL            ", 0, 0);
       }
       else
       {
-         clearColorStats();
+         //msDelay(1000);
+         //lcdWriteStr("NO BALL         ", 0, 0);
       }
-      
+      msDelay(1000);
    }
+   */
+   
+   BOOL justTurned = TRUE;
+   NODE node;
+   
+   
+   initGoalList();
+   removeFromGoalList(BONUS_BALL_1);
+   removeFromGoalList(BONUS_BALL_2);
+   removeFromGoalList(SENSOR_NODE);
+   
+   botNode = tempTweak1;                   // set path to next junction
+   botHeading = tempTweak2;                // tempTweak1 must be adjacent to junction at heading in tempTweak2
+   
+   pathListIndex = 0;
+   pathList[0] = botNode;
+   getNode( botNode, &node );
+   pathList[1] = getNodeAtHeading( &node, botHeading );
+   
+   
+#if DEBUGGING
+   lcdWriteStr("Junction Code   ",0,0);
+   lcdWriteStr("bn:   bh:       ",1,0);
+   lcdPrintDecU08(botNode, 1, 3);
+   lcdPrintDecS08(botHeading, 1, 9);
+   waitFor(RED_BUTTON);
+#endif
+   
+   moveToJunction(1 , justTurned);
+   brake(BOTH);
+   msDelay(1000);
+   updatePath();                          // sets path to nest, b/c goalList is empty
+   junctionCode();                        // updates path to ball, if ball found
+   /*
+#if DEBUGGING
+   lcdWriteStr("Junction Code   ",0,0);
+   printGoalList();
+#endif
+   
+   justTurned = positionBot();           // continues to nest or picks up ball
+   moveToJunction(1 , justTurned);
+   
+   //junctionCode();
+   //justTurned = positionBot();
+   //moveToJunction(1 , justTurned);
+   */
+   
+   printGoalList();
+   
+   brake(BOTH);
 }
 
 /*
@@ -353,6 +337,7 @@ void seekBallTest( void )
 }
 */
 
+
 inline void refreshColorStats( void )
 {
 #if DEBUGGING
@@ -385,18 +370,10 @@ inline void clearColorStats( void )
 
 inline void labelColorStats( void )
 {
+#if DEBUGGING
    lcdWriteStr("(  ,  ) (  ,  ) ", 0, 0);
    lcdWriteStr("p   c    (  ,  )", 1, 0);
-}
-
-void encoderTest( void )
-{
-   encoderSetPosition(LEFT_ENC, 0);
-   encoderSetPosition(RIGHT_ENC, 0);
-
-   moveToJunction(2, TRUE);
-   
-   brake(BOTH);
+#endif
 }
 
 
@@ -404,6 +381,8 @@ void encoderTest( void )
 void updatePathTest( void )
 {
 /*
+
+   //Break beam test
    while(1)
    {
 #if DEBUGGING   
@@ -419,13 +398,63 @@ void updatePathTest( void )
    }
 */
 
+/*
 #if DEBUGGING
-   //lcdPrintDecU08( uniformCostSearch(tempTweak1,tempTweak2 /*,searchSpace*/ ), 1, 0 );
+   // Uniform Cost Search Test
+   lcdPrintDecU08( uniformCostSearch(tempTweak1,tempTweak2), 1, 0 );
+   while(1) ;
 #endif
- 
-   
+*/
+
+/*
+   // reconstruct path test
    updatePathTo(tempTweak1);
    runBot();
+*/
+///*
+   // updatePathWithPerms test
+   addToGoalList(tempTweak1);
+   addToGoalList(tempTweak2);
+   addToGoalList(tempTweak3);
+   printGoalList();
+   waitFor(RED_BUTTON);
    
+#if DEBUGGING
+   lcdWriteStr("                ",1,0);
+   lcdPrintDecU08( updatePath(), 1, 0 );
+   printGoalList();
+   waitFor(RED_BUTTON);
 
+#endif
+
+   runBot();
+//*/
+
+}
+
+void printPathList( void )
+{
+#if DEBUGGING
+   lcdPrintDecU08(botNode, 1, 0);
+   lcdPrintDecS08(botHeading, 1, 3);
+   lcdPrintDecU08(pathListIndex, 1, 6);
+#endif
+   
+   // print pathList
+#if DEBUGGING
+   lcdWriteStr("Printing...     ",0,0);
+   waitFor(RED_BUTTON);
+#endif
+   u08 i;
+   for( i = pathListIndex; i < MAX_PATH_LIST_SIZE; i++)
+   {
+      if( i % 5 == 0 )
+      {
+         waitFor(RED_BUTTON);
+         lcdWriteStr("                ",0,0);
+      }
+
+      lcdPrintDecU08( pathList[i], 0, 3*(i%5) );
+   }
+   waitFor(RED_BUTTON);
 }

@@ -7,13 +7,15 @@
 #include "debugger.h"
 
 
-void runDebugger( void )
+inline void runDebugger( void )
 {
    turnOnRemoteLight();
    
    tweakMode = WELCOME;
+#if DEBUGGING
    lcdWriteStr("Welcome, T-mode:",0,0);
    toggleTestMode(0);
+#endif
    
    lcdMode = NAV_LCD_MODE;
    //lcdMode = LINE_LCD_MODE;
@@ -44,7 +46,7 @@ void runDebugger( void )
 }
 
 
-void updateTweaks(void)
+inline void updateTweaks(void)
 {
    switch( tweakMode )
    {
@@ -120,9 +122,9 @@ void updateTweaks(void)
          if( justReleased(L_DOWN_BUTTON) )
             tempTweak1--;
          if( justReleased(R_UP_BUTTON) )
-            tempTweak2++;
+            tempTweak2 += DELTA_TEMP_2;
          if( justReleased(R_DOWN_BUTTON) )
-            tempTweak2--;
+            tempTweak2 -= DELTA_TEMP_2;
          break;
 
       case u16_TEMP_TWEAK:
@@ -146,7 +148,7 @@ void updateTweaks(void)
 }
 
 
-void printValues(void)
+inline void printValues(void)
 {
    switch( tweakMode )
    {
@@ -178,8 +180,8 @@ void printValues(void)
          //lcdPrintHex(,1,12);
          break;
       case u08_TEMP_TWEAK:
-         lcdPrintDecU08(tempTweak1,1,3);
-         lcdPrintDecU08(tempTweak2,1,12);
+         lcdPrintHex(tempTweak1,1,3);
+         lcdPrintHex(tempTweak2,1,12);
          break;
       case u16_TEMP_TWEAK:
          lcdPrintHex(tempTweak3>>8,1,3);
@@ -191,7 +193,7 @@ void printValues(void)
 }
 
 
-void toggleTweakMode( s08 i )
+inline void toggleTweakMode( u08 i )
 {
    // advance tweak mode (skipping welcome mode)
    tweakMode += i;

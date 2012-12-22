@@ -20,7 +20,8 @@ void bbPickupTest( void )
       lcdWriteStr("-32 brads       ", 1, 0);
 #endif
       waitFor(RED_BUTTON);
-            
+      
+      //hard left approach
       botNode = 23;
       botHeading = -128;
       pathListIndex = 0;
@@ -44,6 +45,7 @@ void bbPickupTest( void )
 #endif
       waitFor(RED_BUTTON);
       
+      //Hard right approach
       botNode = 29;
       botHeading = 64;
       pathListIndex = 0;
@@ -72,6 +74,7 @@ void bbPickupTest( void )
          addToGoalList(BONUS_BALL_2);
       }
       
+      //Soft Left approach
       botNode = 31;
       botHeading = -64;
       pathListIndex = 0;
@@ -237,83 +240,18 @@ void gbPickupTest( void )
       pathList[7] = 34;
       
       initGoalList();                   // tell bot where balls are
-      //addToGoalList(11);
-      
-      justTurned = TRUE;                // run test
-      moveToJunction(1, justTurned);
-      justTurned = positionBot();
-      moveToJunction(1,FALSE);
-      justTurned = positionBot();
-      moveToJunction(1,FALSE);
-      brake(BOTH);
-      
-      /*
-      waitFor(RED_BUTTON);    // temp ----------------------
-      
-      botNode = 22;                     // set path
-      botHeading = 0;
-      pathListIndex = 0;
-      pathList[0] = 22;
-      pathList[1] = 9;
-      pathList[2] = 29;
-      pathList[3] = 11;
-      pathList[4] = 12;
-      pathList[5] = 33;
-      
-      initGoalList();                   // tell bot where balls are
-      addToGoalList(12);
-      
-      justTurned = TRUE;                // run test
-      moveToJunction(1, justTurned);
-      justTurned = positionBot();
-      moveToJunction(1,FALSE);
-      brake(BOTH);
-      
-      waitFor(RED_BUTTON);    // temp ----------------------
-      
-      botNode = 22;                     // set path
-      botHeading = 0;
-      pathListIndex = 0;
-      pathList[0] = 22;
-      pathList[1] = 9;
-      pathList[2] = 29;
-      pathList[3] = 11;
-      pathList[4] = 12;
-      pathList[5] = 33;
-      
-      initGoalList();                   // tell bot where balls are
+      removeFromGoalList(BONUS_BALL_1);
+      removeFromGoalList(BONUS_BALL_2);
+      //removeFromGoalList(SENSOR_NODE);
       addToGoalList(11);
-      addToGoalList(12);
       
       justTurned = TRUE;                // run test
       moveToJunction(1, justTurned);
       justTurned = positionBot();
       moveToJunction(1,FALSE);
-      brake(BOTH);
-      
-      
-            waitFor(RED_BUTTON);    // temp ----------------------
-      
-      botNode = 22;                     // set path
-      botHeading = 0;
-      pathListIndex = 0;
-      pathList[0] = 22;
-      pathList[1] = 9;
-      pathList[2] = 29;
-      pathList[3] = 11;
-      pathList[4] = 12;
-      pathList[5] = 33;
-      pathList[6] = 33;
-      pathList[7] = 33;
-      
-      initGoalList();                   // tell bot where balls are
-      
-      justTurned = TRUE;                // run test
-      moveToJunction(1, justTurned);
       justTurned = positionBot();
       moveToJunction(1,FALSE);
       brake(BOTH);
-      */
       
 #if DEBUGGING
       lcdWriteStr("Two ground balls", 0, 0);   //------------------------------
@@ -333,8 +271,11 @@ void gbPickupTest( void )
       pathList[7] = 34;
       
       initGoalList();                   // tell bot where balls are
-      //addToGoalList(11);
-      //addToGoalList(12);
+      removeFromGoalList(BONUS_BALL_1);
+      removeFromGoalList(BONUS_BALL_2);
+      removeFromGoalList(SENSOR_NODE);
+      addToGoalList(11);
+      addToGoalList(12);
       
       justTurned = TRUE;                // run test
       moveToJunction(1, justTurned);
@@ -345,7 +286,7 @@ void gbPickupTest( void )
       brake(BOTH);
 
 
-
+/*
 #if DEBUGGING
       lcdWriteStr("botNode = 1     ", 0, 0);   //------------------------------
       lcdWriteStr("botHeading = 0  ", 1, 0);   //  (two close balls followed by bb pickup)
@@ -364,8 +305,8 @@ void gbPickupTest( void )
       pathList[7] = 23;
       
       initGoalList();                   // tell bot where balls are
-      //addToGoalList(2);
-      //addToGoalList(3);
+      addToGoalList(2);
+      addToGoalList(3);
       
       justTurned = TRUE;                // run test
       moveToJunction(1, justTurned);
@@ -376,8 +317,9 @@ void gbPickupTest( void )
       justTurned = positionBot();
       moveToJunction(1, justTurned);
       brake(BOTH);
-      
-      /*
+*/      
+
+///*
 #if DEBUGGING
       lcdWriteStr("botNode = 20    ", 0, 0);   //------------------------------
       lcdWriteStr("botHeading =-128", 1, 0);   // ( -128 brad turn after pickup )
@@ -393,6 +335,9 @@ void gbPickupTest( void )
       pathList[4] = 42;
       
       initGoalList();                   // tell bot where balls are
+      removeFromGoalList(BONUS_BALL_1);
+      removeFromGoalList(BONUS_BALL_2);
+      removeFromGoalList(SENSOR_NODE);
       addToGoalList(5);
       
       justTurned = TRUE;                // run test
@@ -402,7 +347,7 @@ void gbPickupTest( void )
       justTurned = positionBot();
       nestSequence();
       brake(BOTH);
-      */
+//*/
    }
    
 }
@@ -513,6 +458,73 @@ void diagTest( void )
 void node31Test( void )
 {
    BOOL justTurned = TRUE;
+
+#if DEBUGGING
+   lcdWriteStr("botNode = 7     ", 0, 0);   //------------------------------
+   lcdWriteStr("botHeading = 0  ", 1, 0);
+#endif
+   waitFor(RED_BUTTON);
+  
+/* initial testing for ball on diagonal
+   botNode = 7;                     // set path
+   botHeading = 0;
+   pathListIndex = 0;
+   pathList[0] = 7;
+   pathList[1] = 32;
+   pathList[2] = 31;
+   pathList[3] = 15;
+   pathList[4] = 31;
+   pathList[5] = 32;
+   pathList[6] = 7;
+   pathList[7] = 27;
+  */ 
+  //testing for diagonal, 2 junctions, and 180 at end of diag
+    botNode = 7;                     // set path
+   botHeading = 0;
+   pathListIndex = 0;
+   pathList[0] = 7;
+   pathList[1] = 32;
+   pathList[2] = 31;
+   pathList[3] = 15;
+   pathList[4] = 14;
+   pathList[5] = 34;
+   pathList[6] = 14;
+   pathList[7] = 15;
+   pathList[8] = 31;
+   pathList[9] = 32;
+   pathList[10] = 7;
+   pathList[11] = 27;
+   
+   initGoalList();                   // tell bot where balls are
+   //addToGoalList(15);
+   
+   /* Initial diag ball test
+   justTurned = TRUE;                // run test
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);    // -128 brads, try no ball
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   brake(BOTH);
+   */
+   
+   justTurned = TRUE;                // run test
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);    // -128 brads, try no ball
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   justTurned = positionBot();
+   moveToJunction(1, justTurned);
+   brake(BOTH);
    
 #if DEBUGGING
    lcdWriteStr("botNode = 16    ", 0, 0);   //------------------------------
@@ -598,35 +610,5 @@ void node31Test( void )
    moveToJunction(1, justTurned);
    brake(BOTH);
    
-#if DEBUGGING
-   lcdWriteStr("botNode = 7     ", 0, 0);   //------------------------------
-   lcdWriteStr("botHeading = 0  ", 1, 0);
-#endif
-   waitFor(RED_BUTTON);
-   
-   botNode = 7;                     // set path
-   botHeading = 0;
-   pathListIndex = 0;
-   pathList[0] = 7;
-   pathList[1] = 32;
-   pathList[2] = 31;
-   pathList[3] = 15;
-   pathList[4] = 31;
-   pathList[5] = 32;
-   pathList[6] = 7;
-   pathList[7] = 27;
-   
-   initGoalList();                   // tell bot where balls are
-   
-   justTurned = TRUE;                // run test
-   moveToJunction(1, justTurned);
-   justTurned = positionBot();
-   moveToJunction(1, justTurned);
-   justTurned = positionBot();
-   moveToJunction(1, justTurned);    // -128 brads, try no ball
-   justTurned = positionBot();
-   moveToJunction(1, justTurned);
-   justTurned = positionBot();
-   moveToJunction(1, justTurned);
-   brake(BOTH);
+
 }

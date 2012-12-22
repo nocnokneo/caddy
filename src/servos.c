@@ -39,9 +39,9 @@ void grabBonusBall(void)
    
    // Drive up to the corner
    forward(BOTH, 255);
-   msDelay(800);
+   msDelay(1000);
    brake(BOTH);
-   
+
    // Back and and move back into the corner (help align better)
    moveStraight(-10,255);
    forward(BOTH, 255);

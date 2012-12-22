@@ -29,7 +29,7 @@ MCU = atmega32
 #  to list $(TRG).c, your top-level target file, last.
 
 # FOR DEBUGGING:
-	SRC = encoder.c $(AVRLIB)/buffer.c $(AVRLIB)/uart.c $(AVRLIB)/rprintf.c $(AVRLIB)/timer.c debugger.c nodeList.c botCntrl.c servos.c helperFunctions.c trackLine.c junctionCode.c updatePath.c buttons.c camera.c motorCntrl.c ourLCD.c trackColor.c eeProm.c testCode.c linkedList.c exercises.c $(TRG).c
+	SRC = encoder.c $(AVRLIB)/buffer.c $(AVRLIB)/uart.c $(AVRLIB)/rprintf.c $(AVRLIB)/timer.c debugger.c nodeList.c botCntrl.c servos.c helperFunctions.c trackLine.c junctionCode.c updatePath.c buttons.c camera.c motorCntrl.c ourLCD.c trackColor.c eeProm.c testCode.c linkedList.c perms.c $(TRG).c
 
 # FOR NOT DEBUGGING:
 	#SRC = encoder.c $(AVRLIB)/buffer.c $(AVRLIB)/uart.c $(AVRLIB)/rprintf.c $(AVRLIB)/timer.c nodeList.c botCntrl.c servos.c helperFunctions.c trackLine.c junctionCode.c updatePath.c buttons.c camera.c motorCntrl.c trackColor.c eeProm.c $(TRG).c
@@ -49,7 +49,7 @@ MCU = atmega32
 	LIB	=
 
 #additional includes to compile
-	INC	= nodeList.h
+	INC	=
 
 #assembler flags
 	ASFLAGS = -Wa, -gstabs

@@ -6,6 +6,8 @@
 // --- CONSTANTS --- //
 #define LOOK_RIGHT   1
 #define LOOK_LEFT    -1
+#define LOOK_UP      0
+
 #define CAM_HEIGHT   10  // inches
 #define X_PIXELS_PER_DEG   (174/44)
 #define VW_X1_SEEK   
@@ -32,28 +34,21 @@
 
 #define NUM_COLOR_STATS    8
 
-#define PAN_SEEK_OFFSET   40  // *** placeholder -> needs to be determined!! ***
-
-struct seekParams {
-   u08 pan;
-   u08 tilt;
-   u08 x1; 
-   u08 y1;
-   u08 x2;
-   u08 y2;
-};
+#define PAN_SEEK_OFFSET    66
 
 // --- GLOBAL VARIABLES --- //
 volatile BOOL colorStatsProcessed;
+BOOL inSeekPosition;
 
 // --- PROTOTYPES --- //
-void trackColorInit(void);
+void trackColorInit(s08 dir);
 u08 getBallY( void );
+BOOL seeBall( void );
 //BOOL cameraSeeksBall( u08 ballDist, s08 dir); 
-BOOL cameraSeeksBall(u08 pan, u08 tilt, u08 x1, u08 y1, u08 x2, u08 y2);
 BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls );
+//BOOL cameraSeekLeft( void );
 BOOL cameraSeekRight( u08 uncheckedBalls[][2], u08 numUncheckedBalls );
-u08 xToDist(u08 y);
-u08 distToX(u08 dist);
+u08 distToPix( u08 distance );
+
 
 #endif  // #ifndef
