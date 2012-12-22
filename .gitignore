@@ -15,4 +15,13 @@
 *.exe
 *.out
 *.app
+*.elf
+*.bin
+*.hex
+
+# Linker debug output
+*.lst
+*.map
+
+# Temp Files
 *~
