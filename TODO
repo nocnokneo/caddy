@@ -1,0 +1,34 @@
+COMPLETED:
+----------
+* Control the wheels (forward, reverse)
+* Talk to the CMUCam2 serially and control servos
+
+
+
+MILESTONE PLAN:
+
+Milestone 1
+-----------
+* Control the wheels (forward, reverse)
+* Talk to the CMUCam2 serially and control servos
+* Received good image data back from the CMUCam2
+* Follow a straight line
+* Navigate a junction (left, right, straigt)
+* Follow a path
+
+Milestone 2
+-----------
+* Pick up ground balls
+
+Milestone 3
+-----------
+* Pick up bonus balls
+
+-> At this point we have completed all the challenges, the rest simply
+optimizes for speed.
+
+Milestone 4
+-----------
+* Scan for and identify balls (Up, Left, Right)
+* Search for balls using checked/unchecked structure
+* Search for balls at special "peek points"

@@ -1,0 +1,7 @@
+version 0.1
+-----------
+* Created initial file structure
+* Started some very basic work on #define's in header files
+* Removed avrlib from the code repository. This is a dependency that 
+  you must have installed on your machine with your environment 
+  variables set properly.

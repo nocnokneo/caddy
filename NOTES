@@ -1,0 +1,23 @@
+Gameday Checklist
+-----------------
+This is a "50 point checklist" of everything that we need to triple check before each run on the big day.
+
+* Wheel encoders are mounted well, and giving good readings
+* Wire bundle to CMUcam2 is adjusted vertically to put as little strain on the tilting and panning action as possible.
+* Lift action moves smoothly
+* Casters roll and rotate smoothly
+* Batteries are fully charged (borrow charger from Garran)
+* Power on, then press reset.
+* Remove while(1) from NAK case.
+* Grease: tilt axis, lift, spring
+* Check break-beam pot
+
+2005-02-26:trjones: I setup the directory stucture using conventions
+that it seems like just about all open source projects use. 'src' is
+for all *.c and *.h files. 'bin' is where the Makefile will put all
+*.o and *.hex output files. 'doc' really doesn't have much purpose for
+us that I can see since we're not going to be producing any kind of
+extensive documentation. I removed the gant stuff since it doesn't
+really belong in a cvs repository. cvs can be funky about folders so
+keep the directory structure within each folder flat (i.e. no more
+folders should be created).

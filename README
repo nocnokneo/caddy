@@ -1,0 +1,16 @@
+/***************************************************************************
+  Project: Caddy
+  Authors: Taylor Jones
+           Logan Kinde
+           Patrick McCarty
+  Date:    2005-02-25
+***************************************************************************/
+
+This software is written for the Atmel Atmega32 processor using the
+free gcc-avr C compiler. It has been tested on the Embega developement
+board from ERE (http://ere.co.th) but should run on any Atmega32
+processor, although it will be pretty useless without the right
+peripherals connected to the proper pins on the Atmega chip :)
+
+* Put some high-level information about what our program does and how
+to configure, compile, load, and run on the chip.
