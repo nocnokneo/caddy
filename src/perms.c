@@ -52,6 +52,8 @@ bool next_permutation(uint8_t *first, uint8_t *last)
             return false;
         }
     }
+
+    return false;
 }
 
 // b points to element to swap with a.
