@@ -238,10 +238,7 @@ void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
     lcdDataWrite(ones + 0x30);
 }
 
-/* prints a string to the LCD. Stops when a null (\0) is reached or
- 16 chars have been printed.
- */
-void lcdWriteStr(uint8_t str[], uint8_t row, uint8_t col)
+void lcdWriteStr(const char *str, uint8_t row, uint8_t col)
 {
     uint8_t i;
 
