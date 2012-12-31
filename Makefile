@@ -1,5 +1,11 @@
-all:
-	$(MAKE) -C src
+SUBDIRS := src doc
 
-clean:
-	$(MAKE) -C src $@
+.PHONY: $(SUBDIRS)
+
+all: $(SUBDIRS)
+
+src:
+	$(MAKE) -C $@
+
+doc:
+	$(MAKE) -C $@

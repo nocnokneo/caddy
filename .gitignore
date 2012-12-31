@@ -25,3 +25,7 @@
 
 # Temp Files
 *~
+
+# Doxygen output
+doc/html
+doc/latex
