@@ -73,7 +73,7 @@ void junctionCode(void)
 }
 
 
-/* 
+/*
  * Returns true if a ball is found and the goal list is updated
  */
 BOOL standardBallSearch( void )
@@ -177,9 +177,9 @@ BOOL standardBallSearch( void )
 inline BOOL nodeCode0(void)
 {
    BOOL foundBall = FALSE;
-   
+
    // two virtual windows
-   
+
    return foundBall;
 }
 
@@ -191,12 +191,12 @@ inline BOOL nodeCode22()
    u08 y = 254;
    u08 scanLimit = 1;
    u08 foundBallNum = 0;
-   
+
    if (botHeading != 0)
       return FALSE;
-   
+
    trackColorInit(LOOK_UP);
-   
+
    // scan from small ground distance to large ground distance
    while ( y - scanHeight > scanLimit )
    {
@@ -205,7 +205,7 @@ inline BOOL nodeCode22()
       if ( seeBall() )
       {
          foundBall = TRUE;
-         
+
          // find ball number of ball at this x
          if( y > 148 )
             foundBallNum = 9;
@@ -213,9 +213,9 @@ inline BOOL nodeCode22()
             foundBallNum = 11;
          else
             foundBallNum = 12;
-            
+
          addToGoalList( foundBallNum );
-         
+
 #if DEBUGGING
          labelColorStats();
          refreshColorStats();
@@ -238,11 +238,11 @@ inline BOOL nodeCode22()
          }
       }
    }
-   
+
    setServo(PAN, PAN_CENTER+panOffset);
    setServo(TILT, TILT_FORWARD);
    msDelay(300);
-   
+
    return foundBall;
 }
 
@@ -250,7 +250,7 @@ inline BOOL nodeCode22()
 inline BOOL diagNodeCode(void)
 {
    BOOL foundBall = FALSE;
-   
+
    if( botHeading == N_WEST && (!checkedList[13] || !checkedList[17]) )
    {
       tankTurn(255,tempTweak3);   // tank right
@@ -267,15 +267,15 @@ inline BOOL diagNodeCode(void)
       botHeading += 41;
       tankTurn(255,tempTweak3);   // tank right
    }
-   
+
    return foundBall;
 }
 
 inline BOOL nodeCode37( void )
 {
    BOOL foundBall = FALSE;
-   
+
    // pass special values into cameraSeekLeft
-   
+
    return foundBall;
 }

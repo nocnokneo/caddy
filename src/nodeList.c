@@ -2,7 +2,7 @@
  *
  *   Conserves SRAM by storing graph of arena in FLASH memory.
  *   See doc directory for image of arena with node numbers.
- *   
+ *
  *    -Nodes are represented by numbers:
  *       -Nodes 0 and 42 are terminal nodes
  *       -Nodes 1-20 are ball nodes

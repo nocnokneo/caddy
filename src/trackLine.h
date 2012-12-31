@@ -34,9 +34,9 @@
 #define SCAN_WIDTH            4
 
 
-#define LINE_Y_MAX_NDX        (LINE_STATS_ROWS - SCAN_WIDTH - 1) 
-#define JUNC_Y_MAX_NDX        (LINE_STATS_ROWS - JUNC_SCAN_WIDTH - 1) 
-#define BALL_Y_MAX_NDX        (LINE_STATS_ROWS - BALL_SCAN_WIDTH - 1) 
+#define LINE_Y_MAX_NDX        (LINE_STATS_ROWS - SCAN_WIDTH - 1)
+#define JUNC_Y_MAX_NDX        (LINE_STATS_ROWS - JUNC_SCAN_WIDTH - 1)
+#define BALL_Y_MAX_NDX        (LINE_STATS_ROWS - BALL_SCAN_WIDTH - 1)
 
 #define LINE_Y3               49
 

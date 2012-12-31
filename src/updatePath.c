@@ -3,7 +3,7 @@
  *    AI navigation algorithm.
  *
  */
- 
+
 #include "updatePath.h"
 
 u08 pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;

@@ -51,7 +51,7 @@
 //  Phase B:    |   |   |   |   |   |   |   |   |   |   |   |
 //              \---/   \---/   \---/   \---/   \---/   \---/
 //  Time:    <--------------------------------------------------->
-//  Rotate FWD: >----------------------------------------------> 
+//  Rotate FWD: >---------------------------------------------->
 //  Rotate REV: <----------------------------------------------<
 */
 //	To keep track of the encoder position in software, we connect PhaseA to an
@@ -107,7 +107,7 @@ typedef struct struct_EncoderState
 //		Run this init routine once before using any other encoder function.
 inline void encoderInit(void);
 
-//! encoderGetPosition() reads the current position of the encoder 
+//! encoderGetPosition() reads the current position of the encoder
 u16 encoderGetPosition(u08 encoderNum);
 
 //! encoderSetPosition() sets the current position of the encoder

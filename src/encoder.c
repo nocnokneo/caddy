@@ -103,7 +103,7 @@ inline void encoderInit(void)
     sei();
 }
 
-// encoderGetPosition() reads the current position of the encoder 
+// encoderGetPosition() reads the current position of the encoder
 u16 encoderGetPosition(u08 encoderNum)
 {
     // sanity check

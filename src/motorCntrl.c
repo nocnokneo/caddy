@@ -90,7 +90,7 @@ void tickWheels(s16 leftTicks, s16 rightTicks, u08 speed)
     neutral();
 }
 
-/* 
+/*
  * Move staight forward (positive) or straight back (negative)
  */
 void moveStraight(s16 ticks, u08 speed)
@@ -98,7 +98,7 @@ void moveStraight(s16 ticks, u08 speed)
     tickWheels(ticks, ticks, speed);
 }
 
-/* 
+/*
  * Brake one wheel, turn the other
  */
 void tractorTurn(u08 speed, s08 brads)
@@ -120,7 +120,7 @@ void tractorTurn(u08 speed, s08 brads)
     }
 }
 
-/* 
+/*
  * Turn on a dime (like a tank!)
  */
 void tankTurn(u08 speed, s08 brads)

@@ -216,7 +216,7 @@ void analyzeLineStats(void)
     correction = slopeCoef * m +
                  offCoef * (lineCenter - (m * (LINE_Y3 - lineY1) + lineX1)) +
                  dampCoef * damping;
-   
+
 #if DEBUGGING
    if( lcdMode == LINE_LCD_MODE )
    {
@@ -228,7 +228,7 @@ void analyzeLineStats(void)
       lcdPrintHex(lineSlope>>8, 0, 9);
       lcdPrintHex(lineSlope, 0, 11);
       lcdPrintHex(lineOffset, 0, 14);
-      
+
       lcdPrintHex(junctionY, 1, 6);
    }
 #endif

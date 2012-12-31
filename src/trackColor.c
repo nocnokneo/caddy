@@ -78,15 +78,15 @@ BOOL seeBall( void )
            BALL_RMIN, BALL_RMAX, BALL_GMIN, BALL_GMAX, BALL_BMIN, BALL_BMAX);
    colorStatsProcessed = TRUE;
    while (colorStatsProcessed) ;
-      
+
    return lineStats[0][Y1_NDX] > 0;
 }
 
 
-/* 
+/*
  * Just does left seeks
  *    PRE - the longest check is the last element of the uncheckedBalls array
- * 
+ *
  *    uncheckedBalls - ball node numbers and ground distances away from bot
  */
 BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls )
@@ -200,10 +200,10 @@ u08 distToPix( u08 distance )
     }
 }
 
-/* 
+/*
  * Just does right seeks
  *    PRE - the longest check is the last element of the uncheckedBalls array
- * 
+ *
  *    uncheckedBalls - ball node numbers and ground distances away from bot
  */
 BOOL cameraSeekRight(u08 uncheckedBalls[][2], u08 numUncheckedBalls)

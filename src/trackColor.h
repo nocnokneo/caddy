@@ -10,7 +10,7 @@
 
 #define CAM_HEIGHT   10  // inches
 #define X_PIXELS_PER_DEG   (174/44)
-#define VW_X1_SEEK   
+#define VW_X1_SEEK
 #define VW_Y1_SEEK
 #define VW_X2_SEEK
 #define VW_Y2_SEEK
@@ -44,7 +44,7 @@ BOOL inSeekPosition;
 void trackColorInit(s08 dir);
 u08 getBallY( void );
 BOOL seeBall( void );
-//BOOL cameraSeeksBall( u08 ballDist, s08 dir); 
+//BOOL cameraSeeksBall( u08 ballDist, s08 dir);
 BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls );
 //BOOL cameraSeekLeft( void );
 BOOL cameraSeekRight( u08 uncheckedBalls[][2], u08 numUncheckedBalls );
