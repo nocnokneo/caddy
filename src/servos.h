@@ -50,7 +50,7 @@
 // Globals ----------------------------------------------------------
 
 #if DEBUGGING
-   u08 servoPosition[NUM_SERVOS];
+u08 servoPosition[NUM_SERVOS];
 #endif
 
 

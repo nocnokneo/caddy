@@ -10,7 +10,4 @@ void zigZagTest( void );
 void diagTest( void );
 void node31Test( void );
 
-
-
-
 #endif  // #ifndef

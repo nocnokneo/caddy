@@ -4,7 +4,7 @@
 // Motor control function definitions and constants.
 //
 // Revision History:
-//    3/21/05 created by Mike, based on motorTest.c
+//   3/21/05 created by Mike, based on motorTest.c
 //       added #define's
 //       added support for speed, motor selection
 //       all speeds declared as 8 bit, u08

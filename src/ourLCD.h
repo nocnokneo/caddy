@@ -13,13 +13,16 @@
 
 // port and pins you will use for control lines
 #define LCD_PORT	PORTC
-#define LCD_DDR	DDRC
+#define LCD_DDR	    DDRC
 #define LCD_RS		2
 #define LCD_RW		0	// not used on the Atmega32 board
 #define LCD_E		3
 #define LCD_POUT	PORTC
 #define LCD_PIN	PINC
-#define LCD_DELAY	asm volatile ("nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n nop\n");	
+#define LCD_DELAY	\
+    asm volatile ("nop; nop; nop; nop; nop; nop; nop; nop;" \
+    "nop; nop; nop; nop; nop; nop; nop; nop;" \
+    "nop; nop; nop; nop;")
 
 // LCD display geometry
 // change these definitions to adapt settings
@@ -62,7 +65,6 @@ void lcdPrintHex(u08 data, u08 row, u08 col);
 void lcdPrintDec(s08 data, u08 row, u08 col);
 void lcdWrite(u08 data);
 void lcdWriteStr(u08 str[], u08 row, u08 col);
-//void lcdClear(void);
 void ourLcdControlWrite(u08 data);
 void lcdPrintDecU08(u08 data, u08 row, u08 col);
 void lcdPrintDecS08(s08 data, u08 row, u08 col);

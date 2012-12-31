@@ -20,12 +20,11 @@
 #define NO_PARENT  0xff
 #define MAX_COST   0xff
 
-
 typedef struct searchNode
 {
-   u08 parent;
-   u08 pathCost;
-   BOOL visited;
+    u08 parent;
+    u08 pathCost;
+    BOOL visited;
 } SEARCH_NODE;
 
 
@@ -41,7 +40,6 @@ inline u08 uniformCostSearch( u08 startNode, u08 goalNode /*, SEARCH_NODE search
 struct PathList * addNodeByCost(struct PathList *head, u08 newNodeNum /*, SEARCH_NODE searchSpace[]*/ );
 inline void recostructPath( u08 startNode, u08 goalNode /*, SEARCH_NODE searchSpace[]*/ );
 u08 updatePathTo( u08 nodeNum );
-
 
 
 #endif  // #ifndef
