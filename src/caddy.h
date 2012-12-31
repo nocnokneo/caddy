@@ -21,9 +21,6 @@
 
 // Defines ----------------------------------------------------------
 
-#define DEBUGGING 1
-
-#define START_DELAY 5
 
 
 // Includes ---------------------------------------------------------
@@ -58,7 +55,7 @@
 
 #if DEBUGGING
 #include "ourLCD.h"
-#include "debugger.h"
+#include "tetherUI.h"
 #include "testCode.h"
 #endif
 

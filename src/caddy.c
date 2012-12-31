@@ -22,6 +22,8 @@
 
 #include "caddy.h"
 
+#define START_DELAY 5
+
 int main(void)
 {
     initAtmel();
@@ -33,7 +35,7 @@ int main(void)
     cameraWhiteBal();
 
 #if DEBUGGING
-    runDebugger();                  // allow tweaking, until red button pressed
+    runTetherUI();                  // allow tweaking, until red button pressed
 #else
     waitFor(RED_BUTTON);
 #endif
@@ -42,7 +44,7 @@ int main(void)
 #if DEBUGGING
     runTest();
 #else
-    runBot();
+    runRoborodentiaCourse();
 #endif
 
     brake(BOTH);

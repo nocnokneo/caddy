@@ -14,15 +14,37 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* debugger.c
- *
- *   Interface for user to change values without reprogramming
- *
- */
+#include "tetherUI.h"
+#include "buttons.h"
+#include <avr/io.h>
+#include <stdint.h>
 
-#include "debugger.h"
+#define WELCOME                       0 // Must be 0
+#define BASE_SPEED_TWEAK              1
+#define LINE_TRACK_TWEAK              2
+#define DAMP_TWEAK                    3
+#define TURN_TWEAK                    4
+#define PAN_TILT_TWEAK                5
+#define TRACTOR_OVERSHOOT_DELAY_TWEAK 6
+#define u08_TEMP_TWEAK                7
+#define u16_TEMP_TWEAK                8
+#define TEST_MODE_TWEAK               9
 
-inline void runDebugger(void)
+#define NUM_TWEAK_MODES     10
+
+#define DELTA_SLOPE_COEF    8
+#define DELTA_TEMP_2        2
+
+static uint8_t tweakMode;
+
+#define turnOnRemoteLight()   sbi(PORTD, 7)
+#define turnOffRemoteLight()  cbi(PORTD, 7)
+
+static inline void updateTweaks(void);
+static inline void printValues(void);
+static inline void toggleTweakMode(uint8_t modeIncrement);
+
+inline void runTetherUI(void)
 {
     turnOnRemoteLight();
 
@@ -59,6 +81,9 @@ inline void runDebugger(void)
     }
 }
 
+/**
+ * @brief Modify global variable parameters based on last button pressed
+ */
 inline void updateTweaks(void)
 {
     switch (tweakMode)
@@ -123,10 +148,6 @@ inline void updateTweaks(void)
             tractorOvershootDelay += 50;
         if (justReleased(L_DOWN_BUTTON))
             tractorOvershootDelay -= 50;
-        //if( justReleased(R_UP_BUTTON) )
-        //   unused++;
-        //if( justReleased(R_DOWN_BUTTON) )
-        //   unused--;
         break;
 
     case u08_TEMP_TWEAK:
@@ -160,6 +181,9 @@ inline void updateTweaks(void)
     }
 }
 
+/**
+ * @brief Print the tweak parameters for the current tweak mode
+ */
 inline void printValues(void)
 {
     switch (tweakMode)
@@ -189,7 +213,6 @@ inline void printValues(void)
     case TRACTOR_OVERSHOOT_DELAY_TWEAK:
         lcdPrintHex(tractorOvershootDelay >> 8, 1, 4);
         lcdPrintHex(tractorOvershootDelay, 1, 6);
-        //lcdPrintHex(,1,12);
         break;
     case u08_TEMP_TWEAK:
         lcdPrintHex(tempTweak1, 1, 3);
@@ -207,10 +230,10 @@ inline void printValues(void)
 /**
  * @brief Cycle through tweak modes (except 'Welcome' mode)
  */
-inline void toggleTweakMode(uint8_t i)
+inline void toggleTweakMode(uint8_t modeIncrement)
 {
     // advance tweak mode (skipping welcome mode)
-    tweakMode += i;
+    tweakMode += modeIncrement;
     if (tweakMode == NUM_TWEAK_MODES)
     {
         tweakMode = 1;

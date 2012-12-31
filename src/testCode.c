@@ -39,7 +39,7 @@ inline void runTest(void)
         break;
     case RUN_BOT_TEST_MODE:
     default:
-        runBot();
+        runRoborodentiaCourse();
         break;
     }
 }
@@ -290,7 +290,7 @@ void updatePathTest( void )
     /*
      // reconstruct path test
      updatePathTo(tempTweak1);
-     runBot();
+     runRoborodentiaCourse();
      */
 ///*
     // updatePathWithPerms test
@@ -307,7 +307,7 @@ void updatePathTest( void )
     waitFor(RED_BUTTON);
 #endif
 
-    runBot();
+    runRoborodentiaCourse();
 //*/
 
 }

@@ -35,10 +35,9 @@ bool liftDown;
 uint8_t upComingBallNum;
 
 // --- Prototypes --- //
-inline void runBot( void );
+inline void runRoborodentiaCourse( void );
 inline void initBotGlobals(void);
 inline bool positionBot(void);
-inline int8_t getNextHeading(uint8_t nextBotNode);
 inline void moveToJunction( uint8_t numJunctions, bool justTurned );
 void bbSequence( void );
 void nestSequence( void );

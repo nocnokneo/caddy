@@ -30,9 +30,9 @@ SRC += perms.c
 SRC += $(TRG).c
 
 # For debugging
-#SRC += debugger.c
-#SRC += ourLCD.c
-#SRC += testCode.c
+SRC += tetherUI.c
+SRC += ourLCD.c
+SRC += testCode.c
 
 # Additional assembler source files
 ASRC =
@@ -47,7 +47,7 @@ INC =
 ASFLAGS = -Wa, -gstabs
 
 # Compiler flags
-CPFLAGS	= -g -Os -Wall -Wstrict-prototypes -I$(AVRLIB) -Wa,-ahlms=$(<:.c=.lst)
+CPFLAGS	+= $(CFLAGS) -g -Os -Wall -Wstrict-prototypes -I$(AVRLIB) -Wa,-ahlms=$(<:.c=.lst)
 
 # Linker flags
 LDFLAGS = -Wl,-Map=$(TRG).map,--cref

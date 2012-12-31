@@ -14,10 +14,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* botCntrl.c
- *
- *    Decides what Alf should be doing.
- *
+/**
+ * @brief High-level logic controlling Caddy's actions
  */
 
 #include "botCntrl.h"
@@ -28,7 +26,9 @@ uint8_t botNode = START_NODE;
 int8_t botHeading = START_HEADING;
 uint8_t numUnreachedGoals = NUM_GOALS;
 
-inline void runBot(void)
+static inline int8_t getNextHeading(uint8_t nextBotNode);
+
+inline void runRoborodentiaCourse(void)
 {
     bool justTurned = false;
     bool firstRun = true;
@@ -107,30 +107,29 @@ inline void initBotGlobals(void)
 }
 
 /*
- * Turns bot at junctions and, if necessary, ball nodes.
- * Maintains botHeading, performs bonus ball pickup, liftDown
+ * @brief Turn bot at junctions and, if necessary, ball nodes
  *
- * Returns true when bot just turned.  (Used to tell moveToJunction to
+ * Maintains botHeading. Performs bonus ball pickup liftDown actions
+ *
+ * @return True when bot just turned. (Used to tell moveToJunction to
  * begin looking for next junction immediately.)
  *
  * PRE: camera is not streaming
  */
 inline bool positionBot(void)
 {
-    int8_t nextHeading;
-    int8_t bradsToTurn;
-    int8_t ticksToTurn;
-    bool justTurned = true;    // return value
+    bool justTurned = true;
 
-    nextHeading = getNextHeading(pathList[pathListIndex + 1]);
-    bradsToTurn = nextHeading - botHeading;
+    int8_t nextHeading = getNextHeading(pathList[pathListIndex + 1]);
+    int8_t bradsToTurn = nextHeading - botHeading;
 
     // BB PICKUP CHECK
     if (botNode == BONUS_BALL_1 && isInGoalList(BONUS_BALL_1))
     {
         bbPositioning(BB1_HEADING, nextHeading);
         removeFromGoalList(BONUS_BALL_1);
-    } else if (botNode == BONUS_BALL_2 && isInGoalList(BONUS_BALL_2))
+    }
+    else if (botNode == BONUS_BALL_2 && isInGoalList(BONUS_BALL_2))
     {
         bbPositioning(BB2_HEADING, nextHeading);
         removeFromGoalList(BONUS_BALL_2);
@@ -139,9 +138,10 @@ inline bool positionBot(void)
     // TURN/STRAIGHT CHECK
     else if (bradsToTurn != 0)
     {
+        int8_t ticksToTurn;
         switch ((int8_t) bradsToTurn)
         {
-        case (-128):              // A -128 brad turn (180 degrees)
+        case -128: // U-turn
             if (botNode == 37)
             {
                 moveToJunction(1, false);
@@ -153,19 +153,18 @@ inline bool positionBot(void)
             tickWheels(-29, 29, 250);
             tankTurn(245, -58);
             break;
-        case (-105):               // Hard Diagonal
+        case -105: // Hard Diagonal
             tickWheels(28, 28, 250);     //28
             tractorTurn(255, -tempTweak4);
             tankTurn(250, -70);         //-80
             break;
-        case (23):                 // Soft Diagonal
+        case 23: // Soft Diagonal
             tractorTurn(255, 23);       //23
             break;
-        case (-23):
-            //tickWheels(10, 10, 250);
+        case -23:
             tractorTurn(255, -28);
             break;
-        case (105):
+        case 105:
             tickWheels(17, 17, 250);
             tankTurn(250, 80);          //80
             break;
@@ -183,7 +182,8 @@ inline bool positionBot(void)
             tractorTurn(255, ticksToTurn);
             break;
         }
-    } else
+    }
+    else
     {
         justTurned = false;
     }
@@ -211,7 +211,7 @@ inline bool positionBot(void)
 /*
  * Returns absolute heading of next node given botNode and the next botNode.
  */
-inline int8_t getNextHeading(uint8_t nextBotNode)
+static inline int8_t getNextHeading(uint8_t nextBotNode)
 {
     NODE nextNode;            // info about nodes adjacent to botNode
     int8_t nextNodeIndex;        // nextNode offset to nextBotNode
@@ -243,7 +243,7 @@ inline int8_t getNextHeading(uint8_t nextBotNode)
     return nextHeading;
 }
 
-/* Rotates bot before and after bb grab
+/* Rotates bot before and after Bonus Ball grab
  *    bbHeading   - heading bot must have for bb pickup.
  *    nextHeading - heading bot must have after bb pickup
  */
