@@ -1,5 +1,4 @@
-# Makefile for AVR function library development and examples
-# Author: Pascal Stang
+# Makefile for Caddy. Depends on avrproj_make from AVRLIB
 
 AVRLIB = ../thirdparty/avrlib
 
@@ -9,11 +8,31 @@ MCU = atmega32
 # Basename of the file containing main()
 TRG = caddy
 
-# FOR DEBUGGING:
-SRC = encoder.c $(AVRLIB)/buffer.c $(AVRLIB)/uart.c $(AVRLIB)/rprintf.c $(AVRLIB)/timer.c debugger.c nodeList.c botCntrl.c servos.c helperFunctions.c trackLine.c junctionCode.c updatePath.c buttons.c camera.c motorCntrl.c ourLCD.c trackColor.c eeProm.c testCode.c linkedList.c perms.c $(TRG).c
+SRC += encoder.c
+SRC += $(AVRLIB)/buffer.c
+SRC += $(AVRLIB)/uart.c
+SRC += $(AVRLIB)/rprintf.c
+SRC += $(AVRLIB)/timer.c
+SRC += nodeList.c
+SRC += botCntrl.c
+SRC += servos.c
+SRC += helperFunctions.c
+SRC += trackLine.c
+SRC += junctionCode.c
+SRC += updatePath.c
+SRC += buttons.c
+SRC += camera.c
+SRC += motorCntrl.c
+SRC += trackColor.c
+SRC += eeProm.c
+SRC += linkedList.c
+SRC += perms.c
+SRC += $(TRG).c
 
-# FOR NOT DEBUGGING:
-#SRC = encoder.c $(AVRLIB)/buffer.c $(AVRLIB)/uart.c $(AVRLIB)/rprintf.c $(AVRLIB)/timer.c nodeList.c botCntrl.c servos.c helperFunctions.c trackLine.c junctionCode.c updatePath.c buttons.c camera.c motorCntrl.c trackColor.c eeProm.c $(TRG).c
+# For debugging
+#SRC += debugger.c
+#SRC += ourLCD.c
+#SRC += testCode.c
 
 # Additional assembler source files
 ASRC =
