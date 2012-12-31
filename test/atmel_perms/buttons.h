@@ -14,7 +14,7 @@
 #define R_UP_BUTTON      3
 #define R_DOWN_BUTTON    4
 #define NEST_BUTTON      5
-#define NUM_BUTTONS      6    // change isPressed(u08 button) when adding a button
+#define NUM_BUTTONS      6    // change isPressed(uint8_t button) when adding a button
 
 #define RED_BUTTON_DOWN       bit_is_clear(PIND,6)
 #define L_UP_BUTTON_DOWN      bit_is_clear(PINA,0)
@@ -29,16 +29,16 @@
 
 BOOL isDown[NUM_BUTTONS];
 BOOL wasEvent[NUM_BUTTONS];
-u08 upCount[NUM_BUTTONS];
-u08 downCount[NUM_BUTTONS];
+uint8_t upCount[NUM_BUTTONS];
+uint8_t downCount[NUM_BUTTONS];
 
 
 void initButtons(void);
-void waitFor(u08 button);
-BOOL justPressed(u08 button);
-BOOL justReleased(u08 button);
+void waitFor(uint8_t button);
+BOOL justPressed(uint8_t button);
+BOOL justReleased(uint8_t button);
 void debounceButtons(void);
-BOOL isPressed(u08 button);
+BOOL isPressed(uint8_t button);
 
 
 

@@ -19,22 +19,24 @@
 #define JUNCTIONCODE_H
 
 #include "caddy.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 #define BALL_DIST       0
 #define BALL_NODE_NUM   1
 
-extern BOOL checkedList[];
-extern u08 goalList[];
+extern bool checkedList[];
+extern uint8_t goalList[];
 
-u08 goalListSize;
-u08 numKnownGoals;
+uint8_t goalListSize;
+uint8_t numKnownGoals;
 
 void junctionCode(void);
-BOOL standardBallSearch( void );
-inline BOOL nodeCode0( void );
-inline BOOL nodeCode22( void );
-inline BOOL diagNodeCode(void);
-inline BOOL nodeCode37( void );
+bool standardBallSearch( void );
+inline bool nodeCode0( void );
+inline bool nodeCode22( void );
+inline bool diagNodeCode(void);
+inline bool nodeCode37( void );
 
 
 #endif

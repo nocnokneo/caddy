@@ -19,8 +19,8 @@
 #define TRACKLINE_H
 
 #include "caddy.h"
-
-
+#include <stdint.h>
+#include <stdbool.h>
 
 // Track the BLACK line on white background
 #define LINE_RMIN    16
@@ -67,18 +67,18 @@ void trackLineInit(void);
 void restartLineMode(void);
 
 void analyzeLineStats(void);
-BOOL isGoodScan(u08 y);
-BOOL isJunctionScan(u08 y);
-BOOL mayBeBallScan(u08 y);
+bool isGoodScan(uint8_t y);
+bool isJunctionScan(uint8_t y);
+bool mayBeBallScan(uint8_t y);
 
 void printPacket(void);
 
-s16 correction;
-s08 junctionY;
-s08 possibleBallY;
+int16_t correction;
+int8_t junctionY;
+int8_t possibleBallY;
 
-volatile u08 lineStats[LINE_STATS_ROWS][LINE_STATS_COLS];
-volatile BOOL lineStatsProcessed;
+volatile uint8_t lineStats[LINE_STATS_ROWS][LINE_STATS_COLS];
+volatile bool lineStatsProcessed;
 
 
 

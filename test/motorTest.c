@@ -18,9 +18,9 @@
 #include "global.h"		    // include global settings
 #include "ourLCD.h"
 
-void myDelay(u16 outerDelay)
+void myDelay(uint16_t outerDelay)
 {
-   u16 i, j;
+   uint16_t i, j;
    for(i=0; i<outerDelay; i++)
    {
       for(j=0; j<MAX_U16; j++)
@@ -30,16 +30,16 @@ void myDelay(u16 outerDelay)
    }
 }
 
-void myShortDelay(u16 outerDelay)
+void myShortDelay(uint16_t outerDelay)
 {
-   u16 j;
+   uint16_t j;
    for(j=0; j<outerDelay; j++)
    {
      ;
    }
 }
 
-void forward(u16 outerDelay)
+void forward(uint16_t outerDelay)
 {
 	// both motors forward
 	sbi(PORTD, 3);
@@ -49,7 +49,7 @@ void forward(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void reverse(u16 outerDelay)
+void reverse(uint16_t outerDelay)
 {
 	// both motors reverse
 	sbi(PORTD, 2);
@@ -59,7 +59,7 @@ void reverse(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void neutral(u16 outerDelay)
+void neutral(uint16_t outerDelay)
 {
 	// both motors coast
 	sbi(PORTD, 2);
@@ -69,7 +69,7 @@ void neutral(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void brake(u16 outerDelay)
+void brake(uint16_t outerDelay)
 {
 	// both motors brake
 	cbi(PORTD, 2);
@@ -79,7 +79,7 @@ void brake(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void tractor_right(u16 outerDelay)
+void tractor_right(uint16_t outerDelay)
 {
 	// brake right, forward left
 	sbi(PORTD, 3);
@@ -89,7 +89,7 @@ void tractor_right(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void tractor_left(u16 outerDelay)
+void tractor_left(uint16_t outerDelay)
 {
 	// brake left, forward right
 	sbi(PORTD, 5);
@@ -99,7 +99,7 @@ void tractor_left(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void tank_right(u16 outerDelay)
+void tank_right(uint16_t outerDelay)
 {
 	// forward left, reverse right
 	sbi(PORTD, 3);
@@ -109,7 +109,7 @@ void tank_right(u16 outerDelay)
 	myDelay(outerDelay);
 }
 
-void tank_left(u16 outerDelay)
+void tank_left(uint16_t outerDelay)
 {
 	// forward right, reverse left
 	sbi(PORTD, 2);
@@ -135,7 +135,7 @@ int main(void)
 	lcdSetCursor(0);
    lcdDataWrite('S');
 
-   u08 i,n=0;
+   uint8_t i,n=0;
    while(n<5)
    {
       for(i=0; i<255; i++)

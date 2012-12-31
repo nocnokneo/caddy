@@ -22,7 +22,7 @@
  */
 
 #include "camera.h"
-
+#include <stdbool.h>
 
 inline void cameraWhiteBal()
 {
@@ -45,7 +45,7 @@ inline void resetCamera( void )
     rprintf("RM 3\r");
 }
 
-void packetRcv(u08 c)
+void packetRcv(uint8_t c)
 {
     if (c == 0xff)
     {
@@ -84,11 +84,11 @@ void packetRcv(u08 c)
 }
 
 
-inline void lineMode2Rcv(u08 c)
+inline void lineMode2Rcv(uint8_t c)
 {
     if (c == 0xfd)
     {
-        lineStatsProcessed = FALSE;
+        lineStatsProcessed = false;
         byteNum = 0;
     }
     else
@@ -100,14 +100,14 @@ inline void lineMode2Rcv(u08 c)
 }
 
 
-inline void trackColorRcv(u08 c)
+inline void trackColorRcv(uint8_t c)
 {
     lineStats[0][byteNum] = c;
     byteNum++;
 
     if (byteNum >= NUM_COLOR_STATS)
     {
-        colorStatsProcessed = FALSE;
+        colorStatsProcessed = false;
     }
 }
 
@@ -119,7 +119,7 @@ inline void streamModeOff( void )
 }
 
 
-inline void setVW(u08 x1, u08 y1, u08 x2, u08 y2)
+inline void setVW(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 {
     rprintf("VW %d %d %d %d\r", x1, y1, x2, y2);
 }

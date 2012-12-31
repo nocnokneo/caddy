@@ -84,7 +84,7 @@ inline void storeTweakValues(void)
     sei(); // enable all interrupts
 }
 
-u08 EEPROM_read(unsigned int uiAddress)
+uint8_t EEPROM_read(unsigned int uiAddress)
 {
     // Wait for completion of previous write
     while (EECR & (1 << EEWE)) ;
@@ -96,7 +96,7 @@ u08 EEPROM_read(unsigned int uiAddress)
     return EEDR;
 }
 
-void EEPROM_write(unsigned int uiAddress, u08 ucData)
+void EEPROM_write(unsigned int uiAddress, uint8_t ucData)
 {
     // Wait for completion of previous write
     while (EECR & (1 << EEWE)) ;

@@ -20,6 +20,8 @@
 #define CAMERA_H
 
 #include "caddy.h"
+#include <stdint.h>
+
 #define CMU_BAUD 38400
 // Packet types
 #define NEW_PACKET   0
@@ -33,17 +35,17 @@
 #define hiResMode()  rprintf("hr 1\r")
 #define lowResMode() rprintf("hr 0\r")
 
-u08 mode;
-u16 byteNum;
+uint8_t mode;
+uint16_t byteNum;
 
 inline void cameraWhiteBal( void );
 inline void resetCamera( void );
-void packetRcv( u08 c );
-inline void lineMode2Rcv( u08 c );
-inline void trackColorRcv( u08 c );
+void packetRcv( uint8_t c );
+inline void lineMode2Rcv( uint8_t c );
+inline void trackColorRcv( uint8_t c );
 inline void streamModeOff( void );
-inline void setVW(u08 x1, u08 y1, u08 x2, u08 y2);
-//inline void downSample(u08 x, u08 y);
+inline void setVW(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+//inline void downSample(uint8_t x, uint8_t y);
 
 
 #endif  /* #ifndef CAMERA_H */

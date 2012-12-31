@@ -36,12 +36,12 @@ void lcdInit(void)
 	lcdWriteInit(0xF0);
 	timerPause(40);
 }
-void lcdWriteInit(u08 data)
+void lcdWriteInit(uint8_t data)
 {
 	cbi(LCD_PORT, LCD_RS);
 	lcdControlWrite(data);
 }
-void lcdControlWrite(u08 data)
+void lcdControlWrite(uint8_t data)
 {
 	
 // write the control byte to the display controller
@@ -56,17 +56,17 @@ void lcdControlWrite(u08 data)
 	cbi(LCD_PORT, LCD_E);	// clear "E" line
 	delay(40);
 }
-void lcdSetCursor(u08 data)
+void lcdSetCursor(uint8_t data)
 {
 	cbi(LCD_PORT, LCD_RS);
 	lcdWrite(data | 0x80);
 }
-void lcdDataWrite(u08 data)
+void lcdDataWrite(uint8_t data)
 {
 	sbi(LCD_PORT, LCD_RS);		// set RS to "data"
 	lcdWrite(data);
 }
-void lcdWrite(u08 data)
+void lcdWrite(uint8_t data)
 {
 	// 4 bit write
 	outb(LCD_DDR, inb(LCD_DDR)|0xF0);	// set data I/O lines to output (4bit)
@@ -82,9 +82,9 @@ void lcdWrite(u08 data)
 	cbi(LCD_PORT, LCD_E);	// clear "E" line
 	delay(40);
 }
-void lcdPrintHex(u08 data)
+void lcdPrintHex(uint8_t data)
 {
-	u08 temp;
+	uint8_t temp;
 	temp = ((data & 0xF0) >> 4) + 0x30;
 	if(temp >= 0x3A)
 	{

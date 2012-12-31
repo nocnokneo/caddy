@@ -7,7 +7,7 @@
 //    3/21/05 created by Mike, based on motorTest.c
 //       added #define's
 //       added support for speed, motor selection
-//       all speeds declared as 8 bit, u08
+//       all speeds declared as 8 bit, uint8_t
 //   3/23/05 modified by Mike for use with the caddy
 //      not sure which pwm controls which though..
 //      so could be wrong
@@ -20,7 +20,7 @@
 #include "motorCntrl.h"
 
 
-void forward(u08 motorSelect, u08 speed)
+void forward(uint8_t motorSelect, uint8_t speed)
 {
    switch(motorSelect)
    {
@@ -46,7 +46,7 @@ void forward(u08 motorSelect, u08 speed)
    }
 }
 
-void reverse(u08 motorSelect, u08 speed)
+void reverse(uint8_t motorSelect, uint8_t speed)
 {
    switch(motorSelect)
    {
@@ -81,7 +81,7 @@ void neutral(void)
 
 //brake selected motor
 //full brake assumed
-void brake(u08 motorSelect)
+void brake(uint8_t motorSelect)
 {
    switch(motorSelect)
    {
@@ -105,28 +105,28 @@ void brake(u08 motorSelect)
    PWM_LEFT(MAX_BRAKE);
 }
 
-void tractor_right(u08 speed)
+void tractor_right(uint8_t speed)
 {
    // brake right, forward left
    brake(RIGHT_MOTOR);
    forward(LEFT_MOTOR, speed);
 }
 
-void tractor_left(u08 speed)
+void tractor_left(uint8_t speed)
 {
    // brake left, forward right
    brake(LEFT_MOTOR);
    forward(RIGHT_MOTOR, speed);
 }
 
-void tank_right(u08 speed)
+void tank_right(uint8_t speed)
 {
    // forward left, reverse right
    forward(LEFT_MOTOR, speed);
    reverse(RIGHT_MOTOR, speed);
 }
 
-void tank_left(u08 speed)
+void tank_left(uint8_t speed)
 {
    // forward right, reverse left
    forward(RIGHT_MOTOR, speed);

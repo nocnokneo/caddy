@@ -18,9 +18,9 @@
 
 // Prototypes
 void lcdInit(void);
-void lcdWriteInit(u08 data);
-void lcdControlWrite(u08 data);
-void lcdDataWrite(u08 data);
-void lcdSetCursor(u08 data);
-void lcdPrintHex(u08 data);
-void lcdWrite(u08 data);
+void lcdWriteInit(uint8_t data);
+void lcdControlWrite(uint8_t data);
+void lcdDataWrite(uint8_t data);
+void lcdSetCursor(uint8_t data);
+void lcdPrintHex(uint8_t data);
+void lcdWrite(uint8_t data);

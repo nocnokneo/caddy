@@ -19,24 +19,25 @@
 #define EEPROM_H
 
 #include "caddy.h"
+#include <stdint.h>
 
 //Locations in EEPROM
 #define EE_ADDR_LEFT_BASE           0x50
 #define EE_ADDR_RIGHT_BASE          0x51
-#define EE_ADDR_SLOPE_COEF          0x52 //u16
-#define EE_ADDR_OFF_COEF            0x54 //u16
+#define EE_ADDR_SLOPE_COEF          0x52 //uint16_t
+#define EE_ADDR_OFF_COEF            0x54 //uint16_t
 #define EE_ADDR_DAMP_COEF           0x56
 #define EE_ADDR_LINE_X_CENTER       0x57
 #define EE_ADDR_TURN_POINT          0x58
 #define EE_ADDR_TURN_SUBTRACT       0x59
 #define EE_ADDR_PAN_OFFSET          0x5A
 #define EE_ADDR_TILT_OFFSET         0x5B
-#define EE_ADDR_TRACTOR_OVERSHOOT_DELAY 0x5C //u16
+#define EE_ADDR_TRACTOR_OVERSHOOT_DELAY 0x5C //uint16_t
 #define EE_ADDR_TEST_MODE           0x5E
 #define EE_ADDR_TEMP_TWEAK1         0x5F
 #define EE_ADDR_TEMP_TWEAK2         0x60
-#define EE_ADDR_TEMP_TWEAK3         0x61 //u16
-#define EE_ADDR_TEMP_TWEAK4         0x63 //u16
+#define EE_ADDR_TEMP_TWEAK3         0x61 //uint16_t
+#define EE_ADDR_TEMP_TWEAK4         0x63 //uint16_t
 //next address 0x65
 
 /*
@@ -74,29 +75,29 @@ tilt offset 0xE7
 #define DAMP_COEF                 0x14
 */
 
-u08 l_base;
-u08 r_base;
-u16 slopeCoef;
-u16 offCoef;
-u08 dampCoef;
-u08 lineCenter;
-u08 turnPoint;
-u08 turnSubtract;
-s08 panOffset;
-s08 tiltOffset;
-u16 tractorOvershootDelay;
-u08 tempTweak1;
-s08 tempTweak2;
-u16 tempTweak3;
-u16 tempTweak4;
+uint8_t l_base;
+uint8_t r_base;
+uint16_t slopeCoef;
+uint16_t offCoef;
+uint8_t dampCoef;
+uint8_t lineCenter;
+uint8_t turnPoint;
+uint8_t turnSubtract;
+int8_t panOffset;
+int8_t tiltOffset;
+uint16_t tractorOvershootDelay;
+uint8_t tempTweak1;
+int8_t tempTweak2;
+uint16_t tempTweak3;
+uint16_t tempTweak4;
 
 
 
-u08 lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
-u08 testMode; // <- need to save this in eeProm
+uint8_t lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
+uint8_t testMode; // <- need to save this in eeProm
 
 inline void loadTweakValues( void );
 inline void storeTweakValues( void );
-u08 EEPROM_read(unsigned int uiAddress);
-void EEPROM_write(unsigned int uiAddress, u08 ucData);
+uint8_t EEPROM_read(unsigned int uiAddress);
+void EEPROM_write(unsigned int uiAddress, uint8_t ucData);
 #endif  // #ifndef

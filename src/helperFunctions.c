@@ -21,17 +21,18 @@
  */
 
 #include "helperFunctions.h"
+#include <stdbool.h>
 
-void myDelay(u16 outerDelay)
+void myDelay(uint16_t outerDelay)
 {
-    u16 i, j;
+    uint16_t i, j;
     for (i = 0; i < outerDelay; i++)
         for (j = 0; j < MAX_U16; j++) ;
 }
 
-void msDelay(u16 ms)
+void msDelay(uint16_t ms)
 {
-    u16 i;
+    uint16_t i;
     for (i = 0; i < ms; i++)
     {
         delay(1000); // 1000 microseconds
@@ -42,9 +43,9 @@ void msDelay(u16 ms)
  * Searches for 'value' in 'array'.  If found, index where 'value'
  * was found is returned.  Otherwise, -1 is returned.
  */
-s08 getIndex(u08 value, const u08 array[], const u08 arraySize)
+int8_t getIndex(uint8_t value, const uint8_t array[], const uint8_t arraySize)
 {
-    u08 i = 0;
+    uint8_t i = 0;
     while (i < arraySize)
     {
         if (array[i] == value)
@@ -63,7 +64,7 @@ inline void initGoalList(void)
     addToGoalList(SENSOR_NODE);
 }
 
-inline void addToGoalList(u08 nodeNum)
+inline void addToGoalList(uint8_t nodeNum)
 {
     if (!isInGoalList(nodeNum))
     {
@@ -72,14 +73,14 @@ inline void addToGoalList(u08 nodeNum)
     }
 }
 
-BOOL removeFromGoalList(u08 nodeNum)
+bool removeFromGoalList(uint8_t nodeNum)
 {
-    s08 i = getIndex(nodeNum, goalList, goalListSize);
+    int8_t i = getIndex(nodeNum, goalList, goalListSize);
     if (i == -1)
     {
         numUnreachedGoals--;
         numKnownGoals++;
-        return FALSE;
+        return false;
     }
 
     for (; i < goalListSize - 1; i++)
@@ -89,14 +90,14 @@ BOOL removeFromGoalList(u08 nodeNum)
     goalListSize--;
     numUnreachedGoals--;
 
-    return TRUE;
+    return true;
 }
 
 // returns 0 if no ball is in goalList
-u08 getUpcomingBallNum(void)
+uint8_t getUpcomingBallNum(void)
 {
-    u08 i = 1;
-    u08 nodeNum = pathList[pathListIndex + i];
+    uint8_t i = 1;
+    uint8_t nodeNum = pathList[pathListIndex + i];
     while (isBallNode(nodeNum))
     {
         if (isInGoalList(nodeNum))
@@ -110,7 +111,7 @@ u08 getUpcomingBallNum(void)
     return 0;
 }
 
-inline BOOL isInGoalList(u08 nodeNum)
+inline bool isInGoalList(uint8_t nodeNum)
 {
     return getIndex(nodeNum, goalList, goalListSize) != -1;
 }
@@ -118,7 +119,7 @@ inline BOOL isInGoalList(u08 nodeNum)
 inline void printGoalList(void)
 {
 #if DEBUGGING
-    u08 i;
+    uint8_t i;
 
     lcdWriteStr("                ", 0, 0);
 
@@ -135,9 +136,9 @@ inline void printGoalList(void)
 #endif
 }
 
-inline void copyList(u08 srcList[], u08 destList[], u08 numElements)
+inline void copyList(uint8_t srcList[], uint8_t destList[], uint8_t numElements)
 {
-    u08 i;
+    uint8_t i;
     for (i = 0; i < numElements; i++)
     {
         destList[i] = srcList[i];

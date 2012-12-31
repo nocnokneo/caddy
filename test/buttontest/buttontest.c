@@ -88,7 +88,7 @@ SIGNAL(SIG_INTERRUPT0)
    DISABLE_INT0;           // Mask external interrupt 0
    
    // debounce button
-   u08 count = 0;
+   uint8_t count = 0;
    while( MODE_BUTTON_DOWN && count < MAX_U08 )
       count++;
    
@@ -104,7 +104,7 @@ SIGNAL(SIG_INTERRUPT0)
 
 void printPortA(void)
 {
-   s08 i;
+   int8_t i;
    for( i = 7; i >= 0; i--)
    {
       if( bit_is_set(PINA,i) )
@@ -131,9 +131,9 @@ void init(void)
 
 
 
-void myDelay(u16 outerDelay)
+void myDelay(uint16_t outerDelay)
 {
-   u16 i, j;
+   uint16_t i, j;
    for(i=0; i<outerDelay; i++)
    {
       for(j=0; j<MAX_U16; j++)
@@ -167,7 +167,7 @@ BOOL timeToStartBot(void)
  */
 void initButtons(void)
 {
-   u08 i;
+   uint8_t i;
    for( i = 0; i < NUM_BUTTONS; i++ )
    {
       isDown[i] = FALSE;
@@ -180,7 +180,7 @@ void initButtons(void)
 /*
  * Returns true when confirmed rising edge at last debouncing.
  */
-BOOL justPressed(u08 button)
+BOOL justPressed(uint8_t button)
 {
    return wasEvent[button] && isDown[button];
 }
@@ -188,7 +188,7 @@ BOOL justPressed(u08 button)
 /*
  * Returns true when confirmed falling edge at last debouncing.
  */
-BOOL justReleased(u08 button)
+BOOL justReleased(uint8_t button)
 {
    return wasEvent[button] && !isDown[button];
 }
@@ -198,7 +198,7 @@ BOOL justReleased(u08 button)
  */
 void debounceButtons(void)
 {
-   u08 button;
+   uint8_t button;
    for( button = 0; button < NUM_BUTTONS; button++)
    {
       // count times buttons have been consecutively up/down (upto DEBOUNCE_COUNT).
@@ -242,14 +242,14 @@ void debounceButtons(void)
       // TEST CODE
       //if( button == 1 || button == 2 )
       //{
-      //   u08 line = button-1;
+      //   uint8_t line = button-1;
       //      
       //   lcdPrintHex(upCount[button],line,0);
       //   lcdPrintHex(downCount[button],line,3);
       //   lcdPrintHex(isDown[button],line,6);
       //   lcdPrintHex(wasEvent[button],line,9);
       //   
-      //   static u08 eventCount[2] = {0, 0};
+      //   static uint8_t eventCount[2] = {0, 0};
       //   if( wasEvent[button] )
       //     eventCount[line]++;
       //   lcdPrintHex(eventCount[line],line,12);
@@ -258,20 +258,20 @@ void debounceButtons(void)
       // TEST CODE
       //if( button == 1 || button == 2 )
       //{
-      //   u08 line = button-1;
+      //   uint8_t line = button-1;
       //   lcdPrintHex(isDown[button],line,0);
       //   
-      //   static u08 eventCount[2] = {0, 0};
+      //   static uint8_t eventCount[2] = {0, 0};
       //   if( wasEvent[button] )
       //      eventCount[line]++;
       //   lcdPrintHex(eventCount[line],line,3);
       //   
-      //   static u08 pressCount[2] = {0, 0};
+      //   static uint8_t pressCount[2] = {0, 0};
       //   if( justPressed(button) )
       //      pressCount[line]++;
       //   lcdPrintHex(pressCount[line],line,6);
       //   
-      //   static u08 releaseCount[2] = {0, 0};
+      //   static uint8_t releaseCount[2] = {0, 0};
       //   if( justReleased(button) )
       //      releaseCount[line]++;
       //   lcdPrintHex(releaseCount[line],line,9);
@@ -282,7 +282,7 @@ void debounceButtons(void)
 /*
  * Returns true when button is currently down (may be bouncing).
  */
-BOOL isPressed(u08 button)
+BOOL isPressed(uint8_t button)
 {
    BOOL pressed;
    

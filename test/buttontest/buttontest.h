@@ -49,13 +49,13 @@ BOOL resetFlag;
 
 BOOL isDown[NUM_BUTTONS];
 BOOL wasEvent[NUM_BUTTONS];
-u08 upCount[NUM_BUTTONS];
-u08 downCount[NUM_BUTTONS];
+uint8_t upCount[NUM_BUTTONS];
+uint8_t downCount[NUM_BUTTONS];
 
-u08 tweakMode;
+uint8_t tweakMode;
 
-u08 l_base;
-u08 r_base;
+uint8_t l_base;
+uint8_t r_base;
 
 volatile BOOL userWantsToStop;
 
@@ -68,15 +68,15 @@ void tweakValues(void);
 void debounceButtons(void);
 void updateTweaks(void);
 void printValues(void);
-BOOL justPressed(u08 button);
-BOOL justReleased(u08 button);
-BOOL isPressed(u08 button);
+BOOL justPressed(uint8_t button);
+BOOL justReleased(uint8_t button);
+BOOL isPressed(uint8_t button);
 void toggleTweakMode(void);
 
 void turnOnRemoteLight(void);
 void turnOffRemoteLight(void);
 
-void myDelay(u16 outerDelay);
+void myDelay(uint16_t outerDelay);
 void init(void);
 void printPortA(void);
 

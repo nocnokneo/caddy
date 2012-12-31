@@ -4,8 +4,8 @@
 
 #include "global.h"
 
-u08 rightPWM;
-u08 leftPWM;
+uint8_t rightPWM;
+uint8_t leftPWM;
 
 
 #define LINE_CENTER         0x4d

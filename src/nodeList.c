@@ -35,20 +35,22 @@
  */
 
 #include "nodeList.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-inline BOOL isJunction(u08 nodeNum)
+inline bool isJunction(uint8_t nodeNum)
 {
     return (nodeNum >= JUNCTION_MIN && nodeNum <= JUNCTION_MAX);
 }
 
-inline BOOL isBallNode(u08 nodeNum)
+inline bool isBallNode(uint8_t nodeNum)
 {
     return (nodeNum >= BALL_NODE_MIN && nodeNum <= BALL_NODE_MAX);
 }
 
-u08 getCostToNode(NODE *node, u08 nodeNum)
+uint8_t getCostToNode(NODE *node, uint8_t nodeNum)
 {
-    u08 i;
+    uint8_t i;
     for (i = 0; i < node->numAdjNodes; i++)
     {
         if (node->adjNodes[i] == nodeNum)
@@ -59,9 +61,9 @@ u08 getCostToNode(NODE *node, u08 nodeNum)
     return 0;
 }
 
-u08 getNodeAtHeading(NODE *node, s08 heading)
+uint8_t getNodeAtHeading(NODE *node, int8_t heading)
 {
-    u08 i;
+    uint8_t i;
     for (i = 0; i < node->numAdjNodes; i++)
     {
         if (node->adjHeadings[i] == heading)
@@ -72,7 +74,7 @@ u08 getNodeAtHeading(NODE *node, s08 heading)
     return 0;
 }
 
-void getNode(u08 nodeNum, NODE *node)
+void getNode(uint8_t nodeNum, NODE *node)
 {
     if (nodeNum >= NUM_NODES)
     {

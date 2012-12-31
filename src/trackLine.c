@@ -21,7 +21,8 @@
  */
 
 #include "trackLine.h"
-
+#include <stdint.h>
+#include <stdbool.h>
 
 void adjustPWM( void )
 {
@@ -52,7 +53,7 @@ void trackLineInit(void)
     correction = 0;
     junctionY = 0;
 
-    lineStatsProcessed = TRUE;
+    lineStatsProcessed = true;
 
     // Initialize wheel speeds to forward, zero pwm
     forward(BOTH, 0);
@@ -92,9 +93,9 @@ void restartLineMode( void )
 }
 
 
-BOOL isGoodScan(u08 y)
+bool isGoodScan(uint8_t y)
 {
-    u08 i = 0;
+    uint8_t i = 0;
 
     for (i = y; i < y + SCAN_WIDTH; i++)
     {
@@ -103,15 +104,15 @@ BOOL isGoodScan(u08 y)
             lineStats[i][X_MAX] > VW_X2_LINE-5 ||
             lineStats[i][LINE_COUNT] > 9)
       {
-         return FALSE;
+         return false;
       }
    }
-   return TRUE;
+   return true;
 }
 
-BOOL isJunctionScan(u08 y)
+bool isJunctionScan(uint8_t y)
 {
-    u08 i = 0;
+    uint8_t i = 0;
 
     for (i = y; i < y + JUNC_SCAN_WIDTH; i++)
     {
@@ -122,42 +123,42 @@ BOOL isJunctionScan(u08 y)
             ||
             lineStats[i][LINE_COUNT] < 9)
         {
-            return FALSE;
+            return false;
         }
     }
-    return TRUE;
+    return true;
 }
 
-BOOL mayBeBall(u08 y)
+bool mayBeBall(uint8_t y)
 {
-    u08 i = 0;
+    uint8_t i = 0;
 
     for (i = y; i < y + BALL_SCAN_WIDTH; i++)
     {
         if (lineStats[i][X_MEAN] != 0)
         {
-            return FALSE;
+            return false;
         }
     }
-    return TRUE;
+    return true;
 }
 
 void analyzeLineStats(void)
 {
-    u08 i;
-    u08 y;
-    u16 sum;
+    uint8_t i;
+    uint8_t y;
+    uint16_t sum;
 
-    u08 lineY1;
-    u08 lineX1;
-    u08 lineY2;
-    u08 lineX2;
+    uint8_t lineY1;
+    uint8_t lineX1;
+    uint8_t lineY2;
+    uint8_t lineX2;
 
     double m;
-    s08 lineOffset;
-    static s16 lineSlope = 0;
-    static s16 lastSlope = 0;
-    s16 damping;
+    int8_t lineOffset;
+    static int16_t lineSlope = 0;
+    static int16_t lastSlope = 0;
+    int16_t damping;
 
     // find X1 and the row that corresponds to Y1
     sum = 0;
@@ -226,7 +227,7 @@ void analyzeLineStats(void)
     // calculate correction using line position and (if damping) rate of change
     m = (double) (lineX2 - lineX1) / (double) (lineY2 - lineY1);
     lastSlope = lineSlope;
-    lineSlope = (s16) (slopeCoef * m);
+    lineSlope = (int16_t) (slopeCoef * m);
     damping = lineSlope - lastSlope;
     lineOffset = lineCenter - (m * (LINE_Y3 - lineY1) + lineX1);
     correction = slopeCoef * m +
@@ -249,5 +250,5 @@ void analyzeLineStats(void)
    }
 #endif
 
-   lineStatsProcessed = TRUE;
+   lineStatsProcessed = true;
 }

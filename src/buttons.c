@@ -27,17 +27,17 @@
  */
 void initButtons(void)
 {
-    u08 i;
+    uint8_t i;
     for (i = 0; i < NUM_BUTTONS; i++)
     {
-        isDown[i] = FALSE;
-        wasEvent[i] = FALSE;
+        isDown[i] = false;
+        wasEvent[i] = false;
         upCount[i] = DEBOUNCE_COUNT;
         downCount[i] = 0;
     }
 }
 
-void waitFor(u08 button)
+void waitFor(uint8_t button)
 {
     debounceButtons();
     while (!justReleased(button))
@@ -49,7 +49,7 @@ void waitFor(u08 button)
 /*
  * Returns true when confirmed rising edge at last debouncing.
  */
-inline BOOL justPressed(u08 button)
+inline bool justPressed(uint8_t button)
 {
     return wasEvent[button] && isDown[button];
 }
@@ -57,7 +57,7 @@ inline BOOL justPressed(u08 button)
 /*
  * Returns true when confirmed falling edge at last debouncing.
  */
-inline BOOL justReleased(u08 button)
+inline bool justReleased(uint8_t button)
 {
     return wasEvent[button] && !isDown[button];
 }
@@ -67,7 +67,7 @@ inline BOOL justReleased(u08 button)
  */
 void debounceButtons(void)
 {
-    u08 button;
+    uint8_t button;
     for (button = 0; button < NUM_BUTTONS; button++)
     {
         // count times buttons have been consecutively up/down (upto DEBOUNCE_COUNT).
@@ -87,23 +87,23 @@ void debounceButtons(void)
         {
             if (upCount[button] >= DEBOUNCE_COUNT)
             {
-                isDown[button] = FALSE;
-                wasEvent[button] = TRUE;
+                isDown[button] = false;
+                wasEvent[button] = true;
             }
             else
             {
-                wasEvent[button] = FALSE;
+                wasEvent[button] = false;
             }
         } else
         {
             if (downCount[button] >= DEBOUNCE_COUNT)
             {
-                isDown[button] = TRUE;
-                wasEvent[button] = TRUE;
+                isDown[button] = true;
+                wasEvent[button] = true;
             }
             else
             {
-                wasEvent[button] = FALSE;
+                wasEvent[button] = false;
             }
         }
     }
@@ -112,9 +112,9 @@ void debounceButtons(void)
 /*
  * Returns true when button is currently down (may be bouncing).
  */
-inline BOOL isPressed(u08 button)
+inline bool isPressed(uint8_t button)
 {
-    BOOL pressed;
+    bool pressed;
 
     switch (button)
     {
@@ -137,7 +137,7 @@ inline BOOL isPressed(u08 button)
         pressed = NEST_BUTTON_DOWN;
         break;
     default:
-        pressed = FALSE;
+        pressed = false;
         break;
     }
 

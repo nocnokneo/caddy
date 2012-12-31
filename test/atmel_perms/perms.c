@@ -7,9 +7,9 @@
 
 
 
-BOOL next_permutation(u08 *first, u08 *last)
+BOOL next_permutation(uint8_t *first, uint8_t *last)
 {
-   u08 *i = last - 1;;
+   uint8_t *i = last - 1;;
    if( first == last )    // check for n=0
       return FALSE;
    if( first == i )       // check for n=1
@@ -17,10 +17,10 @@ BOOL next_permutation(u08 *first, u08 *last)
       
    for(;;)
    {
-      u08 *ii = i--;
+      uint8_t *ii = i--;
       if (*i < *ii)
       {
-         u08 *j = last;
+         uint8_t *j = last;
          while( !(*i < *--j) ) ;
          
          iter_swap(i, j);
@@ -37,16 +37,16 @@ BOOL next_permutation(u08 *first, u08 *last)
 }
 
 // b points to element to swap with a.
-void iter_swap(u08 *a, u08 *b)
+void iter_swap(uint8_t *a, uint8_t *b)
 {
-  u08 tmp;
+  uint8_t tmp;
   tmp = *a;
   *a = *b;
   *b = tmp;
 }
 
 // b points one element beyond the last element be reversing
-void reverse(u08 *a, u08 *b)
+void reverse(uint8_t *a, uint8_t *b)
 {
   b--;                // point b to element to begin reversing
 

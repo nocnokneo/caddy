@@ -207,7 +207,7 @@ inline void printValues(void)
 /**
  * @brief Cycle through tweak modes (except 'Welcome' mode)
  */
-inline void toggleTweakMode(u08 i)
+inline void toggleTweakMode(uint8_t i)
 {
     // advance tweak mode (skipping welcome mode)
     tweakMode += i;
@@ -248,7 +248,7 @@ inline void toggleTweakMode(u08 i)
         lcdWriteStr("dly:            ", 1, 0);
         break;
     case u08_TEMP_TWEAK:
-        lcdWriteStr("u08 Temp Tweaks ", 0, 0);
+        lcdWriteStr("uint8_t Temp Tweaks ", 0, 0);
         lcdWriteStr("T1:     T2:     ", 1, 0);
         break;
     case u16_TEMP_TWEAK:

@@ -26,15 +26,15 @@
 typedef struct nodeStruct NODE;
 struct nodeStruct
 {
-  u08 numAdjNodes;                  // number of nodes adjacent to this node
-  u08 adjNodes[MAX_ADJ_NODES];      // node numbers of adjacent nodes
-  u08 adjCosts[MAX_ADJ_NODES];      // distances to       "       "  (6 inches)
-  s08 adjHeadings[MAX_ADJ_NODES];   // directions towards "       "   (brads)
+  uint8_t numAdjNodes;                  // number of nodes adjacent to this node
+  uint8_t adjNodes[MAX_ADJ_NODES];      // node numbers of adjacent nodes
+  uint8_t adjCosts[MAX_ADJ_NODES];      // distances to       "       "  (6 inches)
+  int8_t adjHeadings[MAX_ADJ_NODES];   // directions towards "       "   (brads)
 };
 
 
 
-void getNode( u08 nodeNum, NODE *node );
+void getNode( uint8_t nodeNum, NODE *node );
 
 
 #endif  // #ifndef

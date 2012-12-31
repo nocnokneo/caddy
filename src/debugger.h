@@ -19,10 +19,7 @@
 #define DEBUGGER_H
 
 #include "caddy.h"
-
-//#define ENABLE_INT0    outb( GICR, BV(INT0) )
-//#define DISABLE_INT0   outb( GICR, 0 )
-
+#include <stdint.h>
 
 #define WELCOME             0     // Must have WELCOME mode and must be 0
 #define BASE_SPEED_TWEAK    1
@@ -49,18 +46,12 @@
 #define turnOnRemoteLight()   sbi(PORTD, 7)
 #define turnOffRemoteLight()  cbi(PORTD, 7)
 
-
-//#define ENABLE_INT0    outb( GICR, BV(INT0) )
-//#define DISABLE_INT0   outb( GICR, 0 )
-//volatile BOOL userWantsToStop;
-
-
-u08 tweakMode;
+uint8_t tweakMode;
 
 inline void runDebugger(void);
 inline void updateTweaks(void);
 inline void printValues(void);
-inline void toggleTweakMode( u08 i );
+inline void toggleTweakMode( uint8_t i );
 
 
 #endif  // #ifndef

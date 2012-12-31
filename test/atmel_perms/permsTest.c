@@ -16,9 +16,9 @@ int main( void )
    lcdWriteStr("                ", 1, 0);
    
    // declare/init vars
-   u08 i;
-   const u08 N = 4;
-   u08 curPerm[N];
+   uint8_t i;
+   const uint8_t N = 4;
+   uint8_t curPerm[N];
    for( i = 0; i < N; i++ )
    {
       curPerm[i] = i;

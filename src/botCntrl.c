@@ -21,15 +21,17 @@
  */
 
 #include "botCntrl.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-u08 botNode = START_NODE;
-s08 botHeading = START_HEADING;
-u08 numUnreachedGoals = NUM_GOALS;
+uint8_t botNode = START_NODE;
+int8_t botHeading = START_HEADING;
+uint8_t numUnreachedGoals = NUM_GOALS;
 
 inline void runBot(void)
 {
-    BOOL justTurned = FALSE;
-    BOOL firstRun = TRUE;
+    bool justTurned = false;
+    bool firstRun = true;
 
     updatePath();
 
@@ -56,11 +58,11 @@ inline void runBot(void)
 
         if (firstRun)
         {
-            firstRun = FALSE;
+            firstRun = false;
             setServo(LIFT, LIFT_OPEN); // Lower lift, on first run, b/c skipping seek at node 21
             msDelay(30);
             upComingBallNum = 1;
-            liftDown = TRUE;
+            liftDown = true;
         }
 
 #if DEBUGGING
@@ -100,7 +102,7 @@ inline void initBotGlobals(void)
     initGoalList();
     numKnownGoals = NUM_FIXED_GOALS;
 
-    liftDown = FALSE;
+    liftDown = false;
     upComingBallNum = 0;
 }
 
@@ -113,12 +115,12 @@ inline void initBotGlobals(void)
  *
  * PRE: camera is not streaming
  */
-inline BOOL positionBot(void)
+inline bool positionBot(void)
 {
-    s08 nextHeading;
-    s08 bradsToTurn;
-    s08 ticksToTurn;
-    BOOL justTurned = TRUE;    // return value
+    int8_t nextHeading;
+    int8_t bradsToTurn;
+    int8_t ticksToTurn;
+    bool justTurned = true;    // return value
 
     nextHeading = getNextHeading(pathList[pathListIndex + 1]);
     bradsToTurn = nextHeading - botHeading;
@@ -137,12 +139,12 @@ inline BOOL positionBot(void)
     // TURN/STRAIGHT CHECK
     else if (bradsToTurn != 0)
     {
-        switch ((s08) bradsToTurn)
+        switch ((int8_t) bradsToTurn)
         {
         case (-128):              // A -128 brad turn (180 degrees)
             if (botNode == 37)
             {
-                moveToJunction(1, FALSE);
+                moveToJunction(1, false);
                 tickWheels(20, 20, 255);
                 msDelay(0x50);
                 moveStraight(-20, 255);
@@ -183,7 +185,7 @@ inline BOOL positionBot(void)
         }
     } else
     {
-        justTurned = FALSE;
+        justTurned = false;
     }
 
     if (botNode == SENSOR_NODE)
@@ -200,7 +202,7 @@ inline BOOL positionBot(void)
     {
         setServo(LIFT, LIFT_OPEN);
         msDelay(30);
-        liftDown = TRUE;
+        liftDown = true;
     }
 
     return justTurned;
@@ -209,11 +211,11 @@ inline BOOL positionBot(void)
 /*
  * Returns absolute heading of next node given botNode and the next botNode.
  */
-inline s08 getNextHeading(u08 nextBotNode)
+inline int8_t getNextHeading(uint8_t nextBotNode)
 {
     NODE nextNode;            // info about nodes adjacent to botNode
-    s08 nextNodeIndex;        // nextNode offset to nextBotNode
-    s08 nextHeading;          // absolute direction to nextBotNode
+    int8_t nextNodeIndex;        // nextNode offset to nextBotNode
+    int8_t nextHeading;          // absolute direction to nextBotNode
 
     // get absolute direction of nextBotNode from node list
     getNode(botNode, &nextNode);
@@ -245,7 +247,7 @@ inline s08 getNextHeading(u08 nextBotNode)
  *    bbHeading   - heading bot must have for bb pickup.
  *    nextHeading - heading bot must have after bb pickup
  */
-inline void bbPositioning(s08 bbHeading, s08 nextHeading)
+inline void bbPositioning(int8_t bbHeading, int8_t nextHeading)
 {
     // move forward (camera will be over junction at this point)
     // May or may not need to move foward (requires testing)
@@ -253,7 +255,7 @@ inline void bbPositioning(s08 bbHeading, s08 nextHeading)
     //    Right now, only -32 case moves forward
 
     // rotate by (bbHeading - botHeading)
-    switch ((s08) (bbHeading - botHeading))
+    switch ((int8_t) (bbHeading - botHeading))
     {
     case 96:
         // example of 96 brad rotation
@@ -283,7 +285,7 @@ inline void bbPositioning(s08 bbHeading, s08 nextHeading)
 
     // Rotate by (nextHeading - bbHeading)
     // (This should only be 32, -32, or -96)
-    switch ((s08) (nextHeading - bbHeading))
+    switch ((int8_t) (nextHeading - bbHeading))
     {
     case 32:
         tankTurn(250, 32);
@@ -309,13 +311,13 @@ inline void bbPositioning(s08 bbHeading, s08 nextHeading)
 /*
  * Moves to next junction in pathList.
  */
-inline void moveToJunction(u08 numJunctions, BOOL justTurned)
+inline void moveToJunction(uint8_t numJunctions, bool justTurned)
 {
-    BOOL onLine = TRUE;
-    BOOL juncApproaching = FALSE;
-    u08 juncCount = 0;
+    bool onLine = true;
+    bool juncApproaching = false;
+    uint8_t juncCount = 0;
 
-    u08 ignoreJuncCount;
+    uint8_t ignoreJuncCount;
     if (!justTurned)
     {
         ignoreJuncCount = 3;
@@ -324,10 +326,10 @@ inline void moveToJunction(u08 numJunctions, BOOL justTurned)
         ignoreJuncCount = 0;
     }
 
-    u08 pickingUp = FALSE;
-    u08 pickingUpCount = 0;
+    uint8_t pickingUp = false;
+    uint8_t pickingUpCount = 0;
 
-    u08 ignoreBreakBeamCount = BEAM_IGNORE_COUNT;
+    uint8_t ignoreBreakBeamCount = BEAM_IGNORE_COUNT;
 
     trackLineInit();
 
@@ -351,10 +353,10 @@ inline void moveToJunction(u08 numJunctions, BOOL justTurned)
         {
             if (junctionY < turnPoint)
             {
-                juncApproaching = TRUE;
+                juncApproaching = true;
             } else if (juncApproaching)
             {
-                juncApproaching = FALSE;
+                juncApproaching = false;
                 juncCount++;
 
                 // set botNode to next junction in pathList
@@ -367,7 +369,7 @@ inline void moveToJunction(u08 numJunctions, BOOL justTurned)
                 // Break out of line tracking
                 if (juncCount >= numJunctions)
                 {
-                    onLine = FALSE;
+                    onLine = false;
                 }
             }
         }
@@ -386,8 +388,8 @@ inline void moveToJunction(u08 numJunctions, BOOL justTurned)
             msDelay(30);
             trackLineInit();
 
-            liftDown = FALSE;
-            pickingUp = TRUE;
+            liftDown = false;
+            pickingUp = true;
             pickingUpCount = 0;
         }
 
@@ -405,7 +407,7 @@ inline void moveToJunction(u08 numJunctions, BOOL justTurned)
 
             if (pickingUpCount == LIFT_DONE_COUNT)
             {
-                pickingUp = FALSE;
+                pickingUp = false;
 
                 // Set current botNode to node where this ball is
                 botNode = upComingBallNum;
@@ -444,7 +446,7 @@ inline void moveToJunction(u08 numJunctions, BOOL justTurned)
         setServo(LIFT, LIFT_UP);    // Raise the lift
         msDelay(700);
         disableServo(LIFT);
-        liftDown = FALSE;
+        liftDown = false;
 
         // correct goal state
         removeFromGoalList(upComingBallNum);

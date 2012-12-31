@@ -19,6 +19,7 @@
 #define OURLCD_H
 
 #include "caddy.h"
+#include <stdint.h>
 //#include <avr/io.h>				// include I/O definitions (port names, pin names, etc)
 //#include <avr/signal.h>			// include "signal" names (interrupt names)
 //#include <avr/interrupt.h>		// include interrupt support
@@ -73,16 +74,16 @@
 
 // Prototypes
 void lcdInit(void);
-void lcdWriteInit(u08 data);
-void lcdControlWrite(u08 data);
-void lcdDataWrite(u08 data);
-void lcdSetCursor(u08 data);
-void lcdPrintHex(u08 data, u08 row, u08 col);
-void lcdPrintDec(s08 data, u08 row, u08 col);
-void lcdWrite(u08 data);
-void lcdWriteStr(u08 str[], u08 row, u08 col);
-void ourLcdControlWrite(u08 data);
-void lcdPrintDecU08(u08 data, u08 row, u08 col);
-void lcdPrintDecS08(s08 data, u08 row, u08 col);
+void lcdWriteInit(uint8_t data);
+void lcdControlWrite(uint8_t data);
+void lcdDataWrite(uint8_t data);
+void lcdSetCursor(uint8_t data);
+void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col);
+void lcdPrintDec(int8_t data, uint8_t row, uint8_t col);
+void lcdWrite(uint8_t data);
+void lcdWriteStr(uint8_t str[], uint8_t row, uint8_t col);
+void ourLcdControlWrite(uint8_t data);
+void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col);
+void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col);
 
 #endif  // #ifndef

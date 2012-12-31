@@ -12,33 +12,33 @@
 #include "motors.h"
 #include "ourlcd.h"
 
-volatile s08 lineOffset;
-volatile s16 lineSlope;
+volatile int8_t lineOffset;
+volatile int16_t lineSlope;
 volatile BOOL topLost;
 volatile BOOL bottomLost;
-volatile u08 statsBuf[STAT_BUF_ROWS][STAT_BUF_COLS];
+volatile uint8_t statsBuf[STAT_BUF_ROWS][STAT_BUF_COLS];
 volatile BOOL statsBufProcessed;
-u08 gotAck;
-u08 gotNck;
+uint8_t gotAck;
+uint8_t gotNck;
 
-void myDelay(u16 outerDelay);
-void setServo(u08 servoNum, u08 servoPos);
+void myDelay(uint16_t outerDelay);
+void setServo(uint8_t servoNum, uint8_t servoPos);
 
-void disableServo(u08 servoNum);
-void setPose(u08 pose);
+void disableServo(uint8_t servoNum);
+void setPose(uint8_t pose);
 void grabBonusBall(void);
-void packetRcv(u08 c);
-void lineMode2Rcv(u08 c);
+void packetRcv(uint8_t c);
+void lineMode2Rcv(uint8_t c);
 //void sendCommand(char *command);
 void cmuInit(void);
 void trackLineInit(void);
 void servoInit(void);
 void init(void);
-void setLeftPWM(u08 pwm);
-void setRightPWM(u08 pwm);
+void setLeftPWM(uint8_t pwm);
+void setRightPWM(uint8_t pwm);
 void trackLine(void);
-//void analyzeTopStrip(u08 stipStats[], u08 numRows);
-//void analyzeBottomStrip(u08 stipStats[], u08 numRows); 
-u08 getMean(u08 stripStats[], u08 numRows);
+//void analyzeTopStrip(uint8_t stipStats[], uint8_t numRows);
+//void analyzeBottomStrip(uint8_t stipStats[], uint8_t numRows); 
+uint8_t getMean(uint8_t stripStats[], uint8_t numRows);
 void analyzeStatsBuf(void);
-BOOL isGoodScan(u08 y);
+BOOL isGoodScan(uint8_t y);

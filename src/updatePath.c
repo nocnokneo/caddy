@@ -21,26 +21,28 @@
  */
 
 #include "updatePath.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-u08 pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;
+uint8_t pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;
 SEARCH_NODE searchSpace[NUM_NODES];
 
 // returns distance of path found
-u08 updatePath(void)
+uint8_t updatePath(void)
 {
-    u08 startCost[NUM_GOALS];
-    u08 goalCost[NUM_GOALS][NUM_GOALS];
-    u08 stopCost[NUM_GOALS];
+    uint8_t startCost[NUM_GOALS];
+    uint8_t goalCost[NUM_GOALS][NUM_GOALS];
+    uint8_t stopCost[NUM_GOALS];
 
-    u08 tempGoalList[NUM_GOALS];
+    uint8_t tempGoalList[NUM_GOALS];
 
-    u08 curPerm[NUM_GOALS];
-    u08 bestPerm[NUM_GOALS];
-    u08 bestCost;
+    uint8_t curPerm[NUM_GOALS];
+    uint8_t bestPerm[NUM_GOALS];
+    uint8_t bestCost;
 
-    u08 i;
-    u08 j;
-    u08 tempCost;
+    uint8_t i;
+    uint8_t j;
+    uint8_t tempCost;
 
     // find distances between goal nodes and start/stop nodes
     for (i = 0; i < goalListSize; i++)
@@ -120,9 +122,9 @@ u08 updatePath(void)
 }
 
 // returns distance of path found
-u08 updatePathTo(u08 nodeNum)
+uint8_t updatePathTo(uint8_t nodeNum)
 {
-    u08 tempCost = uniformCostSearch(botNode, nodeNum);
+    uint8_t tempCost = uniformCostSearch(botNode, nodeNum);
     pathListIndex = MAX_PATH_LIST_SIZE - 1;
     recostructPath(botNode, nodeNum);
     return tempCost;
@@ -130,26 +132,26 @@ u08 updatePathTo(u08 nodeNum)
 
 // fills searchSpace with parent information
 // returns distance of path found
-inline u08 uniformCostSearch(u08 startNode, u08 goalNode)
+inline uint8_t uniformCostSearch(uint8_t startNode, uint8_t goalNode)
 {
     NODE nodeData;
-    u08 n;
+    uint8_t n;
 
     PATH_LIST_PTR visitList = NULL;
-    u08 curNodeNum = startNode;
-    u08 curCost = 0;
+    uint8_t curNodeNum = startNode;
+    uint8_t curCost = 0;
 
     // init searchSpace
-    u08 i;
+    uint8_t i;
     for (i = 0; i < NUM_NODES; i++)
     {
         searchSpace[i].parent = NO_PARENT;
         searchSpace[i].pathCost = MAX_COST;
-        searchSpace[i].visited = FALSE;
+        searchSpace[i].visited = false;
     }
 
     searchSpace[startNode].pathCost = 0;
-    searchSpace[startNode].visited = TRUE;
+    searchSpace[startNode].visited = true;
     while (curNodeNum != goalNode)
     {
         // explore successors, if haven't visited yet
@@ -181,7 +183,7 @@ inline u08 uniformCostSearch(u08 startNode, u08 goalNode)
             // get info of and remove first node of visitList
             curNodeNum = visitList->nodeNum;
             curCost = searchSpace[curNodeNum].pathCost;
-            searchSpace[curNodeNum].visited = TRUE;
+            searchSpace[curNodeNum].visited = true;
             visitList = freeNode(visitList);
         }
     }
@@ -191,7 +193,7 @@ inline u08 uniformCostSearch(u08 startNode, u08 goalNode)
     return searchSpace[goalNode].pathCost;
 }
 
-PATH_LIST_PTR addNodeByCost(PATH_LIST_PTR head, u08 newNodeNum)
+PATH_LIST_PTR addNodeByCost(PATH_LIST_PTR head, uint8_t newNodeNum)
 {
     PATH_LIST_PTR current = NULL;
     PATH_LIST_PTR next = NULL;
@@ -244,7 +246,7 @@ PATH_LIST_PTR addNodeByCost(PATH_LIST_PTR head, u08 newNodeNum)
 //      pathListIndex points to the first position to fill
 //      pathList is large enough to prevent pathListIndex from reaching below zero
 // POST: pathListIndex points to first node in pathList
-inline void recostructPath(u08 startNode, u08 goalNode)
+inline void recostructPath(uint8_t startNode, uint8_t goalNode)
 {
     pathList[pathListIndex] = goalNode;
     while (goalNode != startNode)

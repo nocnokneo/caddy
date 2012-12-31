@@ -19,8 +19,10 @@
  *    Caddy's test code.
  */
 #include "testCode.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-u08 testMode; // = DEFAULT_TEST_MODE;
+uint8_t testMode; // = DEFAULT_TEST_MODE;
 
 inline void runTest(void)
 {
@@ -42,7 +44,7 @@ inline void runTest(void)
     }
 }
 
-void toggleTestMode(s08 i)
+void toggleTestMode(int8_t i)
 {
     // advance test mode up or down
     testMode += i;
@@ -80,69 +82,69 @@ void toggleTestMode(s08 i)
 void runFixedPath( void )
 {
     // From start to zig-zag
-    moveToJunction(1, FALSE);
+    moveToJunction(1, false);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
+    moveToJunction(1, true);
     setServo(LIFT, LIFT_OPEN);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     setServo(LIFT, LIFT_UP);
 
     tractorTurn(255, 64 - turnSubtract);
 
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
 
     setServo(LIFT, LIFT_OPEN);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     setServo(LIFT, LIFT_UP);
 
     // Through zig-zag
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, -64 + turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, -64 + turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, 64 - turnSubtract);
 
     // To bonus ball 1
-    moveToJunction(2, TRUE);
+    moveToJunction(2, true);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, -64 + turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
 
     botHeading = -64;              // Pick up Bonus Ball 1
     bbPositioning(32, 0);
 
     // To bonus ball 2
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, -64 + turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
 
     botHeading = 64;               // Pick up Bonus Ball 2
     bbPositioning(-96, -128);
 
     // To nest
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, -64 + turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, -64 + turnSubtract);
     setServo(LIFT, LIFT_OPEN);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     setServo(LIFT, LIFT_UP);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
     tractorTurn(255, 64 - turnSubtract);
-    moveToJunction(1, TRUE);
+    moveToJunction(1, true);
 
     nestSequence();
 }
@@ -170,7 +172,7 @@ void seekBallTest( void )
      }
      */
 
-    BOOL justTurned = TRUE;
+    bool justTurned = true;
     NODE node;
 
     initGoalList();
@@ -323,7 +325,7 @@ void printPathList( void )
     lcdWriteStr("Printing...     ", 0, 0);
     waitFor(RED_BUTTON);
 #endif
-    u08 i;
+    uint8_t i;
     for (i = pathListIndex; i < MAX_PATH_LIST_SIZE; i++)
     {
         if (i % 5 == 0)

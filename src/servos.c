@@ -23,6 +23,7 @@
  */
 
 #include "servos.h"
+#include <stdint.h>
 
 /*
  * Moves servos to initial poistions.
@@ -90,7 +91,7 @@ void grabBonusBall(void)
  *   Keeps servos for door, boom, and lift off.
  *   Moving door, boom, or lift causes delay.
  */
-void moveServo(u08 servoNum, u08 servoPos)
+void moveServo(uint8_t servoNum, uint8_t servoPos)
 {
     setServo(servoNum, servoPos);
 
@@ -104,7 +105,7 @@ void moveServo(u08 servoNum, u08 servoPos)
 /*
  * Move servo to position and leave it on.
  */
-void setServo(u08 servoNum, u08 servoPos)
+void setServo(uint8_t servoNum, uint8_t servoPos)
 {
     rprintf("sv %d %d\r", servoNum, servoPos);
 }
@@ -112,7 +113,7 @@ void setServo(u08 servoNum, u08 servoPos)
 /*
  * Turn off servo.
  */
-void disableServo(u08 servoNum)
+void disableServo(uint8_t servoNum)
 {
     rprintf("so %d 0\r", servoNum);
 }

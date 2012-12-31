@@ -19,18 +19,20 @@
 #define HELPERFUNCTIONS_H
 
 #include "caddy.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-void myDelay(u16 outerDelay);
-void msDelay(u16 ms);
-s08  getIndex(u08 value, const u08 array[], const u08 arraySize);
+void myDelay(uint16_t outerDelay);
+void msDelay(uint16_t ms);
+int8_t  getIndex(uint8_t value, const uint8_t array[], const uint8_t arraySize);
 
 inline void initGoalList( void );
-inline BOOL isInGoalList( u08 nodeNum );
-inline void addToGoalList( u08 nodeNum );
-BOOL removeFromGoalList( u08 nodeNum );
+inline bool isInGoalList( uint8_t nodeNum );
+inline void addToGoalList( uint8_t nodeNum );
+bool removeFromGoalList( uint8_t nodeNum );
 inline void printGoalList( void );
-inline void copyList(u08 srcList[], u08 destList[], u08 numElements);
-u08 getUpcomingBallNum( void );
+inline void copyList(uint8_t srcList[], uint8_t destList[], uint8_t numElements);
+uint8_t getUpcomingBallNum( void );
 
 
 #endif  // #ifndef

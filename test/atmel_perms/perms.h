@@ -12,9 +12,9 @@
 #include <inttypes.h>
 
 
-BOOL next_permutation(u08 *first, u08 *last);
-void iter_swap(u08 *a, u08 *b);
-void reverse(u08 *a, u08 *b);
+BOOL next_permutation(uint8_t *first, uint8_t *last);
+void iter_swap(uint8_t *a, uint8_t *b);
+void reverse(uint8_t *a, uint8_t *b);
 
 
 #endif // #ifndef

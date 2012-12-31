@@ -20,7 +20,7 @@
 
 #include "nodeList.h"
 
-void getNode( u08 nodeNum, NODE *node )
+void getNode( uint8_t nodeNum, NODE *node )
 {
    if( nodeNum >= NUM_NODES )
    {
@@ -506,7 +506,7 @@ int main(void)
    init();
    
    ///*
-   u08 i;
+   uint8_t i;
    for( i = 0; i < NUM_NODES; i++ )
    {
       getNode( i, &node );

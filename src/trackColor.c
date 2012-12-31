@@ -22,15 +22,17 @@
  */
 
 #include "trackColor.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-void trackColorInit(s08 dir)
+void trackColorInit(int8_t dir)
 {
     if (!inSeekPosition)
     {
         brake(BOTH);
         msDelay(200);
         moveStraight(-1 * 0xb, 255);
-        inSeekPosition = TRUE;
+        inSeekPosition = true;
     }
 
     // Set pan (center) and tilt
@@ -65,7 +67,7 @@ void trackColorInit(s08 dir)
 /*
  * Returns Y1 (top of ball) if camera sees a ball, zero otherwise
  */
-u08 getBallY( void )
+uint8_t getBallY( void )
 {
     rprintf("lm 0 0\r");
 
@@ -79,7 +81,7 @@ u08 getBallY( void )
     rprintf("TC %d %d %d %d %d %d\r",
                     BALL_RMIN, BALL_RMAX, BALL_GMIN, BALL_GMAX, BALL_BMIN, BALL_BMAX);
 
-    colorStatsProcessed = TRUE;
+    colorStatsProcessed = true;
     while (colorStatsProcessed)
         ;
 
@@ -87,12 +89,12 @@ u08 getBallY( void )
 }
 
 
-BOOL seeBall( void )
+bool seeBall( void )
 {
    // Track red
    rprintf("TC %d %d %d %d %d %d\r",
            BALL_RMIN, BALL_RMAX, BALL_GMIN, BALL_GMAX, BALL_BMIN, BALL_BMAX);
-   colorStatsProcessed = TRUE;
+   colorStatsProcessed = true;
    while (colorStatsProcessed) ;
 
    return lineStats[0][Y1_NDX] > 0;
@@ -105,19 +107,19 @@ BOOL seeBall( void )
  *
  *    uncheckedBalls - ball node numbers and ground distances away from bot
  */
-BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls )
+bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls )
 {
-    BOOL foundBall = FALSE;    // Return value
-    u08 scanHeight = 4;
-    u08 x = 174;
-    //u08 ballDist[3];
-    //u08 ballCount = 0;
-    u08 scanLimit = distToPix(
+    bool foundBall = false;    // Return value
+    uint8_t scanHeight = 4;
+    uint8_t x = 174;
+    //uint8_t ballDist[3];
+    //uint8_t ballCount = 0;
+    uint8_t scanLimit = distToPix(
                     uncheckedBalls[numUncheckedBalls - 1][BALL_DIST] + 1);
 
     // get pixel ranges for unchecked balls passed in
-    u08 i = 0;
-    u08 maxBallX[3];
+    uint8_t i = 0;
+    uint8_t maxBallX[3];
     while (i + 1 < numUncheckedBalls)
     {
         maxBallX[i] = (distToPix(uncheckedBalls[i][BALL_DIST]) +
@@ -145,7 +147,7 @@ BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls )
         setVW(x - scanHeight, 1, x, 254);
         if (seeBall())
         {
-            foundBall = TRUE;
+            foundBall = true;
             //ballDist[ballCount++] = xToDist(x);
 
             // find ball number of ball at this x
@@ -182,7 +184,7 @@ BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls )
 }
 
 // returns pixel equivalent of 'distance'
-u08 distToPix( u08 distance )
+uint8_t distToPix( uint8_t distance )
 {
     switch (distance)
     {
@@ -222,17 +224,17 @@ u08 distToPix( u08 distance )
  *
  *    uncheckedBalls - ball node numbers and ground distances away from bot
  */
-BOOL cameraSeekRight(u08 uncheckedBalls[][2], u08 numUncheckedBalls)
+bool cameraSeekRight(uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls)
 {
-    BOOL foundBall = FALSE;    // Return value
-    u08 scanHeight = 4;
-    u08 x = 0;
-    u08 scanLimit = 174 - distToPix(
+    bool foundBall = false;    // Return value
+    uint8_t scanHeight = 4;
+    uint8_t x = 0;
+    uint8_t scanLimit = 174 - distToPix(
                     uncheckedBalls[numUncheckedBalls - 1][BALL_DIST] + 1);
 
     // get pixel ranges for unchecked balls passed in
-    u08 i = 0;
-    u08 maxBallX[3];
+    uint8_t i = 0;
+    uint8_t maxBallX[3];
     while (i + 1 < numUncheckedBalls)
     {
         maxBallX[i] = ((174 - distToPix(uncheckedBalls[i][BALL_DIST])) +
@@ -261,7 +263,7 @@ BOOL cameraSeekRight(u08 uncheckedBalls[][2], u08 numUncheckedBalls)
         setVW(x, 1, x + scanHeight, 254);
         if (seeBall())
         {
-            foundBall = TRUE;
+            foundBall = true;
             //ballDist[ballCount++] = xToDist(x);
 
             // find ball number of ball at this x

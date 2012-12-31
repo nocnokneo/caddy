@@ -23,7 +23,7 @@
 //   3/21/05 created by Mike, based on motorTest.c
 //       added #define's
 //       added support for speed, motor selection
-//       all speeds declared as 8 bit, u08
+//       all speeds declared as 8 bit, uint8_t
 //   3/23/05 modified by Mike for use with the caddy
 //       not sure which pwm controls which though..
 //       so could be wrong
@@ -32,8 +32,9 @@
 //    defined in timer.h
 //*****************************************************************************
 #include "motorCntrl.h"
+#include <stdint.h>
 
-void forward(u08 motorSelect, u08 speed)
+void forward(uint8_t motorSelect, uint8_t speed)
 {
     switch (motorSelect)
     {
@@ -59,7 +60,7 @@ void forward(u08 motorSelect, u08 speed)
     }
 }
 
-void tickWheels(s16 leftTicks, s16 rightTicks, u08 speed)
+void tickWheels(int16_t leftTicks, int16_t rightTicks, uint8_t speed)
 {
     if (leftTicks >= 0)
     {
@@ -109,7 +110,7 @@ void tickWheels(s16 leftTicks, s16 rightTicks, u08 speed)
 /*
  * Move staight forward (positive) or straight back (negative)
  */
-void moveStraight(s16 ticks, u08 speed)
+void moveStraight(int16_t ticks, uint8_t speed)
 {
     tickWheels(ticks, ticks, speed);
 }
@@ -117,7 +118,7 @@ void moveStraight(s16 ticks, u08 speed)
 /*
  * Brake one wheel, turn the other
  */
-void tractorTurn(u08 speed, s08 brads)
+void tractorTurn(uint8_t speed, int8_t brads)
 {
     if (brads > 0)
     {
@@ -139,9 +140,9 @@ void tractorTurn(u08 speed, s08 brads)
 /*
  * Turn on a dime (like a tank!)
  */
-void tankTurn(u08 speed, s08 brads)
+void tankTurn(uint8_t speed, int8_t brads)
 {
-    s08 halfBrads = brads / 2;
+    int8_t halfBrads = brads / 2;
     tickWheels(halfBrads, (-1 * halfBrads), speed);
     // Now we correct/prevent overshoot
     delay(TANK_OVERSHOOT_DELAY);
@@ -159,7 +160,7 @@ void tankTurn(u08 speed, s08 brads)
     }
 }
 
-void reverse(u08 motorSelect, u08 speed)
+void reverse(uint8_t motorSelect, uint8_t speed)
 {
     switch (motorSelect)
     {
@@ -194,7 +195,7 @@ void neutral(void)
 
 //brake selected motor
 //full brake assumed
-void brake(u08 motorSelect)
+void brake(uint8_t motorSelect)
 {
     switch (motorSelect)
     {

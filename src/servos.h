@@ -19,6 +19,7 @@
 #define SERVOS_H
 
 #include "caddy.h"
+#include <stdint.h>
 
 // Servo numbers ----------------------------------------------------
 
@@ -66,7 +67,7 @@
 // Globals ----------------------------------------------------------
 
 #if DEBUGGING
-u08 servoPosition[NUM_SERVOS];
+uint8_t servoPosition[NUM_SERVOS];
 #endif
 
 
@@ -74,9 +75,9 @@ u08 servoPosition[NUM_SERVOS];
 
 void moveServosToStart(void);
 void grabBonusBall(void);
-void moveServo(u08 servoNum, u08 servoPos);
-void setServo(u08 servoNum, u08 servoPos);
-void disableServo(u08 servoNum);
+void moveServo(uint8_t servoNum, uint8_t servoPos);
+void setServo(uint8_t servoNum, uint8_t servoPos);
+void disableServo(uint8_t servoNum);
 
 
 #endif  // #ifndef

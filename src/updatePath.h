@@ -19,6 +19,8 @@
 #define UPDATEPATH_H
 
 #include "caddy.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 #define MAX_PATH_LIST_SIZE 70
 
@@ -38,24 +40,24 @@
 
 typedef struct searchNode
 {
-    u08 parent;
-    u08 pathCost;
-    BOOL visited;
+    uint8_t parent;
+    uint8_t pathCost;
+    bool    visited;
 } SEARCH_NODE;
 
 
-extern u08 pathList[];
+extern uint8_t pathList[];
 extern SEARCH_NODE searchSpace[];
 
-u08 pathListSize;
-u08 pathListIndex;
+uint8_t pathListSize;
+uint8_t pathListIndex;
 
 
-u08 updatePath( void );
-inline u08 uniformCostSearch( u08 startNode, u08 goalNode /*, SEARCH_NODE searchSpace[]*/ );
-struct PathList * addNodeByCost(struct PathList *head, u08 newNodeNum /*, SEARCH_NODE searchSpace[]*/ );
-inline void recostructPath( u08 startNode, u08 goalNode /*, SEARCH_NODE searchSpace[]*/ );
-u08 updatePathTo( u08 nodeNum );
+uint8_t updatePath( void );
+inline uint8_t uniformCostSearch( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
+struct PathList * addNodeByCost(struct PathList *head, uint8_t newNodeNum /*, SEARCH_NODE searchSpace[]*/ );
+inline void recostructPath( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
+uint8_t updatePathTo( uint8_t nodeNum );
 
 
 #endif  // #ifndef

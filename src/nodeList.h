@@ -19,7 +19,8 @@
 #define NODELIST_H
 
 #include "caddy.h"
-
+#include <stdint.h>
+#include <stdbool.h>
 
 #define NUM_NODES       43        // number of nodes in arena
 
@@ -48,18 +49,18 @@
 
 typedef struct nodeStruct
 {
-    u08 numAdjNodes;                  // number of nodes adjacent to this node
-    u08 adjNodes[MAX_ADJ_NODES];      // node numbers of adjacent nodes
-    u08 adjCosts[MAX_ADJ_NODES];      // distances to adjacent nodes (6 inches increments)
-    s08 adjHeadings[MAX_ADJ_NODES];   // directions towards adjacent nodes (brads)
+    uint8_t numAdjNodes;                  // number of nodes adjacent to this node
+    uint8_t adjNodes[MAX_ADJ_NODES];      // node numbers of adjacent nodes
+    uint8_t adjCosts[MAX_ADJ_NODES];      // distances to adjacent nodes (6 inches increments)
+    int8_t adjHeadings[MAX_ADJ_NODES];   // directions towards adjacent nodes (brads)
 } NODE;
 
 
-inline BOOL isJunction( u08 nodeNum );
-u08 getCostToNode(NODE *node, u08 nodeNum);
-u08 getNodeAtHeading(NODE *node, s08 heading);
-inline BOOL isBallNode( u08 nodeNum );
-void getNode( u08 nodeNum, NODE *node );
+inline bool isJunction( uint8_t nodeNum );
+uint8_t getCostToNode(NODE *node, uint8_t nodeNum);
+uint8_t getNodeAtHeading(NODE *node, int8_t heading);
+inline bool isBallNode( uint8_t nodeNum );
+void getNode( uint8_t nodeNum, NODE *node );
 
 
 #endif  // #ifndef

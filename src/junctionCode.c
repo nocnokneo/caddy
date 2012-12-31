@@ -22,22 +22,23 @@
  */
 
 #include "junctionCode.h"
-
+#include <stdint.h>
+#include <stdbool.h>
 
 // initialized in initBotGlobals
-BOOL checkedList[] = { FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
-                       FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
-                       FALSE, FALSE, FALSE, FALSE, FALSE, FALSE,
-                       FALSE, FALSE, FALSE };
+bool checkedList[] = { false, false, false, false, false, false,
+                       false, false, false, false, false, false,
+                       false, false, false, false, false, false,
+                       false, false, false };
 // initialized in initBotGlobals
-u08 goalList[NUM_GOALS];
+uint8_t goalList[NUM_GOALS];
 
 /*
  * Searches for ground balls, picks-up bonous balls, and computes best path.
  */
 void junctionCode(void)
 {
-    BOOL foundBall = FALSE;
+    bool foundBall = false;
 
     switch (botNode)
     {
@@ -77,10 +78,10 @@ void junctionCode(void)
         // clear checked list, if last ball found
         if (numKnownGoals == NUM_GOALS)
         {
-            u08 i;
+            uint8_t i;
             for (i = 0; i < NUM_BALL_NODES + 1; i++)
             {
-                checkedList[i] = TRUE;
+                checkedList[i] = true;
             }
         }
         updatePath();
@@ -92,21 +93,21 @@ void junctionCode(void)
 /*
  * Returns true if a ball is found and the goal list is updated
  */
-BOOL standardBallSearch( void )
+bool standardBallSearch( void )
 {
     NODE curNode;
     NODE nextNode;
-    u08 nextNodeNum;
-    s08 lookDir = -1;                   // look left first
-    s08 hallHeading = 0;
-    u08 ballDist = 0;
-    u08 uncheckedBalls[3][2];
-    u08 numUncheckedBalls = 0;
-    BOOL foundBall = FALSE;
-    u08 i;
+    uint8_t nextNodeNum;
+    int8_t lookDir = -1;                   // look left first
+    int8_t hallHeading = 0;
+    uint8_t ballDist = 0;
+    uint8_t uncheckedBalls[3][2];
+    uint8_t numUncheckedBalls = 0;
+    bool foundBall = false;
+    uint8_t i;
 
-    BOOL stopped = FALSE;
-    inSeekPosition = FALSE;
+    bool stopped = false;
+    inSeekPosition = false;
 
     // Check for balls in two directions (left/right)
     for (i = 0; i < 2; i++)
@@ -138,7 +139,7 @@ BOOL standardBallSearch( void )
                     uncheckedBalls[numUncheckedBalls][BALL_DIST] = ballDist;
                     uncheckedBalls[numUncheckedBalls][BALL_NODE_NUM] =
                                     nextNodeNum;
-                    checkedList[nextNodeNum] = TRUE;
+                    checkedList[nextNodeNum] = true;
                     numUncheckedBalls++;
                 }
             }
@@ -147,7 +148,7 @@ BOOL standardBallSearch( void )
 
         if (numUncheckedBalls > 0)
         {
-            stopped = TRUE;
+            stopped = true;
             trackColorInit(lookDir);
 
             if (lookDir == -1)
@@ -190,9 +191,9 @@ BOOL standardBallSearch( void )
 }
 
 
-inline BOOL nodeCode0(void)
+inline bool nodeCode0(void)
 {
-   BOOL foundBall = FALSE;
+   bool foundBall = false;
 
    // two virtual windows
 
@@ -200,16 +201,16 @@ inline BOOL nodeCode0(void)
 }
 
 
-inline BOOL nodeCode22()
+inline bool nodeCode22()
 {
-   BOOL foundBall = FALSE;    // Return value
-   u08 scanHeight = 4;
-   u08 y = 254;
-   u08 scanLimit = 1;
-   u08 foundBallNum = 0;
+   bool foundBall = false;    // Return value
+   uint8_t scanHeight = 4;
+   uint8_t y = 254;
+   uint8_t scanLimit = 1;
+   uint8_t foundBallNum = 0;
 
    if (botHeading != 0)
-      return FALSE;
+      return false;
 
    trackColorInit(LOOK_UP);
 
@@ -220,7 +221,7 @@ inline BOOL nodeCode22()
       setVW(1, y-scanHeight, 174, y);
       if ( seeBall() )
       {
-         foundBall = TRUE;
+         foundBall = true;
 
          // find ball number of ball at this x
          if( y > 148 )
@@ -263,9 +264,9 @@ inline BOOL nodeCode22()
 }
 
 
-inline BOOL diagNodeCode(void)
+inline bool diagNodeCode(void)
 {
-   BOOL foundBall = FALSE;
+   bool foundBall = false;
 
    if( botHeading == N_WEST && (!checkedList[13] || !checkedList[17]) )
    {
@@ -287,9 +288,9 @@ inline BOOL diagNodeCode(void)
    return foundBall;
 }
 
-inline BOOL nodeCode37( void )
+inline bool nodeCode37( void )
 {
-   BOOL foundBall = FALSE;
+   bool foundBall = false;
 
    // pass special values into cameraSeekLeft
 

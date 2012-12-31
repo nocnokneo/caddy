@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef unsigned char u08;
+typedef unsigned char uint8_t;
 typedef unsigned char BOOL;
 
 #define TRUE (0xff)
 #define FALSE (0x00)
 
-BOOL next_permutation(u08 *first, u08 *last);
-void iter_swap(u08 *a, u08 *b);
-void reverse(u08 *a, u08 *b);
+BOOL next_permutation(uint8_t *first, uint8_t *last);
+void iter_swap(uint8_t *a, uint8_t *b);
+void reverse(uint8_t *a, uint8_t *b);
 
 
-int main(int argc, u08 *argv[])
+int main(int argc, uint8_t *argv[])
 {  
-  u08 i = 0;
+  uint8_t i = 0;
   int count = 0;
-  const u08 MAX_N = 6;
-  u08 test[MAX_N+2];         // appending '.' and '\0' to end of test[]
+  const uint8_t MAX_N = 6;
+  uint8_t test[MAX_N+2];         // appending '.' and '\0' to end of test[]
   
   // initialize test[] for fixed n (used by some of the tests below)
-  u08 n = 3;
+  uint8_t n = 3;
   for(i=0; i<=n; i++)
   {
     test[i] = i + 0x30;      // convert to ascii
@@ -90,11 +90,11 @@ int main(int argc, u08 *argv[])
 
 
 // last points one past the last element in test
-BOOL next_permutation(u08 *first, u08 *last)
+BOOL next_permutation(uint8_t *first, uint8_t *last)
 {
   //printf("In next_perm(%c,%c)\n",*first,*last);
 
-  u08 *i = last - 1;;
+  uint8_t *i = last - 1;;
   if( first == last )    // check for n=0
     return FALSE;
   if( first == i )       // check for n=1
@@ -102,10 +102,10 @@ BOOL next_permutation(u08 *first, u08 *last)
 
   for(;;)
   {
-    u08 *ii = i--;
+    uint8_t *ii = i--;
     if (*i < *ii)
 	{
-      u08 *j = last;
+      uint8_t *j = last;
       while( !(*i < *--j) ) ;
 	  
 	  //printf("  Swapping %c,%c:\n", *i, *j);
@@ -130,18 +130,18 @@ BOOL next_permutation(u08 *first, u08 *last)
 }
 
 // b points to element to swap with a.
-void iter_swap(u08 *a, u08 *b)
+void iter_swap(uint8_t *a, uint8_t *b)
 {
   //printf("    In swp(%c,%c)\n",*a,*b);
 
-  u08 tmp;
+  uint8_t tmp;
   tmp = *a;
   *a = *b;
   *b = tmp;
 }
 
 // b points one element beyond the last element be reversing
-void reverse(u08 *a, u08 *b)
+void reverse(uint8_t *a, uint8_t *b)
 {
   //printf("    In rev(%c,%c)\n",*a,*b);
 

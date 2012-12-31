@@ -19,9 +19,11 @@
 #define PERMS_H
 
 #include "caddy.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-BOOL next_permutation(u08 *first, u08 *last);
-void iter_swap(u08 *a, u08 *b);
-void iter_reverse(u08 *a, u08 *b);
+bool next_permutation(uint8_t *first, uint8_t *last);
+void iter_swap(uint8_t *a, uint8_t *b);
+void iter_reverse(uint8_t *a, uint8_t *b);
 
 #endif // #ifndef

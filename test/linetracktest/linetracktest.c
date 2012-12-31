@@ -5,9 +5,9 @@
 
 #include "linetracktest.h"
 
-void myDelay(u16 outerDelay)
+void myDelay(uint16_t outerDelay)
 {
-   u16 i, j;
+   uint16_t i, j;
    for(i=0; i<outerDelay; i++)
    {
       for(j=0; j<MAX_U16; j++)
@@ -18,19 +18,19 @@ void myDelay(u16 outerDelay)
 }
 
 
-void setServo(u08 servoNum, u08 servoPos)
+void setServo(uint8_t servoNum, uint8_t servoPos)
 {
    rprintf("sv %d %d\r", servoNum, servoPos);
 }
 
 
-void disableServo(u08 servoNum)
+void disableServo(uint8_t servoNum)
 {
    rprintf("so %d 0\r", servoNum);
 }
 
 
-void setPose(u08 pose)
+void setPose(uint8_t pose)
 {
    switch (pose)
    {
@@ -107,9 +107,9 @@ void grabBonusBall()
 }
 
 
-void packetRcv(u08 c)
+void packetRcv(uint8_t c)
 {
-   static u08 mode = NEW_PACKET;
+   static uint8_t mode = NEW_PACKET;
    
    switch (mode)
    {
@@ -152,9 +152,9 @@ void packetRcv(u08 c)
 }
 
 /*
-void analyzeTopStrip(u08 stipStats[], u08 numRows) 
+void analyzeTopStrip(uint8_t stipStats[], uint8_t numRows) 
 {
-   u08 mean = getMean(stipStats, numRows);
+   uint8_t mean = getMean(stipStats, numRows);
    if (mean == 0) 
    {
       topLost = TRUE;
@@ -167,9 +167,9 @@ void analyzeTopStrip(u08 stipStats[], u08 numRows)
 }
 
 
-void analyzeBottomStrip(u08 stipStats[], u08 numRows) 
+void analyzeBottomStrip(uint8_t stipStats[], uint8_t numRows) 
 {
-   u08 mean = getMean(stipStats, numRows);
+   uint8_t mean = getMean(stipStats, numRows);
    if (mean == 0) 
    {
       bottomLost = TRUE;
@@ -182,9 +182,9 @@ void analyzeBottomStrip(u08 stipStats[], u08 numRows)
 }
 */
 
-BOOL isGoodScan(u08 y)
+BOOL isGoodScan(uint8_t y)
 {
-   u08 i = 0;
+   uint8_t i = 0;
    
    for (i = y; i < y + SCAN_WIDTH; i++)
    {
@@ -201,14 +201,14 @@ BOOL isGoodScan(u08 y)
 
 void analyzeStatsBuf(void) 
 {
-   u08 i = 0;
-   u16 sum = 0;
-   u08 y = 0;
+   uint8_t i = 0;
+   uint16_t sum = 0;
+   uint8_t y = 0;
    
-   u08 lineY1;
-   u08 lineX1;
-   u08 lineY2;
-   u08 lineX2;
+   uint8_t lineY1;
+   uint8_t lineX1;
+   uint8_t lineY2;
+   uint8_t lineX2;
    double m;
    
    // get line 1's X and Y values
@@ -239,12 +239,12 @@ void analyzeStatsBuf(void)
    lineX2 = sum / SCAN_WIDTH;
    
    m = (double)(lineX2 - lineX1) / (double)(lineY2 - lineY1);
-   lineSlope = (s16)(SLOPE_COEF * m);
+   lineSlope = (int16_t)(SLOPE_COEF * m);
    lineOffset = LINE_X_CENTER - (m * (LINE_Y3 - lineY1) + lineX1);
    
    //dx = lineX2 - lineX1;
    //dy = lineY2 - lineY1;
-   //lineSlope = (s16) ((SLOPE_COEF * (s16)dx) / dy );
+   //lineSlope = (int16_t) ((SLOPE_COEF * (int16_t)dx) / dy );
    //lineOffset = LINE_X_CENTER - ( (dx * (LINE_Y3 - lineY1))/dy + lineX1 );
    
    //lcdWriteStr("y1:", 0, 0);
@@ -266,11 +266,11 @@ void analyzeStatsBuf(void)
    statsBufProcessed = TRUE;
 }
 
-u08 getMean(u08 stripStats[], u08 numRows)
+uint8_t getMean(uint8_t stripStats[], uint8_t numRows)
 {
-   u08 i = 0;
-   u16 sum = 0;
-   u08 count = 0;
+   uint8_t i = 0;
+   uint16_t sum = 0;
+   uint8_t count = 0;
    for(i = 0; i < numRows; i++)
    {
       if (stripStats[i] != 0)
@@ -287,9 +287,9 @@ u08 getMean(u08 stripStats[], u08 numRows)
 }   
 
 
-void lineMode2Rcv(u08 c) 
+void lineMode2Rcv(uint8_t c) 
 {
-   static u16 byteNum = 0;
+   static uint16_t byteNum = 0;
    
    if (c == 0xfd) 
    {
@@ -431,14 +431,14 @@ void init(void)
 }
 
 
-void setLeftPWM(u08 pwm)
+void setLeftPWM(uint8_t pwm)
 {
    leftPWM = pwm;
    timer1PWMBSet(pwm);
 }
 
 
-void setRightPWM(u08 pwm)
+void setRightPWM(uint8_t pwm)
 {
    rightPWM = pwm;
    timer1PWMASet(pwm);
@@ -446,7 +446,7 @@ void setRightPWM(u08 pwm)
 
 void trackLine()
 {
-   s08 correction = 0;
+   int8_t correction = 0;
    
    forward();
    

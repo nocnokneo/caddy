@@ -20,11 +20,12 @@
  */
 
 #include "exercises.h"
+#include <stdbool.h>
 
 void bbPickupTest(void)
 {
-    BOOL justTurned = TRUE;
-    BOOL firstRun = TRUE;
+    bool justTurned = true;
+    bool firstRun = true;
 
     while (1)
     {
@@ -43,7 +44,7 @@ void bbPickupTest(void)
         pathList[2] = 24;
         pathList[3] = 3;
         pathList[4] = 23;
-        justTurned = TRUE;
+        justTurned = true;
         moveToJunction(1, justTurned);
         justTurned = positionBot();
         moveToJunction(1, justTurned);
@@ -64,7 +65,7 @@ void bbPickupTest(void)
         pathList[2] = 30;
         pathList[3] = 10;
         pathList[4] = 29;
-        justTurned = TRUE;
+        justTurned = true;
         moveToJunction(1, justTurned);
         justTurned = positionBot();
         moveToJunction(1, justTurned);
@@ -88,7 +89,7 @@ void bbPickupTest(void)
         pathList[0] = 31;
         pathList[1] = 30;
         pathList[2] = 31;
-        justTurned = TRUE;
+        justTurned = true;
         moveToJunction(1, justTurned);
         justTurned = positionBot();
         moveToJunction(1, justTurned);
@@ -101,7 +102,7 @@ void bbPickupTest(void)
 
 void zigZagTest(void)
 {
-    BOOL justTurned = TRUE;
+    bool justTurned = true;
 
 #if DEBUGGING
     lcdWriteStr("botNode = 18    ", 0, 0);
@@ -122,7 +123,7 @@ void zigZagTest(void)
     pathList[7] = 18;
     pathList[8] = 40;
 
-    justTurned = TRUE;
+    justTurned = true;
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -163,7 +164,7 @@ void zigZagTest(void)
     pathList[7] = 17;
     pathList[8] = 34;
 
-    justTurned = TRUE;
+    justTurned = true;
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -204,7 +205,7 @@ void zigZagTest(void)
     pathList[7] = 18;
     pathList[8] = 40;
 
-    justTurned = TRUE;
+    justTurned = true;
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -221,7 +222,7 @@ void zigZagTest(void)
 
 void gbPickupTest(void)
 {
-    BOOL justTurned = TRUE;
+    bool justTurned = true;
 
     while (1)
     {
@@ -249,12 +250,12 @@ void gbPickupTest(void)
         //removeFromGoalList(SENSOR_NODE);
         addToGoalList(11);
 
-        justTurned = TRUE;                // run test
+        justTurned = true;                // run test
         moveToJunction(1, justTurned);
         justTurned = positionBot();
-        moveToJunction(1, FALSE);
+        moveToJunction(1, false);
         justTurned = positionBot();
-        moveToJunction(1, FALSE);
+        moveToJunction(1, false);
         brake(BOTH);
 
 #if DEBUGGING
@@ -281,7 +282,7 @@ void gbPickupTest(void)
         addToGoalList(11);
         addToGoalList(12);
 
-        justTurned = TRUE;                // run test
+        justTurned = true;                // run test
         moveToJunction(1, justTurned);
         justTurned = positionBot();
         moveToJunction(1, justTurned);
@@ -309,7 +310,7 @@ void gbPickupTest(void)
         removeFromGoalList(SENSOR_NODE);
         addToGoalList(5);
 
-        justTurned = TRUE;                // run test
+        justTurned = true;                // run test
         moveToJunction(1, justTurned);
         justTurned = positionBot();
         moveToJunction(1, justTurned);
@@ -322,7 +323,7 @@ void gbPickupTest(void)
 
 void diagTest(void)
 {
-    BOOL justTurned = TRUE;
+    bool justTurned = true;
 
 #if DEBUGGING
     lcdWriteStr("botNode = 10    ", 0, 0);
@@ -354,7 +355,7 @@ void diagTest(void)
     //addToGoalList(14);
     //addToGoalList(13);
 
-    justTurned = TRUE;                // run test
+    justTurned = true;                // run test
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -402,7 +403,7 @@ void diagTest(void)
     //addToGoalList(15);
     //addToGoalList(17);
 
-    justTurned = TRUE;                // run test
+    justTurned = true;                // run test
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -423,7 +424,7 @@ void diagTest(void)
 
 void node31Test(void)
 {
-    BOOL justTurned = TRUE;
+    bool justTurned = true;
 
 #if DEBUGGING
     lcdWriteStr("botNode = 7     ", 0, 0);   //------------------------------
@@ -465,7 +466,7 @@ void node31Test(void)
     //addToGoalList(15);
 
     /* Initial diag ball test
-     justTurned = TRUE;                // run test
+     justTurned = true;                // run test
      moveToJunction(1, justTurned);
      justTurned = positionBot();
      moveToJunction(1, justTurned);
@@ -478,7 +479,7 @@ void node31Test(void)
      brake(BOTH);
      */
 
-    justTurned = TRUE;                // run test
+    justTurned = true;                // run test
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -512,7 +513,7 @@ void node31Test(void)
 
     initGoalList();                   // tell bot where balls are
 
-    justTurned = TRUE;                // run test
+    justTurned = true;                // run test
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);
@@ -554,7 +555,7 @@ void node31Test(void)
 
     initGoalList();                   // tell bot where balls are
 
-    justTurned = TRUE;                // run test
+    justTurned = true;                // run test
     moveToJunction(1, justTurned);
     justTurned = positionBot();
     moveToJunction(1, justTurned);

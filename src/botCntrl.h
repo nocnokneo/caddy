@@ -19,7 +19,8 @@
 #define BOTCNTRL_H
 
 #include "caddy.h"
-
+#include <stdint.h>
+#include <stdbool.h>
 
 #define BEAM_IGNORE_COUNT      6
 #define CORRAL_COUNT           3
@@ -27,21 +28,21 @@
 
 
 // --- GLOBALS --- //
-extern u08 botNode;
-extern s08 botHeading;
-extern u08 numUnreachedGoals;
-BOOL liftDown;
-u08 upComingBallNum;
+extern uint8_t botNode;
+extern int8_t botHeading;
+extern uint8_t numUnreachedGoals;
+bool liftDown;
+uint8_t upComingBallNum;
 
 // --- Prototypes --- //
 inline void runBot( void );
 inline void initBotGlobals(void);
-inline BOOL positionBot(void);
-inline s08 getNextHeading(u08 nextBotNode);
-inline void moveToJunction( u08 numJunctions, BOOL justTurned );
+inline bool positionBot(void);
+inline int8_t getNextHeading(uint8_t nextBotNode);
+inline void moveToJunction( uint8_t numJunctions, bool justTurned );
 void bbSequence( void );
 void nestSequence( void );
-inline void bbPositioning( s08 bbHeading, s08 nextHeading );
+inline void bbPositioning( int8_t bbHeading, int8_t nextHeading );
 
 
 #endif  // #ifndef

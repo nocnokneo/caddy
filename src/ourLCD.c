@@ -15,6 +15,7 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ourLCD.h"
+#include <stdint.h>
 
 //Critical Note: you must call timerInit(); before calling lcdInit();
 void lcdInit(void)
@@ -56,14 +57,14 @@ void lcdInit(void)
 }
 
 // Used internally
-void lcdWriteInit(u08 data)
+void lcdWriteInit(uint8_t data)
 {
     cbi(LCD_PORT, LCD_RS);
     lcdControlWrite(data);
 }
 
 // Used internally
-void lcdControlWrite(u08 data)
+void lcdControlWrite(uint8_t data)
 {
     // write the control byte to the display controller
     cbi(LCD_PORT, LCD_RS); // set RS to "control"
@@ -80,7 +81,7 @@ void lcdControlWrite(u08 data)
     delay(40);
 }
 
-void ourLcdControlWrite(u08 data)
+void ourLcdControlWrite(uint8_t data)
 {
     // write the control byte to the display controller
     //lcdBusyWait();							// wait until LCD not busy
@@ -108,14 +109,14 @@ void ourLcdControlWrite(u08 data)
 }
 
 // Sets the cursor position, 0 = first character
-void lcdSetCursor(u08 data)
+void lcdSetCursor(uint8_t data)
 {
     cbi(LCD_PORT, LCD_RS);
     lcdWrite(data | 0x80);
 }
 
 // Prints 1 character to the LCD
-void lcdDataWrite(u08 data)
+void lcdDataWrite(uint8_t data)
 {
     sbi(LCD_PORT, LCD_RS);
     // set RS to "data"
@@ -123,7 +124,7 @@ void lcdDataWrite(u08 data)
 }
 
 // Used internally
-void lcdWrite(u08 data)
+void lcdWrite(uint8_t data)
 {
     // 4 bit write
     outb(LCD_DDR, inb(LCD_DDR)|0xF0);
@@ -147,10 +148,10 @@ void lcdWrite(u08 data)
     delay(40);
 }
 
-// Prints a u08 to the LCD as 2 hexadecimal characters
-void lcdPrintHex(u08 data, u08 row, u08 col)
+// Prints a uint8_t to the LCD as 2 hexadecimal characters
+void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)
 {
-    u08 temp;
+    uint8_t temp;
 
     switch (row)
     {
@@ -177,12 +178,12 @@ void lcdPrintHex(u08 data, u08 row, u08 col)
     lcdDataWrite(temp);
 }
 
-//Prints a u08 to the LCD as 2-3 characters
-void lcdPrintDecU08(u08 data, u08 row, u08 col)
+//Prints a uint8_t to the LCD as 2-3 characters
+void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col)
 {
-    u08 ones = 0;
-    u08 tens = 0;
-    u08 hundreds = 0;
+    uint8_t ones = 0;
+    uint8_t tens = 0;
+    uint8_t hundreds = 0;
 
     switch (row)
     {
@@ -206,12 +207,12 @@ void lcdPrintDecU08(u08 data, u08 row, u08 col)
     lcdDataWrite(ones + 0x30);
 }
 
-//Prints a s08 to the LCD with 3-4 characters (possible negative sign)
-void lcdPrintDecS08(s08 data, u08 row, u08 col)
+//Prints a int8_t to the LCD with 3-4 characters (possible negative sign)
+void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
 {
-    u08 ones = 0;
-    u08 tens = 0;
-    u08 hundreds = 0;
+    uint8_t ones = 0;
+    uint8_t tens = 0;
+    uint8_t hundreds = 0;
 
     switch (row)
     {
@@ -240,9 +241,9 @@ void lcdPrintDecS08(s08 data, u08 row, u08 col)
 /* prints a string to the LCD. Stops when a null (\0) is reached or
  16 chars have been printed.
  */
-void lcdWriteStr(u08 str[], u08 row, u08 col)
+void lcdWriteStr(uint8_t str[], uint8_t row, uint8_t col)
 {
-    u08 i;
+    uint8_t i;
 
     // make sure we don't have a null pointer
     if (!str)

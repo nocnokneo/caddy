@@ -54,7 +54,7 @@ volatile EncoderStateType EncoderState[NUM_ENCODERS];
 //		Run this init routine once before using any other encoder functions.
 inline void encoderInit(void)
 {
-    u08 i;
+    uint8_t i;
 
     // initialize/clear encoder data
     for (i = 0; i < NUM_ENCODERS; i++)
@@ -120,7 +120,7 @@ inline void encoderInit(void)
 }
 
 // encoderGetPosition() reads the current position of the encoder
-u16 encoderGetPosition(u08 encoderNum)
+uint16_t encoderGetPosition(uint8_t encoderNum)
 {
     // sanity check
     if (encoderNum < NUM_ENCODERS)
@@ -130,7 +130,7 @@ u16 encoderGetPosition(u08 encoderNum)
 }
 
 // encoderSetPosition() sets the current position of the encoder
-void encoderSetPosition(u08 encoderNum, u16 position)
+void encoderSetPosition(uint8_t encoderNum, uint16_t position)
 {
     // sanity check
     if (encoderNum < NUM_ENCODERS)

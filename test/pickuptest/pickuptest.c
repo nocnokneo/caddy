@@ -25,13 +25,13 @@
 #include "motorCntrl.h"
 #include "ourlcd.h"
 
-volatile u08 linePosition;
-u08 gotAck;
-u08 gotNck;
+volatile uint8_t linePosition;
+uint8_t gotAck;
+uint8_t gotNck;
 
-void myDelay(u16 outerDelay)
+void myDelay(uint16_t outerDelay)
 {
-   u16 i, j;
+   uint16_t i, j;
    for(i=0; i<outerDelay; i++)
    {
       for(j=0; j<MAX_U16; j++)
@@ -42,19 +42,19 @@ void myDelay(u16 outerDelay)
 }
 
 
-void setServo(u08 servoNum, u08 servoPos)
+void setServo(uint8_t servoNum, uint8_t servoPos)
 {
    rprintf("sv %d %d\r", servoNum, servoPos);
 }
 
 
-void disableServo(u08 servoNum)
+void disableServo(uint8_t servoNum)
 {
    rprintf("so %d 0\r", servoNum);
 }
 
 
-void setPose(u08 pose)
+void setPose(uint8_t pose)
 {
    switch (pose)
    {

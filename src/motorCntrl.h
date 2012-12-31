@@ -23,7 +23,7 @@
 //   3/21/05 created by Mike, based on motorTest.c
 //       added #define's
 //       added support for speed, motor selection
-//       all speeds declared as 8 bit, u08
+//       all speeds declared as 8 bit, uint8_t
 //   3/23/05 modified by Mike for use with the caddy
 //      not sure which pwm controls which though..
 //      so could be wrong
@@ -50,7 +50,7 @@
 #define MOTORCNTRL_H
 
 #include "caddy.h"
-
+#include <stdint.h>
 
 //Motor selection constants
 #define LEFT_MOTOR  0
@@ -76,24 +76,24 @@
 //#define TRACTOR_OVERSHOOT_DELAY     5000
 #define TANK_OVERSHOOT_DELAY        16000
 
-void moveStraight(s16 ticks, u08 speed);
-void tractorTurn(u08 speed, s08 brads);
-void tankTurn(u08 speed, s08 brads);
+void moveStraight(int16_t ticks, uint8_t speed);
+void tractorTurn(uint8_t speed, int8_t brads);
+void tankTurn(uint8_t speed, int8_t brads);
 void enableMotors( void );
 void disableMotors( void );
 
 //select left, right, or both motors
 //sets selected motor(s) to forward at speed
-void forward(u08 motorSelect, u08 speed);
+void forward(uint8_t motorSelect, uint8_t speed);
 //select left, right, or both motors
 //sets selected motor(s) to reverse at speed
-void reverse(u08 motorSelect, u08 speed);
+void reverse(uint8_t motorSelect, uint8_t speed);
 //disables motor controller
 void neutral(void);
 //brake selected motor
 //full brake assumed
-void brake(u08 motorSelect);
-void tickWheels(s16 leftTicks, s16 rightTicks, u08 speed);
+void brake(uint8_t motorSelect);
+void tickWheels(int16_t leftTicks, int16_t rightTicks, uint8_t speed);
 void motor_pin_test(void);
 
 

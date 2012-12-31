@@ -7,12 +7,12 @@
 
 struct encData {
   s32 position;
-  u08 prevState;
+  uint8_t prevState;
 }
 
 // Global variables
 volatile struct encData encoders[2];
-static u08 encTable[][] = { {0,  1, -1,  0},
+static uint8_t encTable[][] = { {0,  1, -1,  0},
 			    {-1, 0,  0,  1},
 			    {1,  0,  0, -1},
 			    {0, -1,  1,  0} };
@@ -23,7 +23,7 @@ static u08 encTable[][] = { {0,  1, -1,  0},
  */
 SIGNAL(ENC0_SIGNAL) 
 {
-  u08 newState = ((inb(ENC0_PHASEAB_PORTIN)>>ENC0_PHASEB_PIN) & 0x03);
+  uint8_t newState = ((inb(ENC0_PHASEAB_PORTIN)>>ENC0_PHASEB_PIN) & 0x03);
 
   encoders[0].position += encTable[encoders[0].prevState][newState];
   encoders[0].prevState = newState;

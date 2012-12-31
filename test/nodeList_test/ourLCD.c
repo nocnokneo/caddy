@@ -40,14 +40,14 @@ void lcdInit(void)
 }
 
 
-void lcdWriteInit(u08 data)
+void lcdWriteInit(uint8_t data)
 {
 	cbi(LCD_PORT, LCD_RS);
 	lcdControlWrite(data);
 }
 
 
-void lcdControlWrite(u08 data)
+void lcdControlWrite(uint8_t data)
 {
    // write the control byte to the display controller
 	//lcdBusyWait();							// wait until LCD not busy
@@ -63,7 +63,7 @@ void lcdControlWrite(u08 data)
 }
 
 
-void ourLcdControlWrite(u08 data) 
+void ourLcdControlWrite(uint8_t data) 
 {
 // write the control byte to the display controller
 	//lcdBusyWait();							// wait until LCD not busy
@@ -89,21 +89,21 @@ void ourLcdControlWrite(u08 data)
 }
 
 
-void lcdSetCursor(u08 data)
+void lcdSetCursor(uint8_t data)
 {
 	cbi(LCD_PORT, LCD_RS);
 	lcdWrite(data | 0x80);
 }
 
 
-void lcdDataWrite(u08 data)
+void lcdDataWrite(uint8_t data)
 {
 	sbi(LCD_PORT, LCD_RS);		// set RS to "data"
 	lcdWrite(data);
 }
 
 
-void lcdWrite(u08 data)
+void lcdWrite(uint8_t data)
 {
 	// 4 bit write
 	outb(LCD_DDR, inb(LCD_DDR)|0xF0);	// set data I/O lines to output (4bit)
@@ -121,9 +121,9 @@ void lcdWrite(u08 data)
 }
 
 
-void lcdPrintHex(u08 data, u08 row, u08 col)
+void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)
 {
-	u08 temp;
+	uint8_t temp;
    
    switch (row) 
    {
@@ -151,11 +151,11 @@ void lcdPrintHex(u08 data, u08 row, u08 col)
 }
 
 
-void lcdPrintDecU08(u08 data, u08 row, u08 col)
+void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col)
 {
-	u08 ones = 0;
-   u08 tens = 0;
-   u08 hundreds = 0;
+	uint8_t ones = 0;
+   uint8_t tens = 0;
+   uint8_t hundreds = 0;
    
    switch (row) 
    {
@@ -180,11 +180,11 @@ void lcdPrintDecU08(u08 data, u08 row, u08 col)
 }
 
 
-void lcdPrintDecS08(s08 data, u08 row, u08 col)
+void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
 {
-	u08 ones = 0;
-   u08 tens = 0;
-   u08 hundreds = 0;
+	uint8_t ones = 0;
+   uint8_t tens = 0;
+   uint8_t hundreds = 0;
    
    switch (row) 
    {
@@ -214,9 +214,9 @@ void lcdPrintDecS08(s08 data, u08 row, u08 col)
 /* prints a string to the lcd. Stops when a null (\0) is reached or 
    16 chars have been printed.
  */
-void lcdWriteStr(u08 str[], u08 row, u08 col) 
+void lcdWriteStr(uint8_t str[], uint8_t row, uint8_t col) 
 {
-   u08 i;
+   uint8_t i;
 
    // make sure we don't have a null pointer
    if (!str) {

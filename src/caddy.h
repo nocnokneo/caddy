@@ -21,7 +21,7 @@
 
 // Defines ----------------------------------------------------------
 
-#define DEBUGGING TRUE
+#define DEBUGGING 1
 
 #define START_DELAY 5
 

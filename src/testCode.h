@@ -19,6 +19,7 @@
 #define TESTCODE_H
 
 #include "caddy.h"
+#include <stdint.h>
 
 
 // --- CONSTANTS --- //
@@ -41,7 +42,7 @@
 
 // --- PROTOTYPES --- //
 void runTest( void );
-void toggleTestMode( s08 i );
+void toggleTestMode( int8_t i );
 void runFixedPath( void );
 void seekBallTest( void );
 inline void refreshColorStats( void );

@@ -97,6 +97,8 @@
 // include encoder configuration file
 #include "encoderconf.h"
 
+#include <stdint.h>
+
 // constants/macros/typdefs
 
 // defines for processor compatibility
@@ -112,7 +114,7 @@
 //   stores the position and other information from each encoder
 typedef struct struct_EncoderState
 {	
-	u16 position;		///< position
+	uint16_t position;		///< position
 //	s32 velocity;		///< velocity
 } EncoderStateType;
 
@@ -124,9 +126,9 @@ typedef struct struct_EncoderState
 inline void encoderInit(void);
 
 //! encoderGetPosition() reads the current position of the encoder
-u16 encoderGetPosition(u08 encoderNum);
+uint16_t encoderGetPosition(uint8_t encoderNum);
 
 //! encoderSetPosition() sets the current position of the encoder
-void encoderSetPosition(u08 encoderNum, u16 position);
+void encoderSetPosition(uint8_t encoderNum, uint16_t position);
 
 #endif

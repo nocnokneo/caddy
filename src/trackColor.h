@@ -18,6 +18,8 @@
 #define TRACKCOLOR_H
 
 #include "caddy.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 // --- CONSTANTS --- //
 #define LOOK_RIGHT   1
@@ -53,18 +55,18 @@
 #define PAN_SEEK_OFFSET    66
 
 // --- GLOBAL VARIABLES --- //
-volatile BOOL colorStatsProcessed;
-BOOL inSeekPosition;
+volatile bool colorStatsProcessed;
+bool inSeekPosition;
 
 // --- PROTOTYPES --- //
-void trackColorInit(s08 dir);
-u08 getBallY( void );
-BOOL seeBall( void );
-//BOOL cameraSeeksBall( u08 ballDist, s08 dir);
-BOOL cameraSeekLeft( u08 uncheckedBalls[][2], u08 numUncheckedBalls );
-//BOOL cameraSeekLeft( void );
-BOOL cameraSeekRight( u08 uncheckedBalls[][2], u08 numUncheckedBalls );
-u08 distToPix( u08 distance );
+void trackColorInit(int8_t dir);
+uint8_t getBallY( void );
+bool seeBall( void );
+//bool cameraSeeksBall( uint8_t ballDist, int8_t dir);
+bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls );
+//bool cameraSeekLeft( void );
+bool cameraSeekRight( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls );
+uint8_t distToPix( uint8_t distance );
 
 
 #endif  // #ifndef

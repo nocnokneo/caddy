@@ -12,7 +12,7 @@
  */
 void initButtons(void)
 {
-   u08 i;
+   uint8_t i;
    for( i = 0; i < NUM_BUTTONS; i++ )
    {
       isDown[i] = FALSE;
@@ -22,7 +22,7 @@ void initButtons(void)
    }
 }
 
-void waitFor(u08 button)
+void waitFor(uint8_t button)
 {
    debounceButtons();
    while( !justReleased(button) )
@@ -34,7 +34,7 @@ void waitFor(u08 button)
 /*
  * Returns true when confirmed rising edge at last debouncing.
  */
-BOOL justPressed(u08 button)
+BOOL justPressed(uint8_t button)
 {
    return wasEvent[button] && isDown[button];
 }
@@ -43,7 +43,7 @@ BOOL justPressed(u08 button)
 /*
  * Returns true when confirmed falling edge at last debouncing.
  */
-BOOL justReleased(u08 button)
+BOOL justReleased(uint8_t button)
 {
    return wasEvent[button] && !isDown[button];
 }
@@ -53,7 +53,7 @@ BOOL justReleased(u08 button)
  */
 void debounceButtons(void)
 {
-   u08 button;
+   uint8_t button;
    for( button = 0; button < NUM_BUTTONS; button++)
    {
       // count times buttons have been consecutively up/down (upto DEBOUNCE_COUNT).
@@ -100,7 +100,7 @@ void debounceButtons(void)
 /*
  * Returns true when button is currently down (may be bouncing).
  */
-BOOL isPressed(u08 button)
+BOOL isPressed(uint8_t button)
 {
    BOOL pressed;
    

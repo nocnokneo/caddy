@@ -17,11 +17,13 @@
 // linkedList.h
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
+
 #include "caddy.h"
+#include <stdint.h>
 
 typedef struct PathList
 {
-	u08 nodeNum;
+	uint8_t nodeNum;
 	struct PathList * nextNode;
 } PATH_LIST ;
 
