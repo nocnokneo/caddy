@@ -16,6 +16,7 @@
  */
 #include "tetherUI.h"
 #include "buttons.h"
+#include "eeProm.h"
 #include <avr/io.h>
 #include <stdint.h>
 
@@ -62,11 +63,11 @@ inline void runTetherUI(void)
         updateTweaks();
         printValues();
 
-        if (BOTH_RIGHT_BUTTONS_PRESSED)
+        if (bothRightButtonsPressed())
         {
             toggleTweakMode(1);
         }
-        if (BOTH_LEFT_BUTTONS_PRESSED)
+        if (bothLeftButtonsPressed())
         {
             toggleTweakMode(-1);
         }

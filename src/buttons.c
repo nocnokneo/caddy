@@ -21,21 +21,20 @@
  */
 
 #include "buttons.h"
+#include "avrlibdefs.h"
+#include <stdint.h>
+#include <stdbool.h>
 
-/*
- * Sets isDown[] and wasEvent[] to all false.  Assumes timer is already initialized.
- */
-void initButtons(void)
-{
-    uint8_t i;
-    for (i = 0; i < NUM_BUTTONS; i++)
-    {
-        isDown[i] = false;
-        wasEvent[i] = false;
-        upCount[i] = DEBOUNCE_COUNT;
-        downCount[i] = 0;
-    }
-}
+#define DEBOUNCE_COUNT   3   // should be equal to 2 or greater
+
+static bool isDown[NUM_BUTTONS]   = { false, false, false,
+                                      false, false, false };
+static bool wasEvent[NUM_BUTTONS] = { false, false, false,
+                                      false, false, false };
+static uint8_t upCount[NUM_BUTTONS] = { DEBOUNCE_COUNT, DEBOUNCE_COUNT,
+                                        DEBOUNCE_COUNT, DEBOUNCE_COUNT,
+                                        DEBOUNCE_COUNT, DEBOUNCE_COUNT };
+static uint8_t downCount[NUM_BUTTONS] = { 0, 0, 0, 0, 0, 0 };
 
 void waitFor(uint8_t button)
 {
@@ -114,33 +113,39 @@ void debounceButtons(void)
  */
 inline bool isPressed(uint8_t button)
 {
-    bool pressed;
-
     switch (button)
     {
     case RED_BUTTON:
-        pressed = RED_BUTTON_DOWN;
-        break;
+        return RED_BUTTON_DOWN;
     case L_UP_BUTTON:
-        pressed = L_UP_BUTTON_DOWN;
-        break;
+        return L_UP_BUTTON_DOWN;
     case L_DOWN_BUTTON:
-        pressed = L_DOWN_BUTTON_DOWN;
-        break;
+        return L_DOWN_BUTTON_DOWN;
     case R_UP_BUTTON:
-        pressed = R_UP_BUTTON_DOWN;
-        break;
+        return R_UP_BUTTON_DOWN;
     case R_DOWN_BUTTON:
-        pressed = R_DOWN_BUTTON_DOWN;
-        break;
+        return R_DOWN_BUTTON_DOWN;
     case NEST_BUTTON:
-        pressed = NEST_BUTTON_DOWN;
-        break;
+        return NEST_BUTTON_DOWN;
     default:
-        pressed = false;
         break;
     }
 
-    return pressed;
+    return false;
 }
 
+inline bool bothRightButtonsPressed(void)
+{
+    return (justPressed(R_UP_BUTTON) && justPressed(R_DOWN_BUTTON)) ||
+           (justPressed(R_UP_BUTTON) && isDown[R_DOWN_BUTTON])      ||
+           (justPressed(R_DOWN_BUTTON) && isDown[R_UP_BUTTON]);
+
+}
+
+inline bool bothLeftButtonsPressed(void)
+{
+    return (justPressed(L_UP_BUTTON) && justPressed(L_DOWN_BUTTON)) ||
+           (justPressed(L_UP_BUTTON) && isDown[L_DOWN_BUTTON])      ||
+           (justPressed(L_DOWN_BUTTON) && isDown[L_UP_BUTTON]);
+
+}

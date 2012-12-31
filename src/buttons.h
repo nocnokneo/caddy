@@ -14,15 +14,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// buttons.h
-#ifndef BUTTONS_H
-#define BUTTONS_H
+#ifndef BUTTONS_H_
+#define BUTTONS_H_
 
-#include "caddy.h"
+#include <avr/io.h>
 #include <stdint.h>
 #include <stdbool.h>
-
-#define DEBOUNCE_COUNT   3   // should be equal to 2 or greater
 
 #define RED_BUTTON       0
 #define L_UP_BUTTON      1
@@ -41,23 +38,13 @@
 
 #define BREAK_BEAM_TRIGGERED  bit_is_set(PINB,1)
 
-#define BOTH_RIGHT_BUTTONS_PRESSED   ( (justPressed(R_UP_BUTTON) && justPressed(R_DOWN_BUTTON)) || (justPressed(R_UP_BUTTON) && isDown[R_DOWN_BUTTON]) || (justPressed(R_DOWN_BUTTON) && isDown[R_UP_BUTTON]) )
-#define BOTH_LEFT_BUTTONS_PRESSED    ( (justPressed(L_UP_BUTTON) && justPressed(L_DOWN_BUTTON)) || (justPressed(L_UP_BUTTON) && isDown[L_DOWN_BUTTON]) || (justPressed(L_DOWN_BUTTON) && isDown[L_UP_BUTTON]) )
-
-
-bool isDown[NUM_BUTTONS];
-bool wasEvent[NUM_BUTTONS];
-uint8_t upCount[NUM_BUTTONS];
-uint8_t downCount[NUM_BUTTONS];
-
-
 void initButtons(void);
 void waitFor(uint8_t button);
 inline bool justPressed(uint8_t button);
 inline bool justReleased(uint8_t button);
 void debounceButtons(void);
 inline bool isPressed(uint8_t button);
+inline bool bothRightButtonsPressed(void);
+inline bool bothLeftButtonsPressed(void);
 
-
-
-#endif  // #ifndef
+#endif  // #ifndef BUTTONS_H_

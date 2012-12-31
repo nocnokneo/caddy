@@ -30,7 +30,6 @@ int main(void)
     loadTweakValues();
     initBotGlobals();
     resetCamera();
-    initButtons();
     moveServosToStart();
     cameraWhiteBal();
 
