@@ -15,7 +15,55 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ourLCD.h"
+#include "timer.h"
+#include <avr/io.h>
 #include <stdint.h>
+
+// port and pins you will use for control lines
+#define LCD_PORT    PORTC
+#define LCD_DDR     DDRC
+#define LCD_RS      2
+#define LCD_RW      0   // not used on the Atmega32 board
+#define LCD_E       3
+#define LCD_POUT    PORTC
+#define LCD_PIN     PINC
+#define LCD_DELAY \
+    asm volatile ("nop; nop; nop; nop; nop; nop; nop; nop;" \
+    "nop; nop; nop; nop; nop; nop; nop; nop;" \
+    "nop; nop; nop; nop;")
+
+// control commands
+#define LCD_CLR             0      // DB0: clear display
+#define LCD_HOME            1      // DB1: return to home position
+#define LCD_ENTRY_MODE      2      // DB2: set entry mode
+#define LCD_ENTRY_INC        1     //   DB1: increment
+#define LCD_ENTRY_SHIFT      0     //   DB2: shift
+#define LCD_ON_CTRL         3      // DB3: turn lcd/cursor on
+#define LCD_ON_DISPLAY       2     //   DB2: turn display on
+#define LCD_ON_CURSOR        1     //   DB1: turn cursor on
+#define LCD_ON_BLINK         0     //   DB0: blinking cursor
+#define LCD_MOVE            4      // DB4: move cursor/display
+#define LCD_MOVE_DISP        3     //   DB3: move display (0-> move cursor)
+#define LCD_MOVE_RIGHT       2     //   DB2: move right (0-> left)
+#define LCD_FUNCTION        5      // DB5: function set
+#define LCD_FUNCTION_8BIT    4     //   DB4: set 8BIT mode (0->4BIT mode)
+#define LCD_FUNCTION_2LINES  3     //   DB3: two lines (0->one line)
+#define LCD_FUNCTION_10DOTS  2     //   DB2: 5x10 font (0->5x7 font)
+#define LCD_CGRAM           6      // DB6: set CG RAM address
+#define LCD_DDRAM           7      // DB7: set DD RAM address
+
+/**
+ * DDRAM address of the first character of each line (row) on the LCD
+ */
+const uint8_t lcdLineAddr[LCD_LINES] = { 0x00, 0x40 };
+
+// Internal functions
+void lcdWriteInit(uint8_t data);
+void lcdControlWrite(uint8_t data);
+void ourLcdControlWrite(uint8_t data);
+void lcdDataWrite(uint8_t data);
+void lcdSetCursor(uint8_t data);
+void lcdWrite(uint8_t data);
 
 //Critical Note: you must call timerInit(); before calling lcdInit();
 void lcdInit(void)
@@ -151,20 +199,9 @@ void lcdWrite(uint8_t data)
 // Prints a uint8_t to the LCD as 2 hexadecimal characters
 void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)
 {
-    uint8_t temp;
+    lcdSetCursor(lcdLineAddr[row] + col);
 
-    switch (row)
-    {
-    case 1:
-        lcdSetCursor(LCD_LINE1_DDRAMADDR + col);
-        break;
-    case 0:
-    default:
-        lcdSetCursor(LCD_LINE0_DDRAMADDR + col);
-        break;
-    }
-
-    temp = ((data & 0xF0) >> 4) + 0x30;
+    uint8_t temp = ((data & 0xF0) >> 4) + 0x30;
     if (temp >= 0x3A)
     {
         temp += 7;
@@ -178,27 +215,13 @@ void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)
     lcdDataWrite(temp);
 }
 
-//Prints a uint8_t to the LCD as 2-3 characters
 void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col)
 {
-    uint8_t ones = 0;
-    uint8_t tens = 0;
-    uint8_t hundreds = 0;
+    lcdSetCursor(lcdLineAddr[row] + col);
 
-    switch (row)
-    {
-    case 1:
-        lcdSetCursor(LCD_LINE1_DDRAMADDR + col);
-        break;
-    case 0:
-    default:
-        lcdSetCursor(LCD_LINE0_DDRAMADDR + col);
-        break;
-    }
-
-    ones = data % 10;
-    tens = (data % 100) / 10;
-    hundreds = (data % 1000) / 100;
+    uint8_t ones = data % 10;
+    uint8_t tens = (data % 100) / 10;
+    uint8_t hundreds = (data % 1000) / 100;
     if (hundreds > 0)
     {
         lcdDataWrite(hundreds + 0x30);
@@ -214,16 +237,7 @@ void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
     uint8_t tens = 0;
     uint8_t hundreds = 0;
 
-    switch (row)
-    {
-    case 1:
-        lcdSetCursor(LCD_LINE1_DDRAMADDR + col);
-        break;
-    case 0:
-    default:
-        lcdSetCursor(LCD_LINE0_DDRAMADDR + col);
-        break;
-    }
+    lcdSetCursor(lcdLineAddr[row] + col);
 
     if (data < 0)
     {
@@ -240,26 +254,16 @@ void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
 
 void lcdWriteStr(const char *str, uint8_t row, uint8_t col)
 {
-    uint8_t i;
-
     // make sure we don't have a null pointer
     if (!str)
     {
         return;
     }
 
-    switch (row)
-    {
-    case 1:
-        lcdSetCursor(LCD_LINE1_DDRAMADDR + col);
-        break;
-    case 0:
-    default:
-        lcdSetCursor(LCD_LINE0_DDRAMADDR + col);
-        break;
-    }
+    lcdSetCursor(lcdLineAddr[row] + col);
 
     // Print each char one at a time
+    uint8_t i;
     for (i = 0; (i < LCD_LINE_LENGTH - col) && (str[i] != '\0'); i++)
     {
         lcdDataWrite(str[i]);
