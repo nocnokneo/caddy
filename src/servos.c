@@ -14,15 +14,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* servos.c
- *
- *    Sets servo positions.
- *        Pan and tilt are usually left on.
- *        Boom, lift, and door are usually left off.
- *
- */
-
 #include "servos.h"
+#include "helperFunctions.h"
+
+// AVRLIB
+#include "rprintf.h"
+
+// avr-libc
 #include <stdint.h>
 
 /*
@@ -86,10 +84,14 @@ void grabBonusBall(void)
 
 
 /*
- * Moves servos to desired positions.
- *   Leaves pan and tilt on and saves the position for the debugger.
- *   Keeps servos for door, boom, and lift off.
- *   Moving door, boom, or lift causes delay.
+ * @brief Move servos to desired positions
+ *
+ * Leaves pan and tilt on and saves the position for the debugger.
+ * Keeps servos for door, boom, and lift off.
+ * Moving door, boom, or lift causes delay.
+ *
+ * @param servoNum[in] Numbered servo input as marked on the CMUcam
+ * @param servoPos[in] Absolute position of the servo on a 0-255 scale
  */
 void moveServo(uint8_t servoNum, uint8_t servoPos)
 {
@@ -97,7 +99,7 @@ void moveServo(uint8_t servoNum, uint8_t servoPos)
 
     if (servoNum != PAN && servoNum != TILT)
     {
-        // should delay here (prevents simultaneous movement of some servos)
+        // @todo: should delay here (prevents simultaneous movement of some servos)
         disableServo(servoNum);
     }
 }
