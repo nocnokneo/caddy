@@ -14,13 +14,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* helperFunctions.c
- *
- *    Useful functions used in several locations.
- *
- */
-
 #include "helperFunctions.h"
+#include "nodeList.h"
 #include <stdbool.h>
 
 void myDelay(uint16_t outerDelay)
@@ -39,11 +34,7 @@ void msDelay(uint16_t ms)
     }
 }
 
-/*
- * Searches for 'value' in 'array'.  If found, index where 'value'
- * was found is returned.  Otherwise, -1 is returned.
- */
-int8_t getIndex(uint8_t value, const uint8_t array[], const uint8_t arraySize)
+int8_t findValue(const uint8_t *array, const uint8_t arraySize, uint8_t value)
 {
     uint8_t i = 0;
     while (i < arraySize)
@@ -75,7 +66,7 @@ inline void addToGoalList(uint8_t nodeNum)
 
 bool removeFromGoalList(uint8_t nodeNum)
 {
-    int8_t i = getIndex(nodeNum, goalList, goalListSize);
+    int8_t i = findValue(goalList, goalListSize, nodeNum);
     if (i == -1)
     {
         numUnreachedGoals--;
@@ -113,7 +104,7 @@ uint8_t getUpcomingBallNum(void)
 
 inline bool isInGoalList(uint8_t nodeNum)
 {
-    return getIndex(nodeNum, goalList, goalListSize) != -1;
+    return findValue(goalList, goalListSize, nodeNum) != -1;
 }
 
 inline void printGoalList(void)

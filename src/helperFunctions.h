@@ -14,17 +14,26 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// helperFunctions.h
-#ifndef HELPERFUNCTIONS_H
-#define HELPERFUNCTIONS_H
+#ifndef HELPERFUNCTIONS_H_
+#define HELPERFUNCTIONS_H_
 
-#include "caddy.h"
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
 
 void myDelay(uint16_t outerDelay);
 void msDelay(uint16_t ms);
-int8_t  getIndex(uint8_t value, const uint8_t array[], const uint8_t arraySize);
+
+/**
+ * @brief Finds the first occurrence of a value in a given array
+ *
+ * @param[in] array      Array to search
+ * @param[in] arraySize  Number of elements in array
+ * @param[in] value      Value to find
+ *
+ * @return Array index of the first occurrence of value, if found, otherwise -1
+ */
+int8_t findValue(const uint8_t *array, const uint8_t arraySize, uint8_t value);
 
 inline void initGoalList( void );
 inline bool isInGoalList( uint8_t nodeNum );
@@ -34,5 +43,4 @@ inline void printGoalList( void );
 inline void copyList(uint8_t srcList[], uint8_t destList[], uint8_t numElements);
 uint8_t getUpcomingBallNum( void );
 
-
-#endif  // #ifndef
+#endif // #ifndef HELPERFUNCTIONS_H_

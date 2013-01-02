@@ -226,8 +226,9 @@ static inline int8_t getNextHeading(uint8_t nextBotNode)
 #endif
         while (1) ;
     }
-    nextNodeIndex = getIndex(nextBotNode, nextNode.adjNodes,
-                    nextNode.numAdjNodes);
+    nextNodeIndex = findValue(nextNode.adjNodes,
+                              nextNode.numAdjNodes,
+                              nextBotNode);
 
     // get next heading or report error
     if (nextNodeIndex == -1)
