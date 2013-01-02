@@ -14,9 +14,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-//updatePath.h
-#ifndef UPDATEPATH_H
-#define UPDATEPATH_H
+/**
+ * @brief AI navigation algorithm
+ */
+#ifndef UPDATEPATH_H_
+#define UPDATEPATH_H_
 
 #include "caddy.h"
 #include <stdint.h>
@@ -34,10 +36,6 @@
 //#define INITIAL_PATH_LIST_SIZE    47
 //#define INITIAL_PATH_LIST   {0,21,1,22,9,29,11,12,33,13,34,17,35,36,37,38,39,18,40,19,20,41,5,26,25,4,24,3,23,2,22,9,29,10,30,8,28,6,27,7,32,16,40,19,20,41,42,0,0,00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-
-#define NO_PARENT  0xff
-#define MAX_COST   0xff
-
 typedef struct searchNode
 {
     uint8_t parent;
@@ -49,9 +47,8 @@ typedef struct searchNode
 extern uint8_t pathList[];
 extern SEARCH_NODE searchSpace[];
 
-uint8_t pathListSize;
-uint8_t pathListIndex;
-
+extern uint8_t pathListSize;
+extern uint8_t pathListIndex;
 
 uint8_t updatePath( void );
 inline uint8_t uniformCostSearch( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
@@ -59,5 +56,4 @@ struct PathList * addNodeByCost(struct PathList *head, uint8_t newNodeNum /*, SE
 inline void recostructPath( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
 uint8_t updatePathTo( uint8_t nodeNum );
 
-
-#endif  // #ifndef
+#endif  // #ifndef UPDATEPATH_H_

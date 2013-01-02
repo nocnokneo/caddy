@@ -14,18 +14,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* updatePath.c
- *
- *    AI navigation algorithm.
- *
- */
-
 #include "updatePath.h"
 #include <stdint.h>
 #include <stdbool.h>
 
+#define NO_PARENT  0xff
+#define MAX_COST   0xff
+
 uint8_t pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;
 SEARCH_NODE searchSpace[NUM_NODES];
+
+uint8_t pathListSize;
+uint8_t pathListIndex;
 
 // returns distance of path found
 uint8_t updatePath(void)
