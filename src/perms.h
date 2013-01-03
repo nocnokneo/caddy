@@ -14,16 +14,39 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// perms.h
-#ifndef PERMS_H
-#define PERMS_H
+#ifndef PERMS_H_
+#define PERMS_H_
 
 #include "caddy.h"
 #include <stdint.h>
 #include <stdbool.h>
 
-bool next_permutation(uint8_t *first, uint8_t *last);
-void iter_swap(uint8_t *a, uint8_t *b);
-void iter_reverse(uint8_t *a, uint8_t *b);
+/**
+ * @brief Reorder an array of values to the next higher permutation
+ *
+ * The "next higher" permuation is the one that is lexicographically one step
+ * higher than the input order. The order that would compare smaller to all
+ * other permutations is the one in which all elements are sorted in ascending
+ * order.  This is the initial order that should be used in order to cycle
+ * through all possible permutations.
+ *
+ * Typical usage example:
+ *
+ * @code
+ * uint8_t myArray[] = { 1, 2, 3 };
+ * do {
+ *     // ... do something with current permuation of myArray
+ * } while (generateNextPermutation(myArray, myArray + 3);
+ * @endcode
+ *
+ * @remarks This iterative permutation generation algorithm was taken, with
+ * slight modifications, from the GNU implementation of the C++ STL
+ * (libstdc++). It was chosen for for its lower memory usage over simpler and
+ * more common recursive implementations.
+ *
+ * @return true if the next higher permutation could be generated, false
+ * otherwise
+ */
+bool generateNextPermutation(uint8_t *first, uint8_t *last);
 
-#endif // #ifndef
+#endif // #ifndef PERMS_H_

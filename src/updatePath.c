@@ -97,7 +97,7 @@ uint8_t updatePath(void)
             copyList(curPerm, bestPerm, goalListSize);
         }
 
-    } while (next_permutation(curPerm, curPerm + goalListSize));
+    } while (generateNextPermutation(curPerm, curPerm + goalListSize));
 
     // Re-order goalList according to bestPerm.
     copyList(goalList, tempGoalList, goalListSize);

@@ -14,23 +14,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* perms.h
- *
- * Generate permutations iteratively - not recursively because there stack
- * space is limited
- *
- */
-
 #include "perms.h"
 #include <stdint.h>
 #include <stdbool.h>
 
-bool next_permutation(uint8_t *first, uint8_t *last)
+static void swap(uint8_t *a, uint8_t *b);
+static void reverseArray(uint8_t *first, uint8_t *last);
+
+bool generateNextPermutation(uint8_t *first, uint8_t *last)
 {
     uint8_t *i = last - 1;
-    if (first == last)    // check for n=0
-        return false;
-    if (first == i)       // check for n=1
+    if (first == last || first == i) // check for n=0 or n=1
         return false;
 
     for (;;)
@@ -41,43 +35,58 @@ bool next_permutation(uint8_t *first, uint8_t *last)
             uint8_t *j = last;
             while (!(*i < *--j)) ;
 
-            iter_swap(i, j);
-            iter_reverse(ii, last);
+            swap(i, j);
+            reverseArray(ii, last);
 
             return true;
         }
         if (i == first)
         {
-            iter_reverse(first, last);
+            reverseArray(first, last);
             return false;
         }
     }
 
+    // Should not reach this line
     return false;
 }
 
-// b points to element to swap with a.
-void iter_swap(uint8_t *a, uint8_t *b)
+/**
+ * @brief Swap two values
+ *
+ * @param[in,out] a Pointer to value that should be copied to location pointed
+ *                  to by b
+ * @param[in,out] b Pointer to value that should be copied to location pointed
+ *                  to by a
+ */
+static void swap(uint8_t *a, uint8_t *b)
 {
-    uint8_t tmp;
-    tmp = *a;
+    uint8_t tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-// b points one element beyond the last element be reversing
-void iter_reverse(uint8_t *a, uint8_t *b)
+/**
+ * @brief Reverse the order of elements in an array
+ *
+ * Optimized for space efficiency over speed.
+ *
+ * @param[in,out] head  Pointer to first element of array
+ * @param[in,out] tail  Pointer to one element \em past the last element of
+ *                      the array
+ */
+static void reverseArray(uint8_t *first, uint8_t *last)
 {
-    b--;                // point b to element to begin reversing
+    last--; // point last to element to begin reversing
 
-    if (a < b)
+    if (first < last)
     {
-        while (a < b)
-            iter_swap(a++, b--);
+        while (first < last)
+            swap(first++, last--);
     }
     else
     {
-        while (b < a)
-            iter_swap(b++, a--);
+        while (last < first)
+            swap(last++, first--);
     }
 }
