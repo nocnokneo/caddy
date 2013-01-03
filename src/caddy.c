@@ -14,66 +14,80 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* caddy.c
- *
- *    caddy's main loop and atmel initialization.
- *
+/** @file
+ * @brief Caddy's main loop and Atmel initialization.
  */
-
 #include "caddy.h"
 
+/**
+ * Short delay wait for finger to be fully removed from start button (or
+ * tether cable to be disconnected)
+ */
 #define START_DELAY 5
 
 /*
- * Timer, PWM, UART, rprintf, LCD initialization, CMUcam
+ * @brief Initialize Timer, PWM, UART, rprintf, LCD, GPIO, and wheel encoders
  */
 static inline void initAtmel(void)
 {
-    // Initialize Timer
+    /*
+     * Initialize Timer
+     */
     timerInit();
+
 #if DEBUGGING
-    // Initialize LCD
+    /*
+     * Initialize LCD
+     */
     lcdInit();
     lcdWriteStr("Init:           ", 0, 0);
     lcdWriteStr("                ", 1, 0);
 #endif
-    // Initialize UART
+
+    /*
+     * Initialize UART for CMUcam communication
+     */
     uartInit();
     uartSetBaudRate(CMU_BAUD);
     uartSetRxHandler(packetRcv);
     rprintfInit(uartSendByte);
-    // Initialize PWM
+
+    /*
+     * Initialize PWM motor control
+     */
     outb(DDRD, 0xff);
     timer1PWMInit(8);
     neutral();
     enableMotors();
 
-    outb(DDRA, 0xF0);
-    // Motor control and up/down buttons
-    cbi(DDRD, 6);
-    // red button
-    cbi(DDRB, 0);
-    // nest button
-    cbi(DDRB, 1);
-    // break beam
-    sbi(PORTB, 0);
-    // appies pullup resistor to PINB0
-//   sbi(PORTB, 1);     // appies pullup resistor to PINB0
-    sbi(PORTA, 3);
-    // appies pullup resistor to PINA3
-    sbi(PORTA, 2);
-    // appies pullup resistor to PINA2
-    sbi(PORTA, 1);
-    // appies pullup resistor to PINA1
-    sbi(PORTA, 0);
-    // appies pullup resistor to PINA0
+    /*
+     * Set data direction registers
+     */
+    outb(DDRA, 0xF0); // Motor control and up/down buttons
+    cbi(DDRD, 6);     // red button
+    cbi(DDRB, 0);     // nest button
+    cbi(DDRB, 1);     // break beam
 
-    // Initialize wheel encoders
+    /*
+     * Apply internal pull-up resister to certain digital inputs
+     */
+    sbi(PORTB, 0); // internal pull-up for PINB0
+    sbi(PORTA, 3); // internal pull-up for PINA3
+    sbi(PORTA, 2); // internal pull-up for PINA2
+    sbi(PORTA, 1); // internal pull-up for PINA1
+    sbi(PORTA, 0); // internal pull-up for PINA0
+
+    /*
+     * Initialize quadrature wheel encoders
+     */
     cbi(DDRD, 2);
     cbi(DDRD, 3);
     encoderInit();
 }
 
+/**
+ * @brief Caddy's power-on entry function
+ */
 int main(void)
 {
     initAtmel();
@@ -84,15 +98,12 @@ int main(void)
     cameraWhiteBal();
 
 #if DEBUGGING
-    runTetherUI();                  // allow tweaking, until red button pressed
-#else
-    waitFor(RED_BUTTON);
-#endif
+    runTetherUI();
     myDelay(START_DELAY);
-
-#if DEBUGGING
     runTest();
 #else
+    waitFor(RED_BUTTON);
+    myDelay(START_DELAY);
     runRoborodentiaCourse();
 #endif
 
