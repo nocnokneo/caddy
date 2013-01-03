@@ -15,6 +15,7 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
+ * @file
  * @brief Simple user interface to change parameters without reprogramming
  *
  * The user interface is implemented as push buttons and LEDs on a small
@@ -24,9 +25,19 @@
 #ifndef TETHERUI_H_
 #define TETHERUI_H_
 
+/**
+ * Default LCD display mode
+ */
 #define NAV_LCD_MODE        0
+
+/**
+ * Special LCD display mode for debugging line tracking
+ */
 #define LINE_LCD_MODE       1
 
+/**
+ * @brief Allow tweaking via tether remote until red button pressed
+ */
 inline void runTetherUI(void);
 
 #endif // #ifndef TETHERUI_H_
