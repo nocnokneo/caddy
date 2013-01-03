@@ -33,3 +33,6 @@ doc/latex
 
 # Elf output file
 caddy
+
+# Auto-dependency generation
+*.d
