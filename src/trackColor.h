@@ -14,32 +14,23 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TRACKCOLOR_H
-#define TRACKCOLOR_H
+/**
+ * @file
+ * @brief Simple tracking Roborodentia objects of interest by color
+ *
+ * Uses the CMUcam2 color blob tracking to:
+ *   - Identify ball and estimate distance from robot
+ *   - Identify nest
+ */
+#ifndef TRACKCOLOR_H_
+#define TRACKCOLOR_H_
 
-#include "caddy.h"
 #include <stdint.h>
 #include <stdbool.h>
 
-// --- CONSTANTS --- //
 #define LOOK_RIGHT   1
 #define LOOK_LEFT    -1
 #define LOOK_UP      0
-
-#define CAM_HEIGHT   10  // inches
-#define X_PIXELS_PER_DEG   (174/44)
-#define VW_X1_SEEK
-#define VW_Y1_SEEK
-#define VW_X2_SEEK
-#define VW_Y2_SEEK
-
-// Track the RED ball on black/white background
-#define BALL_RMIN    150
-#define BALL_RMAX    240
-#define BALL_GMIN    16
-#define BALL_GMAX    60
-#define BALL_BMIN    16
-#define BALL_BMAX    50
 
 #define MX_NDX            0
 #define MY_NDX            1
@@ -62,11 +53,7 @@ bool inSeekPosition;
 void trackColorInit(int8_t dir);
 uint8_t getBallY( void );
 bool seeBall( void );
-//bool cameraSeeksBall( uint8_t ballDist, int8_t dir);
 bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls );
-//bool cameraSeekLeft( void );
 bool cameraSeekRight( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls );
-uint8_t distToPix( uint8_t distance );
 
-
-#endif  // #ifndef
+#endif // #ifndef TRACKCOLOR_H_

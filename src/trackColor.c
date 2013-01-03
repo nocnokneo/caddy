@@ -14,16 +14,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* trackColor.c
- *
- *    Identifies and ranges orange ground balls.
- *    Identifies nest.
- *
- */
-
+/** @file */
 #include "trackColor.h"
+#include "junctionCode.h"
 #include <stdint.h>
 #include <stdbool.h>
+
+// Track the RED ball on black/white background
+#define BALL_RMIN    150
+#define BALL_RMAX    240
+#define BALL_GMIN    16
+#define BALL_GMAX    60
+#define BALL_BMIN    16
+#define BALL_BMAX    50
+
+
+static uint8_t distToPix( uint8_t distance );
 
 void trackColorInit(int8_t dir)
 {
@@ -63,7 +69,6 @@ void trackColorInit(int8_t dir)
     rprintf("PM 1\r");
 }
 
-
 /*
  * Returns Y1 (top of ball) if camera sees a ball, zero otherwise
  */
@@ -82,8 +87,7 @@ uint8_t getBallY( void )
                     BALL_RMIN, BALL_RMAX, BALL_GMIN, BALL_GMAX, BALL_BMIN, BALL_BMAX);
 
     colorStatsProcessed = true;
-    while (colorStatsProcessed)
-        ;
+    while (colorStatsProcessed) ;
 
     return (lineStats[0][Y1_NDX]);
 }
@@ -184,7 +188,7 @@ bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls )
 }
 
 // returns pixel equivalent of 'distance'
-uint8_t distToPix( uint8_t distance )
+static uint8_t distToPix( uint8_t distance )
 {
     switch (distance)
     {
