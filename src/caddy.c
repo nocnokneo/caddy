@@ -92,7 +92,7 @@ int main(void)
     initBotGlobals();
     resetCamera();
     moveServosToStart();
-    cameraWhiteBal();
+    cameraWhiteBalance();
 
 #if DEBUGGING
     runTetherUI();

@@ -14,15 +14,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* camera.c
- *
- *    functions for changing settings for CMUcam2
- *    packet handler
- *
- */
-
+/** @file */
 #include "camera.h"
 #include <stdbool.h>
+
+#define CMU_BAUD 38400
+
+static uint8_t mode;
+static uint16_t byteNum;
+
+void packetRcv( uint8_t c );
+inline void lineMode2Rcv( uint8_t c );
+inline void trackColorRcv( uint8_t c );
 
 inline void cmuCamInit(void)
 {
@@ -32,18 +35,17 @@ inline void cmuCamInit(void)
     rprintfInit(uartSendByte);
 }
 
-inline void cameraWhiteBal()
+inline void cameraWhiteBalance()
 {
-    // turn white balance on p.31
+    // turn auto white balance on
 #if DEBUGGING
     lcdWriteStr("white Bal ", 0, 6);
 #endif
-    rprintf("cr 18 44\r");
+    rprintf("CR 18 44\r");
     myDelay(200);
-    // turn white balance off p.31
-    rprintf("cr 18 40\r");
+    // turn auto white balance off
+    rprintf("CR 18 40\r");
 }
-
 
 inline void resetCamera( void )
 {
@@ -127,7 +129,7 @@ inline void streamModeOff( void )
 }
 
 
-inline void setVW(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
+inline void setVirtualWindow(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 {
     rprintf("VW %d %d %d %d\r", x1, y1, x2, y2);
 }

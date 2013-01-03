@@ -218,7 +218,7 @@ inline bool nodeCode22()
    while ( y - scanHeight > scanLimit )
    {
       y -= scanHeight;
-      setVW(1, y-scanHeight, 174, y);
+      setVirtualWindow(1, y-scanHeight, 174, y);
       if ( seeBall() )
       {
          foundBall = true;
@@ -251,7 +251,7 @@ inline bool nodeCode22()
          while ( seeBall() )
          {
             y -= scanHeight;
-            setVW(1, y-scanHeight, 174, y);
+            setVirtualWindow(1, y-scanHeight, 174, y);
          }
       }
    }

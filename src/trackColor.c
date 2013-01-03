@@ -144,7 +144,7 @@ bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls )
     while (x - scanHeight > scanLimit)
     {
         x -= scanHeight;
-        setVW(x - scanHeight, 1, x, 254);
+        setVirtualWindow(x - scanHeight, 1, x, 254);
         if (seeBall())
         {
             foundBall = true;
@@ -175,7 +175,7 @@ bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls )
             while (seeBall())
             {
                 x -= scanHeight;
-                setVW(x - scanHeight, 1, x, 254);
+                setVirtualWindow(x - scanHeight, 1, x, 254);
             }
         }
     }
@@ -260,7 +260,7 @@ bool cameraSeekRight(uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls)
     while (x + scanHeight < scanLimit)
     {
         x += scanHeight;
-        setVW(x, 1, x + scanHeight, 254);
+        setVirtualWindow(x, 1, x + scanHeight, 254);
         if (seeBall())
         {
             foundBall = true;
@@ -293,7 +293,7 @@ bool cameraSeekRight(uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls)
             while (seeBall())
             {
                 x += scanHeight;
-                setVW(x, 1, x + scanHeight, 254);
+                setVirtualWindow(x, 1, x + scanHeight, 254);
             }
         }
     }
