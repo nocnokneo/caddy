@@ -102,6 +102,8 @@ void lcdInit(void)
     timerPause(40);
     lcdWriteInit(0xF0);
     timerPause(40);
+
+    ourLcdControlWrite(1 << LCD_ON_CTRL | 1 << LCD_ON_DISPLAY);
 }
 
 // Used internally

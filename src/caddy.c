@@ -24,48 +24,16 @@
 
 #define START_DELAY 5
 
-int main(void)
-{
-    initAtmel();
-    loadTweakValues();
-    initBotGlobals();
-    resetCamera();
-    moveServosToStart();
-    cameraWhiteBal();
-
-#if DEBUGGING
-    runTetherUI();                  // allow tweaking, until red button pressed
-#else
-    waitFor(RED_BUTTON);
-#endif
-    myDelay(START_DELAY);           // wait to remove finger (or debug cable)
-
-#if DEBUGGING
-    runTest();
-#else
-    runRoborodentiaCourse();
-#endif
-
-    brake(BOTH);
-#if DEBUGGING
-    lcdWriteStr("Done            ", 0, 0);
-    lcdWriteStr("                ", 1, 0);
-#endif
-
-    return 0;
-}
-
 /*
  * Timer, PWM, UART, rprintf, LCD initialization, CMUcam
  */
-inline void initAtmel(void)
+static inline void initAtmel(void)
 {
     // Initialize Timer
     timerInit();
 #if DEBUGGING
     // Initialize LCD
     lcdInit();
-    ourLcdControlWrite(1 << LCD_ON_CTRL | 1 << LCD_ON_DISPLAY);
     lcdWriteStr("Init:           ", 0, 0);
     lcdWriteStr("                ", 1, 0);
 #endif
@@ -106,3 +74,33 @@ inline void initAtmel(void)
     encoderInit();
 }
 
+int main(void)
+{
+    initAtmel();
+    loadTweakValues();
+    initBotGlobals();
+    resetCamera();
+    moveServosToStart();
+    cameraWhiteBal();
+
+#if DEBUGGING
+    runTetherUI();                  // allow tweaking, until red button pressed
+#else
+    waitFor(RED_BUTTON);
+#endif
+    myDelay(START_DELAY);
+
+#if DEBUGGING
+    runTest();
+#else
+    runRoborodentiaCourse();
+#endif
+
+    brake(BOTH);
+#if DEBUGGING
+    lcdWriteStr("Done            ", 0, 0);
+    lcdWriteStr("                ", 1, 0);
+#endif
+
+    return 0;
+}

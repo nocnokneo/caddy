@@ -59,10 +59,4 @@
 #include "testCode.h"
 #endif
 
-
-
-// Prototypes -------------------------------------------------------
-
-inline void initAtmel( void );
-
 #endif  // #ifndef
