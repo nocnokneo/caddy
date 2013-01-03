@@ -113,9 +113,9 @@
 //! Encoder state structure
 //   stores the position and other information from each encoder
 typedef struct struct_EncoderState
-{	
-	uint16_t position;		///< position
-//	s32 velocity;		///< velocity
+{
+	uint16_t position;  ///< position
+//	s32 velocity;       ///< velocity
 } EncoderStateType;
 
 

@@ -89,7 +89,7 @@
 #define MAX_PAN_RIGHT      195
 
 #define TILT_BB_GRAB       133
-#define TILT_VERT          128   //< requires boom to be MAX_BOOM_UP
+#define TILT_VERT          128   ///< requires boom to be MAX_BOOM_UP
 #define TILT_LOOKUP        186
 #define TILT_BACK          MAX_TILT_BACK
 #define TILT_FORWARD       MAX_TILT_FORWARD
@@ -97,21 +97,21 @@
 #define MAX_TILT_FORWARD   70
 
 #define BOOM_UP            MAX_BOOM_UP
-#define BOOM_BB_GRAB       183   //< cup 2.32 inches off ground
+#define BOOM_BB_GRAB       183   ///< cup 2.32 inches off ground
 #define MAX_BOOM_UP        45
 #define MAX_BOOM_DOWN      148
 
 #define LIFT_OPEN          MAX_LIFT_OPEN
 #define LIFT_UP            MAX_LIFT_UP
-#define LIFT_CORRAL        150   //< Lift position needed to release balls into corral
-#define LIFT_BB_READY      114   //< Places the "V" of the lift 3 inches off ground, ready for bonus ball grabbing maneuver
-#define MAX_LIFT_OPEN      183   //< Mechanical limit in which the ground ball blade is fully open
-#define MAX_LIFT_UP        74    //< @todo: increase if lift hits boom on reset
+#define LIFT_CORRAL        150   ///< Lift position needed to release balls into corral
+#define LIFT_BB_READY      114   ///< Places the "V" of the lift 3 inches off ground, ready for bonus ball grabbing maneuver
+#define MAX_LIFT_OPEN      183   ///< Mechanical limit in which the ground ball blade is fully open
+#define MAX_LIFT_UP        74    ///< @todo: increase if lift hits boom on reset
 
 #define DOOR_CLOSED        MAX_DOOR_CLOSED
 #define DOOR_OPEN          MAX_DOOR_OPEN
-#define MAX_DOOR_CLOSED    71  //< Close door _just_ to the point of touching
-#define MAX_DOOR_OPEN      200 //< Mechanical limit of the door lever arm
+#define MAX_DOOR_CLOSED    71    ///< Close door _just_ to the point of touching
+#define MAX_DOOR_OPEN      200   ///< Mechanical limit of the door lever arm
 
 void moveServosToStart(void);
 void grabBonusBall(void);

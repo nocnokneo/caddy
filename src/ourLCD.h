@@ -22,8 +22,8 @@
 #include <avr/io.h>
 
 // LCD display geometry
-#define LCD_LINES				2	//< visible lines
-#define LCD_LINE_LENGTH			16	//< line length (in characters)
+#define LCD_LINES				2	///< visible lines
+#define LCD_LINE_LENGTH			16	///< line length (in characters)
 
 // Prototypes
 void lcdInit(void);
