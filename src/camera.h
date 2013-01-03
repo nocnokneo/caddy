@@ -38,6 +38,10 @@
 uint8_t mode;
 uint16_t byteNum;
 
+/**
+ * @brief Initialize the UART for communicating with the CMUcam
+ */
+inline void cmuCamInit(void);
 inline void cameraWhiteBal( void );
 inline void resetCamera( void );
 void packetRcv( uint8_t c );

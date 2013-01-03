@@ -47,10 +47,7 @@ static inline void initAtmel(void)
     /*
      * Initialize UART for CMUcam communication
      */
-    uartInit();
-    uartSetBaudRate(CMU_BAUD);
-    uartSetRxHandler(packetRcv);
-    rprintfInit(uartSendByte);
+    cmuCamInit();
 
     /*
      * Initialize PWM motor control

@@ -24,6 +24,14 @@
 #include "camera.h"
 #include <stdbool.h>
 
+inline void cmuCamInit(void)
+{
+    uartInit();
+    uartSetBaudRate(CMU_BAUD);
+    uartSetRxHandler(packetRcv);
+    rprintfInit(uartSendByte);
+}
+
 inline void cameraWhiteBal()
 {
     // turn white balance on p.31
