@@ -17,7 +17,15 @@
 /** @file
  * @brief Caddy's main loop and Atmel initialization.
  */
-#include "caddy.h"
+#include "botCntrl.h"
+#include "camera.h"
+#include "servos.h"
+#include "buttons.h"
+#include "eeProm.h"
+#include "helperFunctions.h"
+
+// avr-libc
+#include <avr/io.h>
 
 /**
  * Short delay wait for finger to be fully removed from start button (or
