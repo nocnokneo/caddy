@@ -14,15 +14,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* testCode.c
- *
- *    Caddy's test code.
- */
 #include "testCode.h"
-#include <stdint.h>
-#include <stdbool.h>
+#include "botCntrl.h"
+#include "motorCntrl.h"
+#include "trackColor.h"
+#include "trackLine.h"
+#include "updatePath.h"
+#include "nodeList.h"
+#include "servos.h"
+#include "buttons.h"
+#include "eeProm.h"
 
-uint8_t testMode; // = DEFAULT_TEST_MODE;
+// avr-libc
+#include <stdbool.h>
 
 inline void runTest(void)
 {

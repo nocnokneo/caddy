@@ -17,7 +17,13 @@
 #include "tetherUI.h"
 #include "buttons.h"
 #include "eeProm.h"
+
+// AVRLIB
+#include "avrlibdefs.h"
+
+// avr-libc
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <stdint.h>
 
 #define WELCOME                       0 // Must be 0

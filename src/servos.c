@@ -17,6 +17,7 @@
 #include "servos.h"
 #include "helperFunctions.h"
 #include "motorCntrl.h"
+#include "eeProm.h"
 
 // AVRLIB
 #include "rprintf.h"

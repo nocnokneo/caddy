@@ -14,17 +14,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* junctionCode.c
- *
- *   Actions that occur at junctions.
- *
- *   (Pass by reference causes error.) -Logan
- */
-
+/** @file */
 #include "junctionCode.h"
-#include <stdint.h>
-#include <stdbool.h>
+#include "botCntrl.h"
+#include "trackColor.h"
+#include "servos.h"
+#include "nodeList.h"
+#include "eeProm.h"
 
+// Global variables
 // initialized in initBotGlobals
 bool checkedList[] = { false, false, false, false, false, false,
                        false, false, false, false, false, false,
@@ -32,6 +30,9 @@ bool checkedList[] = { false, false, false, false, false, false,
                        false, false, false };
 // initialized in initBotGlobals
 uint8_t goalList[NUM_GOALS];
+
+uint8_t goalListSize;
+uint8_t numKnownGoals;
 
 /*
  * Searches for ground balls, picks-up bonous balls, and computes best path.

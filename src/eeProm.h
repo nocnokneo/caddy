@@ -14,11 +14,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// eeProm.h
-#ifndef EEPROM_H
-#define EEPROM_H
+/**
+ * @file
+ * @brief Loading and store "tweak values" into eeProm.
+ *
+ * Tweak values are runtime configurable parameters that can be adjusted e.g.
+ * with the tether UI and saved persistently in EEPROM.
+ */
+#ifndef EEPROM_H_
+#define EEPROM_H_
 
-#include "caddy.h"
 #include <stdint.h>
 
 //Locations in EEPROM
@@ -99,4 +104,5 @@ inline void loadTweakValues( void );
 inline void storeTweakValues( void );
 uint8_t EEPROM_read(unsigned int uiAddress);
 void EEPROM_write(unsigned int uiAddress, uint8_t ucData);
-#endif  // #ifndef
+
+#endif // #ifndef EEPROM_H_

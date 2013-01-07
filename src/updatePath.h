@@ -20,7 +20,6 @@
 #ifndef UPDATEPATH_H_
 #define UPDATEPATH_H_
 
-#include "caddy.h"
 #include <stdint.h>
 #include <stdbool.h>
 

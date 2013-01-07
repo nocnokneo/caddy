@@ -14,29 +14,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* nodeList.c
- *
- *   Conserves SRAM by storing graph of arena in FLASH memory.
- *   See doc directory for image of arena with node numbers.
- *
- *    -Nodes are represented by numbers:
- *       -Nodes 0 and 42 are terminal nodes
- *       -Nodes 1-20 are ball nodes
- *       -Nodes 21-41 are junctions
- *    -Distance resolution is 6 inches.
- *    -Direction is measured in binary radians or brads. (see www.urcp.com)
- *
- *    Version History:
- *        2/17/05 - Created by Logan
- *        2/21/05 - Checked by Logan, Scott, and Patrick
- *                - Changed syntax for Atmel - Logan
- *                - Added more defines - Logan
- *        4/11/05 - Re-structured for FLASH - Logan
- */
-
+/** @file */
 #include "nodeList.h"
-#include <stdint.h>
-#include <stdbool.h>
+
+// avr-libc
+#include <string.h>
 
 inline bool isJunction(uint8_t nodeNum)
 {

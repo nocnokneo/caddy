@@ -15,7 +15,13 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "trackLine.h"
+#include "motorCntrl.h"
+#include "camera.h"
 #include "eeProm.h"
+#include "tetherUI.h"
+
+// AVRLIB
+#include "rprintf.h"
 
 // avr-libc
 #include <stdint.h>
@@ -44,6 +50,10 @@
 
 #define JUNC_SCAN_WIDTH       1
 #define BALL_SCAN_WIDTH       7
+
+// Global variables
+volatile uint8_t lineStats[LINE_STATS_ROWS][LINE_STATS_COLS];
+volatile bool lineStatsProcessed;
 
 int8_t junctionY;
 static int16_t correction;

@@ -18,7 +18,6 @@
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
-#include "caddy.h"
 #include <stdint.h>
 
 // Packet types

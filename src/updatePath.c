@@ -15,8 +15,14 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "updatePath.h"
-#include <stdint.h>
-#include <stdbool.h>
+#include "botCntrl.h"
+#include "servos.h"
+#include "junctionCode.h"
+#include "nodeList.h"
+#include "linkedList.h"
+
+// avr-libc
+#include <string.h>
 
 #define NO_PARENT  0xff
 #define MAX_COST   0xff

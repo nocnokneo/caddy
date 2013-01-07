@@ -15,8 +15,6 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "perms.h"
-#include <stdint.h>
-#include <stdbool.h>
 
 static void swap(uint8_t *a, uint8_t *b);
 static void reverseArray(uint8_t *first, uint8_t *last);

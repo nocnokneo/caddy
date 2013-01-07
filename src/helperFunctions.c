@@ -15,14 +15,19 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "helperFunctions.h"
+#include "botCntrl.h"
+#include "updatePath.h"
+#include "junctionCode.h"
 #include "nodeList.h"
-#include <stdbool.h>
+
+// AVRLIB
+#include "timer.h"
 
 void myDelay(uint16_t outerDelay)
 {
     uint16_t i, j;
     for (i = 0; i < outerDelay; i++)
-        for (j = 0; j < MAX_U16; j++) ;
+        for (j = 0; j < UINT16_MAX; j++) ;
 }
 
 void msDelay(uint16_t ms)

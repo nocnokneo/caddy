@@ -16,7 +16,15 @@
  */
 /** @file */
 #include "trackColor.h"
+#include "trackLine.h"
+#include "camera.h"
+#include "servos.h"
 #include "junctionCode.h"
+#include "motorCntrl.h"
+#include "eeProm.h"
+
+// AVRLIB
+#include "rprintf.h"
 
 // avr-libc
 #include <stdint.h>

@@ -21,6 +21,10 @@
  */
 #include "linkedList.h"
 
+// avr-libc
+#include <string.h>
+#include <stdlib.h>
+
 // Frees all nodes in list at head
 inline void freeList(PATH_LIST_PTR head)
 {

@@ -18,7 +18,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include "caddy.h"
 #include <stdint.h>
 
 typedef struct PathList

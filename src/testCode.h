@@ -14,13 +14,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// testCode.h
-#ifndef TESTCODE_H
-#define TESTCODE_H
+#ifndef TESTCODE_H_
+#define TESTCODE_H_
 
-#include "caddy.h"
 #include <stdint.h>
-
 
 // --- CONSTANTS --- //
 #define DEFAULT_TEST_MODE       SEEK_BALL_TEST_MODE
@@ -52,5 +49,4 @@ void updatePathTest( void );
 
 void printPathList( void );
 
-
-#endif  // #ifndef
+#endif // #ifndef TESTCODE_H_

@@ -14,10 +14,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * @file
+ * @brief Iterative (non-recursive!) permutation generator
+ */
 #ifndef PERMS_H_
 #define PERMS_H_
 
-#include "caddy.h"
 #include <stdint.h>
 #include <stdbool.h>
 

@@ -16,12 +16,19 @@
  */
 /** @file */
 #include "botCntrl.h"
+#include "trackLine.h"
+#include "trackColor.h"
+#include "junctionCode.h"
 #include "updatePath.h"
+#include "motorCntrl.h"
+#include "servos.h"
 #include "buttons.h"
+#include "nodeList.h"
+#include "tetherUI.h"
+#include "eeProm.h"
 
 // avr-libc
-#include <stdint.h>
-#include <stdbool.h>
+#include <string.h>
 
 #define BEAM_IGNORE_COUNT      6
 #define CORRAL_COUNT           3

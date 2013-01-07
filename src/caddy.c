@@ -19,6 +19,7 @@
  * @brief Caddy's main loop and Atmel initialization.
  */
 #include "botCntrl.h"
+#include "motorCntrl.h"
 #include "camera.h"
 #include "servos.h"
 #include "buttons.h"

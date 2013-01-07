@@ -14,11 +14,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// exercises.h
-#ifndef EXERCISES_H
-#define EXERCISES_H
-
-#include "caddy.h"
+/**
+ * @file
+ * @brief Exercise various high-level capabilities
+ */
+#ifndef EXERCISES_H_
+#define EXERCISES_H_
 
 void bbPickupTest( void );
 void gbPickupTest( void );
@@ -26,4 +27,4 @@ void zigZagTest( void );
 void diagTest( void );
 void node31Test( void );
 
-#endif  // #ifndef
+#endif // #ifndef EXERCISES_H_

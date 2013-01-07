@@ -14,12 +14,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* exercises.c
- *
- *
- */
-
+/** @file */
 #include "exercises.h"
+#include "botCntrl.h"
+#include "motorCntrl.h"
+#include "buttons.h"
+#include "helperFunctions.h"
+#include "ourLCD.h"
+
+// avr-libc
 #include <stdbool.h>
 
 void bbPickupTest(void)

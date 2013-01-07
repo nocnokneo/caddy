@@ -50,7 +50,8 @@ void printPacket(void);
 
 extern int8_t junctionY;
 
-volatile uint8_t lineStats[LINE_STATS_ROWS][LINE_STATS_COLS];
-volatile bool lineStatsProcessed;
+// Global variables
+extern volatile uint8_t lineStats[LINE_STATS_ROWS][LINE_STATS_COLS];
+extern volatile bool lineStatsProcessed;
 
 #endif // #ifndef TRACKLINE_H_

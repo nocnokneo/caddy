@@ -32,6 +32,9 @@
 //    defined in timer.h
 //*****************************************************************************
 #include "motorCntrl.h"
+#include "eeProm.h"
+
+// avr-libc
 #include <stdint.h>
 
 void forward(uint8_t motorSelect, uint8_t speed)

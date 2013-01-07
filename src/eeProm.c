@@ -14,13 +14,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* eeProm.c
- *
- *    For loading and storing tweak values into eeProm.
- *
- */
-
+/** @file */
 #include "eeProm.h"
+
+// avr-libc
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 // Global variables - Runtime configurable parameters
 uint8_t l_base;

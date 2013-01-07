@@ -16,6 +16,14 @@
  */
 /** @file */
 #include "camera.h"
+#include "trackColor.h"
+#include "trackLine.h"
+
+// AVRLIB
+#include "rprintf.h"
+#include "uart.h"
+
+// avr-libc
 #include <stdbool.h>
 
 #define CMU_BAUD 38400

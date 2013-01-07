@@ -46,10 +46,14 @@
 //    defined in timer.h
 //*****************************************************************************
 
-#ifndef MOTORCNTRL_H
-#define MOTORCNTRL_H
+#ifndef MOTORCNTRL_H_
+#define MOTORCNTRL_H_
 
-#include "caddy.h"
+// AVRLIB
+#include "timer.h"
+
+// avr-libc
+#include <avr/io.h>
 #include <stdint.h>
 
 //Motor selection constants
@@ -96,5 +100,4 @@ void brake(uint8_t motorSelect);
 void tickWheels(int16_t leftTicks, int16_t rightTicks, uint8_t speed);
 void motor_pin_test(void);
 
-
-#endif
+#endif // #ifndef MOTORCNTRL_H_
