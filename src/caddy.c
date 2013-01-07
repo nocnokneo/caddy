@@ -14,7 +14,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** @file
+/**
+ * @file
  * @brief Caddy's main loop and Atmel initialization.
  */
 #include "botCntrl.h"
@@ -33,7 +34,7 @@
  */
 #define START_DELAY 5
 
-/*
+/**
  * @brief Initialize Timer, PWM, UART, rprintf, LCD, GPIO, and wheel encoders
  */
 static inline void initAtmel(void)
