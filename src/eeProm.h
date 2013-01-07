@@ -75,26 +75,25 @@ tilt offset 0xE7
 #define DAMP_COEF                 0x14
 */
 
-uint8_t l_base;
-uint8_t r_base;
-uint16_t slopeCoef;
-uint16_t offCoef;
-uint8_t dampCoef;
-uint8_t lineCenter;
-uint8_t turnPoint;
-uint8_t turnSubtract;
-int8_t panOffset;
-int8_t tiltOffset;
-uint16_t tractorOvershootDelay;
-uint8_t tempTweak1;
-int8_t tempTweak2;
-uint16_t tempTweak3;
-uint16_t tempTweak4;
+// Global variables - Runtime configurable parameters
+extern uint8_t l_base;
+extern uint8_t r_base;
+extern uint16_t slopeCoef;
+extern uint16_t offCoef;
+extern uint8_t dampCoef;
+extern uint8_t lineCenter;
+extern uint8_t turnPoint;
+extern uint8_t turnSubtract;
+extern int8_t panOffset;
+extern int8_t tiltOffset;
+extern uint16_t tractorOvershootDelay;
+extern uint8_t tempTweak1;
+extern int8_t tempTweak2;
+extern uint16_t tempTweak3;
+extern uint16_t tempTweak4;
 
-
-
-uint8_t lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
-uint8_t testMode; // <- need to save this in eeProm
+extern uint8_t lcdMode;
+extern uint8_t testMode;
 
 inline void loadTweakValues( void );
 inline void storeTweakValues( void );

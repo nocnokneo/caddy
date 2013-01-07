@@ -22,6 +22,26 @@
 
 #include "eeProm.h"
 
+// Global variables - Runtime configurable parameters
+uint8_t l_base;
+uint8_t r_base;
+uint16_t slopeCoef;
+uint16_t offCoef;
+uint8_t dampCoef;
+uint8_t lineCenter;
+uint8_t turnPoint;
+uint8_t turnSubtract;
+int8_t panOffset;
+int8_t tiltOffset;
+uint16_t tractorOvershootDelay;
+uint8_t tempTweak1;
+int8_t tempTweak2;
+uint16_t tempTweak3;
+uint16_t tempTweak4;
+
+uint8_t lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
+uint8_t testMode; // <- need to save this in eeProm
+
 // Initializes constants that can be tweaked by debugger
 inline void loadTweakValues(void)
 {
