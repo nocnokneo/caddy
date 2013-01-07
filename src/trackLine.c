@@ -14,15 +14,41 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* trackLine.c
- *
- *    Line detection and tracking
- *
- */
-
 #include "trackLine.h"
+#include "eeProm.h"
+
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
+
+// Track BLACK line on WHITE background
+#define LINE_RMIN    16
+#define LINE_GMIN    16
+#define LINE_BMIN    16
+#define LINE_RMAX    50
+#define LINE_GMAX    50
+#define LINE_BMAX    40
+
+#define LINE_STAT_MASK        0Xf  // Sends the mean, min, max, and pixel count
+#define X_MEAN                0
+#define X_MIN                 1
+#define X_MAX                 2
+#define LINE_COUNT            3
+#define SCAN_WIDTH            4
+
+#define LINE_Y_MAX_NDX        (LINE_STATS_ROWS - SCAN_WIDTH - 1)
+#define JUNC_Y_MAX_NDX        (LINE_STATS_ROWS - JUNC_SCAN_WIDTH - 1)
+#define BALL_Y_MAX_NDX        (LINE_STATS_ROWS - BALL_SCAN_WIDTH - 1)
+
+#define LINE_Y3               49
+
+#define JUNC_SCAN_WIDTH       1
+#define BALL_SCAN_WIDTH       7
+
+int8_t junctionY;
+static int16_t correction;
+static int8_t possibleBallY;
+
 
 void adjustPWM( void )
 {
@@ -65,19 +91,19 @@ void trackLineInit(void)
     // Downsample the image
     rprintf("DS %d %d\r", DS_X_LINE, DS_Y_LINE);
     // set virtual window
-    rprintf("vw %d %d %d %d\r", VW_X1_LINE, VW_Y1_LINE, VW_X2_LINE, VW_Y2_LINE);
+    rprintf("VW %d %d %d %d\r", VW_X1_LINE, VW_Y1_LINE, VW_X2_LINE, VW_Y2_LINE);
 
     // Line mode type 0, mode 2
     // "per row statistics in the tracked region" p.41
-    rprintf("lm 0 2\r");
+    rprintf("LM 0 2\r");
     // Output mask hides everything but, mean p.45
-    rprintf("om 5 %d\r", LINE_STAT_MASK);
+    rprintf("OM 5 %d\r", LINE_STAT_MASK);
 
     // Turn poll mode off so line packets can be streamed
     rprintf("PM 0\r");
 
-    // start the tracking (Track Color)
-    rprintf("tc %d %d %d %d %d %d\r",
+    // Start the tracking (Track Color)
+    rprintf("TC %d %d %d %d %d %d\r",
             LINE_RMIN, LINE_RMAX, LINE_GMIN,
             LINE_GMAX, LINE_BMIN, LINE_GMAX);
 

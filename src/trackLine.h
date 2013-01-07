@@ -14,22 +14,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// trackLine.h
-#ifndef TRACKLINE_H
-#define TRACKLINE_H
+/**
+ * @file
+ * @brief Line detection and PID tracking using CMUcam2
+ */
+#ifndef TRACKLINE_H_
+#define TRACKLINE_H_
 
-#include "caddy.h"
 #include <stdint.h>
 #include <stdbool.h>
-
-// Track the BLACK line on white background
-#define LINE_RMIN    16
-#define LINE_GMIN    16
-#define LINE_BMIN    16
-#define LINE_RMAX    50
-#define LINE_GMAX    50
-#define LINE_BMAX    40
-
 
 #define DS_X_LINE             1
 #define DS_Y_LINE             4
@@ -37,29 +30,11 @@
 #define VW_Y1_LINE            1
 #define VW_X2_LINE            77
 #define VW_Y2_LINE            35
-#define VW_X_SIZE_LINE        VW_X2_LINE-VW_X1_LINE+1
-#define VW_Y_SIZE_LINE        VW_Y2_LINE-VW_Y1_LINE+1
+#define VW_X_SIZE_LINE        (VW_X2_LINE - VW_X1_LINE + 1)
+#define VW_Y_SIZE_LINE        (VW_Y2_LINE - VW_Y1_LINE + 1)
 
 #define LINE_STATS_ROWS       VW_Y_SIZE_LINE
 #define LINE_STATS_COLS       4    // must correspond to bits in LINE_STAT_MASK
-#define LINE_STAT_MASK        0Xf  // Sends the mean, min, max, and pixel count
-#define X_MEAN                0
-#define X_MIN                 1
-#define X_MAX                 2
-#define LINE_COUNT            3
-#define SCAN_WIDTH            4
-
-
-#define LINE_Y_MAX_NDX        (LINE_STATS_ROWS - SCAN_WIDTH - 1)
-#define JUNC_Y_MAX_NDX        (LINE_STATS_ROWS - JUNC_SCAN_WIDTH - 1)
-#define BALL_Y_MAX_NDX        (LINE_STATS_ROWS - BALL_SCAN_WIDTH - 1)
-
-#define LINE_Y3               49
-
-#define JUNC_SCAN_WIDTH       1
-#define BALL_SCAN_WIDTH       7
-
-
 
 void adjustPWM( void );
 
@@ -73,13 +48,9 @@ bool mayBeBallScan(uint8_t y);
 
 void printPacket(void);
 
-int16_t correction;
-int8_t junctionY;
-int8_t possibleBallY;
+extern int8_t junctionY;
 
 volatile uint8_t lineStats[LINE_STATS_ROWS][LINE_STATS_COLS];
 volatile bool lineStatsProcessed;
 
-
-
-#endif  // #ifndef
+#endif // #ifndef TRACKLINE_H_
