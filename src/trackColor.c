@@ -17,6 +17,8 @@
 /** @file */
 #include "trackColor.h"
 #include "junctionCode.h"
+
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -28,6 +30,9 @@
 #define BALL_BMIN    16
 #define BALL_BMAX    50
 
+// Global variables
+volatile bool colorStatsProcessed;
+bool inSeekPosition;
 
 static uint8_t distToPix( uint8_t distance );
 

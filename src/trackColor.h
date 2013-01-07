@@ -25,6 +25,7 @@
 #ifndef TRACKCOLOR_H_
 #define TRACKCOLOR_H_
 
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -45,11 +46,10 @@
 
 #define PAN_SEEK_OFFSET    66
 
-// --- GLOBAL VARIABLES --- //
-volatile bool colorStatsProcessed;
-bool inSeekPosition;
+// Global variables
+extern volatile bool colorStatsProcessed;
+extern bool inSeekPosition;
 
-// --- PROTOTYPES --- //
 void trackColorInit(int8_t dir);
 uint8_t getBallY( void );
 bool seeBall( void );
