@@ -14,17 +14,26 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * @brief High-level logic controlling Caddy's actions
- */
-
+/** @file */
 #include "botCntrl.h"
+#include "updatePath.h"
+#include "buttons.h"
+
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
 
+#define BEAM_IGNORE_COUNT      6
+#define CORRAL_COUNT           3
+#define LIFT_DONE_COUNT        8
+
+// Global variables
 uint8_t botNode = START_NODE;
 int8_t botHeading = START_HEADING;
 uint8_t numUnreachedGoals = NUM_GOALS;
+
+static bool liftDown;
+static uint8_t upComingBallNum;
 
 static inline int8_t getNextHeading(uint8_t nextBotNode);
 

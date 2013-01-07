@@ -14,34 +14,28 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-// botCntrl.h
-#ifndef BOTCNTRL_H
-#define BOTCNTRL_H
+/**
+ * @file
+ * @brief High-level logic controlling Caddy's actions
+ */
+#ifndef BOTCNTRL_H_
+#define BOTCNTRL_H_
 
-#include "caddy.h"
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
 
-#define BEAM_IGNORE_COUNT      6
-#define CORRAL_COUNT           3
-#define LIFT_DONE_COUNT        8
-
-
-// --- GLOBALS --- //
+// Global variables
 extern uint8_t botNode;
 extern int8_t botHeading;
 extern uint8_t numUnreachedGoals;
-bool liftDown;
-uint8_t upComingBallNum;
 
-// --- Prototypes --- //
-inline void runRoborodentiaCourse( void );
+inline void runRoborodentiaCourse(void);
 inline void initBotGlobals(void);
 inline bool positionBot(void);
-inline void moveToJunction( uint8_t numJunctions, bool justTurned );
-void bbSequence( void );
-void nestSequence( void );
-inline void bbPositioning( int8_t bbHeading, int8_t nextHeading );
+inline void moveToJunction(uint8_t numJunctions, bool justTurned);
+void bbSequence(void);
+void nestSequence(void);
+inline void bbPositioning(int8_t bbHeading, int8_t nextHeading);
 
-
-#endif  // #ifndef
+#endif // #ifndef BOTCNTRL_H_
