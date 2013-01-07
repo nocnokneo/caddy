@@ -14,6 +14,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * @file
+ * @brief Button debouncing, start bot logic
+ */
 #ifndef BUTTONS_H_
 #define BUTTONS_H_
 
@@ -47,4 +51,4 @@ inline bool isPressed(uint8_t button);
 inline bool bothRightButtonsPressed(void);
 inline bool bothLeftButtonsPressed(void);
 
-#endif  // #ifndef BUTTONS_H_
+#endif // #ifndef BUTTONS_H_

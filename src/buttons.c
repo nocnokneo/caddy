@@ -14,14 +14,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* buttons.c
- *
- *    Button debouncing, start bot logic
- *
- */
-
+/** @file */
 #include "buttons.h"
+
+// AVRLIB
 #include "avrlibdefs.h"
+
+// avr-libc
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -45,24 +44,24 @@ void waitFor(uint8_t button)
     }
 }
 
-/*
- * Returns true when confirmed rising edge at last debouncing.
+/**
+ * @return true when confirmed rising edge at last debouncing.
  */
 inline bool justPressed(uint8_t button)
 {
     return wasEvent[button] && isDown[button];
 }
 
-/*
- * Returns true when confirmed falling edge at last debouncing.
+/**
+ * @return true when confirmed falling edge at last debouncing.
  */
 inline bool justReleased(uint8_t button)
 {
     return wasEvent[button] && !isDown[button];
 }
 
-/*
- * Maintains wasEvent[] and toggles isDown[].
+/**
+ * @brief Maintains wasEvent[] and toggles isDown[].
  */
 void debounceButtons(void)
 {
@@ -93,7 +92,8 @@ void debounceButtons(void)
             {
                 wasEvent[button] = false;
             }
-        } else
+        }
+        else
         {
             if (downCount[button] >= DEBOUNCE_COUNT)
             {
@@ -108,27 +108,20 @@ void debounceButtons(void)
     }
 }
 
-/*
- * Returns true when button is currently down (may be bouncing).
+/**
+ * @return true when button is currently down (does no debouncing!)
  */
 inline bool isPressed(uint8_t button)
 {
     switch (button)
     {
-    case RED_BUTTON:
-        return RED_BUTTON_DOWN;
-    case L_UP_BUTTON:
-        return L_UP_BUTTON_DOWN;
-    case L_DOWN_BUTTON:
-        return L_DOWN_BUTTON_DOWN;
-    case R_UP_BUTTON:
-        return R_UP_BUTTON_DOWN;
-    case R_DOWN_BUTTON:
-        return R_DOWN_BUTTON_DOWN;
-    case NEST_BUTTON:
-        return NEST_BUTTON_DOWN;
-    default:
-        break;
+    case RED_BUTTON:      return RED_BUTTON_DOWN;
+    case L_UP_BUTTON:     return L_UP_BUTTON_DOWN;
+    case L_DOWN_BUTTON:   return L_DOWN_BUTTON_DOWN;
+    case R_UP_BUTTON:     return R_UP_BUTTON_DOWN;
+    case R_DOWN_BUTTON:   return R_DOWN_BUTTON_DOWN;
+    case NEST_BUTTON:     return NEST_BUTTON_DOWN;
+    default:              break;
     }
 
     return false;
