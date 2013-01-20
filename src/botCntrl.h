@@ -17,6 +17,8 @@
 /**
  * @file
  * @brief High-level logic controlling Caddy's actions
+ *
+ * \sa \ref problem_summary
  */
 #ifndef BOTCNTRL_H_
 #define BOTCNTRL_H_
