@@ -1,4 +1,4 @@
-DOXYGEN = doxygen
+DOXYGEN ?= doxygen
 
 all: Doxyfile
 	$(DOXYGEN) $<
