@@ -1,12 +1,23 @@
 # Doxyfile >= 1.7.5 required
 
 PROJECT_NAME           = Caddy
+PROJECT_BRIEF          = "A 2005 Roborodentia entry with vision and path planning capability"
+FULL_PATH_NAMES        = NO
+TAB_SIZE               = 2
+EXTRACT_PACKAGE        = YES
 OPTIMIZE_OUTPUT_FOR_C  = YES
 LAYOUT_FILE            = DoxygenLayout.xml
+CITE_BIB_FILES         = bibliography.bib
 WARN_IF_UNDOCUMENTED   = NO
 INPUT                  = . ../src
+IMAGE_PATH             = images
 SOURCE_BROWSER         = YES
+
+# HTML options
+GENERATE_HTML          = YES
+
+# LaTeX Options
+GENERATE_LATEX         = YES
 COMPACT_LATEX          = YES
 PAPER_TYPE             = letter
 LATEX_SOURCE_CODE      = YES
-
