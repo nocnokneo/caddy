@@ -11,6 +11,7 @@ CITE_BIB_FILES         = bibliography.bib
 WARN_IF_UNDOCUMENTED   = NO
 INPUT                  = . ../src
 FILE_PATTERNS          = *.c *.h *.dox
+HAVE_DOT               = yes
 
 IMAGE_PATH             = images
 SOURCE_BROWSER         = YES
