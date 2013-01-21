@@ -10,6 +10,8 @@ LAYOUT_FILE            = CaddyDoxygenLayout.xml
 CITE_BIB_FILES         = bibliography.bib
 WARN_IF_UNDOCUMENTED   = NO
 INPUT                  = . ../src
+FILE_PATTERNS          = *.c *.h *.dox
+
 IMAGE_PATH             = images
 SOURCE_BROWSER         = YES
 
