@@ -1,14 +1,10 @@
 /**
 
-@mainpage Caddy
+@mainpage Introduction
 
 @author Taylor Braun-Jones <taylor@braun-jones.org>
 
-@section intro Introduction
-
-lorem ipsum
-
-@subsection problem_summary Problem Summary
+@section problem_summary Problem Summary
 
 Caddy is a robot entered into the 2005 Roborodentia. Roborodentia is an annual
 autonomous robotics competition held during Cal Poly's Open House by the IEEE
@@ -54,7 +50,7 @@ with the top of the wall. The scoring breakdown is as follows:
   </tr>
   <tr>
     <td>6</td>
-    <td>Placing a bonus ball in “nest” (3 points per ball)</td>
+    <td>Placing a bonus ball in the “nest” (3 points per ball)</td>
   </tr>
   <tr>
     <td>36</td>
@@ -63,5 +59,124 @@ with the top of the wall. The scoring breakdown is as follows:
 </table>
 
 In the case of a tie, the robot with the fastest time wins.
+
+@page goals Goals
+
+Goals...
+
+@page design Design
+
+@section team_process Collaborative Team Process
+
+@section collaborative_tools Collaborative Tools
+
+@li CVS
+@li Drupal
+
+@section system_arch System Architecture
+
+Info about system architecture
+
+@section electrical_design Electrical Design
+
+@subsection power_motor Power Regulation and Motor Controller
+
+Resolving software bugs and electrical noise issues at the same time is almost
+impossible, so we wanted to build a reliable power supply board to provide
+clean regulated power to the electronics, free of all the back EMF generated
+by the DC motors. We came up with a simple design to provide
+
+Raw, unregulated battery voltage for the motors via an H-bridge driver
+Decoupled, unregulated power for the CMUcam Decoupled, regulated power for the
+rest of the electronics We made sure to use polarized headers for all the
+connections because at 5 in the morning after a long coding session you are
+liable to make all kinds of stupid blunders. Even with prevention measures
+like this, we made a few.
+
+@subsection ir_break_beam IR Break Beam
+
+To detect when a ball is within the grasp of the lift we had two
+options. Originally we thought that we could simply use the centroid tracking
+feature of the camera since we would have the camera facing down watching the
+line anyway. This turned out to be difficult for a couple reasons.
+
+When the camera is configured to track a black line, glare from the overhead
+lighting and red golf balls have the same effect on what the camera sees – a
+gap in the line. This seemed like an easily surmountable problem at
+first. Just change modes whenever a gap is detected, determine if it is a ball
+or a glare, and act accordingly. As with any software program, introducing one
+seemingly small change has the potential to severely affect the rest of the
+system. This particular case was no exception. First, the CMUcam did not
+handle rapid mode/parameter changes well, taking longer than we expected to go
+from one mode to another. This lead to a failure in our finely tuned PID line
+tracking algorithm which relied on frequent, regular updates over time. We
+considered and experimented with some ways of solving this problem but none
+were the quick, elegant solution we were looking for.
+
+With a fast approaching deadline and still much to do, we decided that the
+quickest way to solve the problem was to simply setup a break beam sensor in
+just the right position to detect when the lift mechanism should be
+raised. This was fast to implement and worked reliably.
+
+Here is a schematic of our break beam circuit:
+
+@todo Add a schematic of break beam circuit.
+
+@subsection servo_reverser Servo Reverser
+
+The mechanical design of Caddy required 6 servos:
+
+@li (2) Ball pickup (one on each side to support the mechanical assembly)
+@li Boom control
+@li Ball hopper
+@li Tilt action
+@li Pan action
+
+This meant that the original plan to use the five servo control outputs of the
+CMUcam would be inadequate.
+
+The following approaches were considered for occomodating the 6th servo
+output:
+
+@li \b Mechanical: Modify the mechanical design so that the ball pickup
+mechanism could be controlled by just one high-torque servo. Tyson had already
+done such an awesome job of designing the lift to be actuated by just one
+mechanical motion that this seemed like too much to ask.
+
+@li \b Software: Use some of the extra pins on the ATmega32 to generate a
+servo PWM signal. Unfortunately we were already using the two PWM peripherals
+on the ATmega32 so we would have to do this in software. We had limited timer
+resources on our chip and weren't sure how we might need to use them in the
+future so this was not an ideal solution.
+
+@li \b Electrical: Leverage the fact that the 2 servos controlling the ball
+pickup were the same signal, 180 degrees out of phase. This seemed like a
+perfect application for a simple 555 timer circuit.
+
+We decided to use the 555 timer approach. fabricated the board with a 4-pin
+header so that the circuit could easily be transplanted to another club
+project in the future
+
+@subsection wheel_encoders Wheel Encoders
+
+The maneuvers needed at junctions and for the bonus ball pick up sequences
+needed to be accurate and repeatable. To acheive this we used a black and
+white encoder disk that we printed out and glued to the inside edge of each
+drive wheel. @cite walters_dead_reckoning_2000
+
+@image html  encoder_disc.png "Reflective IR wheel encoder pattern" 
+@image latex encoder_disc.eps "Reflective IR wheel encoder pattern" size
+
+@todo information, photo, schematic
+
+@section software_architecture Software Architecture
+
+@subsection Computing Platform
+
+@subsection PID Line Tracking
+
+@subsection Ball Detection and Localization
+
+@subsection Path Planning
 
 */
