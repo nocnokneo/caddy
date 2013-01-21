@@ -10,6 +10,8 @@ Authors
 * Taylor Braun-Jones
 * Logan Kinde
 * Patrick McCarty
+* Michael Shelley
+* Scott Barlow
 
 This software is written for the Atmel Atmega32 processor using the free
 gcc-avr C compiler. It has been tested on the ERE EMBMega32 developement board
