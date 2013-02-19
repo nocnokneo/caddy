@@ -45,6 +45,11 @@ ASFLAGS += -Wa, -gstabs
 # Compiler flags
 CFLAGS += -g -Os -Wall
 
+# For compatibilty with avr-libc >= 1.6
+CPPFLAGS += -D__AVR_LIBC_DEPRECATED_ENABLE__
+# For compatibilty with avr-libc >= 1.8
+CPPFLAGS += -D__PROG_TYPES_COMPAT__
+
 # Turn on listings
 #CFLAGS += -Wa,-ahlms=$(<:.c=.lst)
 
