@@ -98,6 +98,12 @@ the internet.
 Between face-to-face team meetings we used Drupal to host a private forum for
 discussing ideas, sharing progres, etc.
 
+Inline code documenation as well as this project report were managed using <a
+href="http://doxygen.org">Doxygen</a>. Keeping the documenation in plain text
+and means that the documenation can be version controlled the very same way as
+the source code. The documentation also tends to stay more up to date since it
+is "close to the code".
+
 @section system_arch System Architecture
 
 Info about system architecture
