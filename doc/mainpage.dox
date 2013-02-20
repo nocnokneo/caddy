@@ -64,8 +64,8 @@ In the case of a tie, the robot with the fastest time wins.
 
 For our entry we decided to focus on the autonomous aspect of the Roborodentia
 competition. In particular we wanted a robot that could <em>actively adapt<em>
-to the random ball locations. This was the driver for two of Caddy's unique
-requirements:
+to the random ball locations (unlike any previous entry had ever done). This
+was the driver for two of Caddy's unique requirements:
 
 @li <b>Path planning</b> - Caddy needed a way to map the arena and a shortest
 path algorithm that could find the best path through a sequence of goals.
@@ -73,8 +73,9 @@ path algorithm that could find the best path through a sequence of goals.
 @li <b>Ball finding</b> - To make the best use of the path planning algorithm,
 we needed a way to actively search for balls down untraveld cooridors.
 
-We also decided that Caddy would need bonus ball collection capabiltiy in
-order to be competitive.
+Since the scoring distribution weighted bonus balls so heavily, we also
+decided that Caddy would need bonus ball collection capabiltiy in order to be
+competitive.
 
 @page design Design
 
@@ -301,11 +302,44 @@ Mechanical Engineering Student Fee Allocation Committee (MESFAC)
 
 @section contributions Individual Contributions
 
+Caddy was a joint effort between Taylor Braun-Jones, Logan Kinde, Tyson
+Messori, Scott Barlow, Michael Shelley, and Patrick McCarty. Primary
+contributors were Taylor, Logan, and Tyson.
+
 @image html  team_photo.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty"
 @image latex team_photo.eps "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty" width=12cm
 
-@subsection taylor_contrib Taylor Braun-Jones
+@subsection taylor_contrib Contributions of Taylor Braun-Jones
 
-@todo
+Taylor was responsible for overall project coordination and administration
+including:
+
+@li Gantt chart creation and tracking
+@li MESFAC grant proposal
+@li Part ordering and budget management
+@li Creation and administration of the code repository
+
+Taylor contributed the bracket used to mount the CMUcam2 to the panning
+servo. Nearly all the rest of the mechanical work was owned by Tyson Messori.
+
+Taylor contributed the concept and implementation of a detactable tethered
+remote for debuging and run-time paramter adjustment.
+
+The software contributions are attributed as follows:
+
+@li Code structure, high level architecture, and build system - Taylor Braun-Jones
+@li Path planning algorithm and implementation - Logan Kinde
+@li EEPROM reading and writing - Patrick McCarty
+@li PWM motor controller - Michael Shelly
+
+Nearly all the rest of the code (the majority of the code base) was developed
+between Taylor and Logan together using the <a
+href="http://en.wikipedia.org/wiki/Pair_programming">pair programming</a>
+technique. This includes:
+
+@li PID line tracking
+@li Ball detection and seeking
+@li Course traversal 
+@li Ball collection maneuvers
 
 */
