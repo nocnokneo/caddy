@@ -267,7 +267,7 @@ void analyzeLineStats(void)
     damping = lineSlope - lastSlope;
     lineOffset = lineCenter - (m * (LINE_Y3 - lineY1) + lineX1);
     correction = slopeCoef * m +
-                 offCoef * (lineCenter - (m * (LINE_Y3 - lineY1) + lineX1)) +
+                 offCoef * lineOffset +
                  dampCoef * damping;
 
 #if DEBUGGING
