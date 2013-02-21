@@ -13,7 +13,12 @@ randomly placed golf balls, collect them, and then deposit the balls in the
 “nest” at the end of the maze. The 2005 competition also included a new
 aspect. Two bonus balls were placed on a platform behind the wall in two
 predetermined corners of the maze such that the top of the golf ball was flush
-with the top of the wall. The scoring breakdown is as follows:
+with the top of the wall.
+
+@image html  arena.png "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls"
+@image latex arena.eps "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls" width=10cm
+
+The competition scoring breakdown is as follows:
 
 <table>
   <tr>
