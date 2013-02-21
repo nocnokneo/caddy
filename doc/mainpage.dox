@@ -68,7 +68,7 @@ In the case of a tie, the robot with the fastest time wins.
 @page goals Goals
 
 For our entry we decided to focus on the autonomous aspect of the Roborodentia
-competition. In particular we wanted a robot that could <em>actively adapt<em>
+competition. In particular we wanted a robot that could <em>actively adapt</em>
 to the random ball locations (unlike any previous entry had ever done). This
 was the driver for two of Caddy's unique requirements:
 
