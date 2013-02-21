@@ -25,3 +25,4 @@ GENERATE_LATEX         = YES
 COMPACT_LATEX          = YES
 PAPER_TYPE             = letter
 LATEX_SOURCE_CODE      = YES
+LATEX_HEADER           = header.tex
