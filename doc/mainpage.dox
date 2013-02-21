@@ -63,6 +63,18 @@ The competition scoring breakdown is as follows:
 
 In the case of a tie, the robot with the fastest time wins.
 
+@htmlonly
+<p>
+The following sections document the Cal Poly Robotics Club entry "Caddy" for
+the 2005 Roborodentia competition:
+</p>
+<ul>
+<li><a href="goals.html">Goals</a></li>
+<li><a href="design.html">Design</a></li>
+<li><a href="conclusion.html">Conclusion</a></li>
+</ul>
+@endhtmlonly
+
 @page goals Goals
 
 For our entry we decided to focus on the autonomous aspect of the Roborodentia
