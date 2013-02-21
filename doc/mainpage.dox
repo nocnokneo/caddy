@@ -76,10 +76,10 @@ was the driver for two of Caddy's unique requirements:
 path algorithm that could find the best path through a sequence of goals.
 
 @li <b>Ball finding</b> - To make the best use of the path planning algorithm,
-we needed a way to actively search for balls down untraveld cooridors.
+we needed a way to actively search for balls down untraveled corridors.
 
 Since the scoring distribution weighted bonus balls so heavily, we also
-decided that Caddy would need bonus ball collection capabiltiy in order to be
+decided that Caddy would need bonus ball collection capability in order to be
 competitive.
 
 @page design Design
@@ -92,20 +92,20 @@ The team for this project was formed from interested members of the the
 <a href="http://robotics.ee.calpoly.edu/">Cal Poly Robotics Club</a>.
 
 To organize the tasks and identify critical paths in the (short) project
-timeline, we used <a href="http://www.ganttproject.biz/">GanttProject</a>
+time line, we used <a href="http://www.ganttproject.biz/">GanttProject</a>
 to create a Gantt chart.
 
-For code control and collabortion we used Concurrent Versions Systme
+For code control and collaboration we used Concurrent Versions System
 (CVS). Since this project had a competitive nature, we chose to setup and host
 our own private CVS server over some of the free CVS hosting services found on
 the internet.
 
 Between face-to-face team meetings we used Drupal to host a private forum for
-discussing ideas, sharing progres, etc.
+discussing ideas, sharing progress, etc.
 
-Inline code documenation as well as this project report were managed using <a
-href="http://doxygen.org">Doxygen</a>. Keeping the documenation in plain text
-and means that the documenation can be version controlled the very same way as
+Inline code documentation as well as this project report were managed using <a
+href="http://doxygen.org">Doxygen</a>. Keeping the documentation in plain text
+and means that the documentation can be version controlled the very same way as
 the source code. The documentation also tends to stay more up to date since it
 is "close to the code".
 
@@ -127,7 +127,7 @@ by the DC motors. We came up with a simple design to provide
 @li Decoupled, regulated power for the rest of the electronics
 
 Using unregulated batter power to drive the motors meant we could save on the
-cost of an expensive votage capabable of driving the relatively high power
+cost of an expensive voltage capable of driving the relatively high power
 demands of the DC motors.
 
 We made sure to use polarized headers for all the connections because at 5 in
@@ -177,7 +177,7 @@ The mechanical design of Caddy required 6 servos:
 This meant that the original plan to use the five servo control outputs of the
 CMUcam would be inadequate.
 
-The following approaches were considered for occomodating the 6th servo
+The following approaches were considered for accommodating the 6th servo
 output:
 
 @li \b Mechanical: Modify the mechanical design so that the ball pickup
@@ -202,7 +202,7 @@ reused in the future.
 @subsection wheel_encoders Wheel Encoders
 
 The maneuvers needed at junctions and for the bonus ball pick up sequences
-needed to be accurate and repeatable. To acheive this we used a black and
+needed to be accurate and repeatable. To achieve this we used a black and
 white encoder disk that we printed out and glued to the inside edge of each
 drive wheel. @cite walters_dead_reckoning_2000
 
@@ -237,10 +237,10 @@ c(t) = P_E e(t) + P_I \int e(t) dt + \P_0 \frac{de}{dt}
 
 When turning our bot by a certain number of ticks, we experienced overshoot
 despite actively applying DC motor braking. We addressed the problem with the
-following softare solution.
+following software solution.
 
 After turning for the desired number of ticks, we applied braking and counted
-the number of excess ticks that occured from the instant braking was
+the number of excess ticks that occurred from the instant braking was
 commanded. After a fixed delay, we drove the wheels in the opposite direction
 for that same number of ticks.
 
@@ -333,8 +333,8 @@ including:
 Taylor contributed the bracket used to mount the CMUcam2 to the panning
 servo. Nearly all the rest of the mechanical work was owned by Tyson Messori.
 
-Taylor contributed the concept and implementation of a detactable tethered
-remote for debuging and run-time paramter adjustment.
+Taylor contributed the concept and implementation of a detachable tethered
+remote for debugging and run-time parameter adjustment.
 
 The software contributions are attributed as follows:
 
