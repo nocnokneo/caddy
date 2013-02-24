@@ -1,0 +1,13 @@
+<map id="botCntrl.c" name="botCntrl.c">
+<area shape="rect" id="node3" href="$botCntrl_8h.html" title="High&#45;level logic controlling Caddy&#39;s actions." alt="" coords="5,83,83,112"/>
+<area shape="rect" id="node9" href="$trackLine_8h.html" title="Line detection and PID tracking using CMUcam2." alt="" coords="107,83,192,112"/>
+<area shape="rect" id="node13" href="$trackColor_8h.html" title="Simple tracking Roborodentia objects of interest by color." alt="" coords="216,83,309,112"/>
+<area shape="rect" id="node17" href="$junctionCode_8h.html" title="Actions that occur at junctions." alt="" coords="333,83,443,112"/>
+<area shape="rect" id="node21" href="$updatePath_8h_source.html" title="updatePath.h" alt="" coords="467,83,565,112"/>
+<area shape="rect" id="node25" href="$motorCntrl_8h_source.html" title="motorCntrl.h" alt="" coords="992,83,1085,112"/>
+<area shape="rect" id="node32" href="$servos_8h_source.html" title="servos.h" alt="" coords="696,83,768,112"/>
+<area shape="rect" id="node35" href="$buttons_8h.html" title="Button debouncing, start bot logic." alt="" coords="792,83,867,112"/>
+<area shape="rect" id="node40" href="$nodeList_8h.html" title="Course defined by a connected grid of nodes." alt="" coords="589,83,672,112"/>
+<area shape="rect" id="node44" href="$tetherUI_8h.html" title="Simple user interface to change parameters without reprogramming." alt="" coords="1109,83,1189,112"/>
+<area shape="rect" id="node46" href="$eeProm_8h.html" title="Loading and store &quot;tweak values&quot; into eeProm." alt="" coords="891,83,968,112"/>
+</map>

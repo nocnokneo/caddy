@@ -1,0 +1,9 @@
+<map id="caddy.c" name="caddy.c">
+<area shape="rect" id="node3" href="$botCntrl_8h.html" title="High&#45;level logic controlling Caddy&#39;s actions." alt="" coords="301,83,379,112"/>
+<area shape="rect" id="node9" href="$motorCntrl_8h_source.html" title="motorCntrl.h" alt="" coords="651,83,744,112"/>
+<area shape="rect" id="node16" href="$camera_8h.html" title="camera.h" alt="" coords="5,83,80,112"/>
+<area shape="rect" id="node19" href="$servos_8h_source.html" title="servos.h" alt="" coords="104,83,176,112"/>
+<area shape="rect" id="node22" href="$buttons_8h.html" title="Button debouncing, start bot logic." alt="" coords="552,83,627,112"/>
+<area shape="rect" id="node27" href="$eeProm_8h.html" title="Loading and store &quot;tweak values&quot; into eeProm." alt="" coords="200,83,277,112"/>
+<area shape="rect" id="node30" href="$helperFunctions_8h_source.html" title="helperFunctions.h" alt="" coords="403,83,528,112"/>
+</map>

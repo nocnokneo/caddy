@@ -1,0 +1,6 @@
+<map id="camera.h" name="camera.h">
+<area shape="rect" id="node3" href="$caddy_8c.html" title="Caddy&#39;s main loop and Atmel initialization." alt="" coords="5,83,72,112"/>
+<area shape="rect" id="node5" href="$camera_8c.html" title="camera.c" alt="" coords="96,83,171,112"/>
+<area shape="rect" id="node7" href="$trackColor_8c.html" title="trackColor.c" alt="" coords="195,83,288,112"/>
+<area shape="rect" id="node9" href="$trackLine_8c_source.html" title="trackLine.c" alt="" coords="312,83,397,112"/>
+</map>

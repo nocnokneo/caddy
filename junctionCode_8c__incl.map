@@ -1,0 +1,8 @@
+<map id="junctionCode.c" name="junctionCode.c">
+<area shape="rect" id="node3" href="$junctionCode_8h.html" title="Actions that occur at junctions." alt="" coords="5,83,115,112"/>
+<area shape="rect" id="node9" href="$botCntrl_8h.html" title="High&#45;level logic controlling Caddy&#39;s actions." alt="" coords="139,83,216,112"/>
+<area shape="rect" id="node13" href="$trackColor_8h.html" title="Simple tracking Roborodentia objects of interest by color." alt="" coords="240,83,333,112"/>
+<area shape="rect" id="node17" href="$servos_8h_source.html" title="servos.h" alt="" coords="464,83,536,112"/>
+<area shape="rect" id="node20" href="$nodeList_8h.html" title="Course defined by a connected grid of nodes." alt="" coords="357,83,440,112"/>
+<area shape="rect" id="node24" href="$eeProm_8h.html" title="Loading and store &quot;tweak values&quot; into eeProm." alt="" coords="560,83,637,112"/>
+</map>

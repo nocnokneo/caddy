@@ -1,0 +1,8 @@
+<map id="exercises.c" name="exercises.c">
+<area shape="rect" id="node3" href="$exercises_8h.html" title="Exercise various high&#45;level capabilities." alt="" coords="5,83,93,112"/>
+<area shape="rect" id="node5" href="$botCntrl_8h.html" title="High&#45;level logic controlling Caddy&#39;s actions." alt="" coords="584,83,661,112"/>
+<area shape="rect" id="node11" href="$motorCntrl_8h_source.html" title="motorCntrl.h" alt="" coords="117,83,211,112"/>
+<area shape="rect" id="node18" href="$buttons_8h.html" title="Button debouncing, start bot logic." alt="" coords="336,83,411,112"/>
+<area shape="rect" id="node23" href="$helperFunctions_8h_source.html" title="helperFunctions.h" alt="" coords="435,83,560,112"/>
+<area shape="rect" id="node27" href="$ourLCD_8h_source.html" title="ourLCD.h" alt="" coords="235,83,312,112"/>
+</map>

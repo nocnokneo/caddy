@@ -1,0 +1,6 @@
+\form#0:$c(t)$
+\form#1:\[ c(t) = P_E e(t) + P_I \int e(t) dt + \P_0 \frac{de}{dt} \]
+\form#2:$ e(t) $
+\form#3:$ P_E $
+\form#4:$ P_I $
+\form#5:$ P_D $
