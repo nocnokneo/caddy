@@ -58,6 +58,31 @@ Documenation in HTML and PDF format is generated using the following packages:
 * ImageMagick (`convert` command)
 * perl
 
+Documentation Build Instructions
+================================
+
+In your local caddy git repository, create a second clone of the caddy git
+repository from the main GitHub-hosted one and switch to the special
+`gh-pages` "orphan" branch:
+
+```bash
+cd <YOUR_CADDY_CHECKOUT>/doc
+rm -rf html
+git clone git@github.com:nocnokneo/caddy.git html
+cd html
+git checkout gh-pages
+git config http.postBuffer 100000000   # required when pushing to http:// URL
+```
+
+Build, commit, and publish (push to origin/gh-pages) the documenation
+
+```bash
+make -C ..
+git add .
+git commit -m "Update doxygen-generted documenation"
+git push origin gh-pages
+```
+
 LICENSE
 =======
 
