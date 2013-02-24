@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.3.1"/>
-<title>Caddy: Introduction</title>
+<title>Caddy: Appendix</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -37,8 +37,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -59,7 +59,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -74,42 +73,53 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Introduction </div>  </div>
+<div class="title">Appendix </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="problem_summary"></a>
-Problem Summary</h1>
-<p>Caddy is a robot entered into the 2005 Roborodentia. Roborodentia is an annual autonomous robotics competition held during Cal Poly's Open House by the IEEE Computer Society. Robot entries must navigate a maze searching for three randomly placed golf balls, collect them, and then deposit the balls in the “nest” at the end of the maze. The 2005 competition also included a new aspect. Two bonus balls were placed on a platform behind the wall in two predetermined corners of the maze such that the top of the golf ball was flush with the top of the wall.</p>
+<div class="textblock"><h1><a class="anchor" id="bom"></a>
+Bill of Materials</h1>
+<p>The materials for this project were funded in part by a $525 grant from the Mechanical Engineering Student Fee Allocation Committee (MESFAC)</p>
+<h1><a class="anchor" id="gantt"></a>
+Gantt Chart</h1>
 <div class="image">
-<img src="arena.png" alt="arena.png"/>
+<img src="caddy_gantt.png" alt="caddy_gantt.png"/>
 <div class="caption">
-Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls</div></div>
-<p>The competition scoring breakdown is as follows:</p>
-<table class="doxtable">
-<tr>
-<th>Point Value </th><th>Task  </th></tr>
-<tr>
-<td>1 </td><td>Passing the first turn in the maze - Point A  </td></tr>
-<tr>
-<td>1 </td><td>Triggering “nest” solenoid by activating optical sensor - Point X  </td></tr>
-<tr>
-<td>3 </td><td>Touching each ground ball (1 point per ball)  </td></tr>
-<tr>
-<td>3 </td><td>Collecting and possessing each ground ball (1 point per ball)  </td></tr>
-<tr>
-<td>3 </td><td>Bringing each ground ball to “nest” - Area B (1 point per ball)  </td></tr>
-<tr>
-<td>9 </td><td>Placing each ground ball in “nest” - Point E (3 points per ball)  </td></tr>
-<tr>
-<td>10 </td><td>Collecting and possessing a bonus ball - 2 Yellow Balls (5 points per ball)  </td></tr>
-<tr>
-<td>6 </td><td>Placing a bonus ball in the “nest” (3 points per ball)  </td></tr>
-<tr>
-<td>36 </td><td>Total possible points  </td></tr>
-</table>
-<p>In the case of a tie, the robot with the fastest time wins. </p>
+Caddy project gantt chart</div></div>
+<h1><a class="anchor" id="contributions"></a>
+Individual Contributions</h1>
+<p>Caddy was a joint effort between Taylor Braun-Jones, Logan Kinde, Tyson Messori, Scott Barlow, Michael Shelley, and Patrick McCarty. Primary contributors were Taylor, Logan, and Tyson.</p>
+<div class="image">
+<img src="team_photo.png" alt="team_photo.png"/>
+<div class="caption">
+Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty</div></div>
+<h2><a class="anchor" id="taylor_contrib"></a>
+Contributions of Taylor Braun-Jones</h2>
+<p>Taylor was responsible for overall project coordination and administration including:</p>
+<ul>
+<li>Gantt chart creation and tracking </li>
+<li>MESFAC grant proposal </li>
+<li>Part ordering and budget management </li>
+<li>Creation and administration of the code repository</li>
+</ul>
+<p>Taylor contributed the bracket used to mount the CMUcam2 to the panning servo. Nearly all the rest of the mechanical work was owned by Tyson Messori.</p>
+<p>Taylor contributed the concept and implementation of a detachable tethered remote for debugging and run-time parameter adjustment.</p>
+<p>The software contributions are attributed as follows:</p>
+<ul>
+<li>Code structure, high level architecture, and build system - Taylor Braun-Jones </li>
+<li>Path planning algorithm and implementation - Logan Kinde </li>
+<li>EEPROM reading and writing - Patrick McCarty </li>
+<li>PWM motor controller - Michael Shelly</li>
+</ul>
+<p>Nearly all the rest of the code (the majority of the code base) was developed between Taylor and Logan together using the <a href="http://en.wikipedia.org/wiki/Pair_programming">pair programming</a> technique. This includes:</p>
+<ul>
+<li>PID line tracking </li>
+<li>Ball detection and seeking </li>
+<li>Course traversal </li>
+<li>Ball collection maneuvers </li>
+</ul>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

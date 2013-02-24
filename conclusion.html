@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.3.1"/>
-<title>Caddy: Introduction</title>
+<title>Caddy: Conclusion</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -37,8 +37,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Data&#160;Structures</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -59,7 +59,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -74,46 +73,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Introduction </div>  </div>
+<div class="title">Conclusion </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="problem_summary"></a>
-Problem Summary</h1>
-<p>Caddy is a robot entered into the 2005 Roborodentia. Roborodentia is an annual autonomous robotics competition held during Cal Poly's Open House by the IEEE Computer Society. Robot entries must navigate a maze searching for three randomly placed golf balls, collect them, and then deposit the balls in the “nest” at the end of the maze. The 2005 competition also included a new aspect. Two bonus balls were placed on a platform behind the wall in two predetermined corners of the maze such that the top of the golf ball was flush with the top of the wall.</p>
-<div class="image">
-<img src="arena.png" alt="arena.png"/>
-<div class="caption">
-Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls</div></div>
-<p>The competition scoring breakdown is as follows:</p>
-<table class="doxtable">
-<tr>
-<th>Point Value </th><th>Task  </th></tr>
-<tr>
-<td>1 </td><td>Passing the first turn in the maze - Point A  </td></tr>
-<tr>
-<td>1 </td><td>Triggering “nest” solenoid by activating optical sensor - Point X  </td></tr>
-<tr>
-<td>3 </td><td>Touching each ground ball (1 point per ball)  </td></tr>
-<tr>
-<td>3 </td><td>Collecting and possessing each ground ball (1 point per ball)  </td></tr>
-<tr>
-<td>3 </td><td>Bringing each ground ball to “nest” - Area B (1 point per ball)  </td></tr>
-<tr>
-<td>9 </td><td>Placing each ground ball in “nest” - Point E (3 points per ball)  </td></tr>
-<tr>
-<td>10 </td><td>Collecting and possessing a bonus ball - 2 Yellow Balls (5 points per ball)  </td></tr>
-<tr>
-<td>6 </td><td>Placing a bonus ball in the “nest” (3 points per ball)  </td></tr>
-<tr>
-<td>36 </td><td>Total possible points  </td></tr>
-</table>
-<p>In the case of a tie, the robot with the fastest time wins. </p>
+<div class="textblock"><h1><a class="anchor" id="future_work"></a>
+Future Work</h1>
+<h2><a class="anchor" id="regulated_motor_voltage"></a>
+Regulated Motor Voltage</h2>
+<p>If we end up working with higher voltage motors again, it may be worth losing some voltage in order to send regulated voltage to the motors. This allows for more consistent operation across fresh and low batteries. This should also condition our batteries better, because the battery voltage can drop until the regulator’s threshold is reached. As long as we drop the voltage down enough, it should be obvious when batteries are dead. As the regulator cuts out, the bot should slow down more dramatically. A common solution in ME 405 (mechatronics) is to regulate 14.4V down to 12V with an adjustable regulator (LM1084) for each motor. One regulator was not able to provide enough current for both motors. When driving the motors at the same pulse width, we were able to see a difference in how straight the bot drove, if the motors received voltages a few hundredths apart. Yet, just having the ability to precisely and consistently set the voltage to the motors was very useful.</p>
+<h2><a class="anchor" id=""></a>
+</h2>
+<p>Since we were using timer 1 (a 16-bit timer) for PWM, we could have used 16-bit PWM. 8-bit resolution seemed to be sufficient with the original 6 volts motors, but when we switched to 12 volt motors, more precise control of the PWM signal would likely have improved the PID line tracking. As it was, we had to use a PID offset constant of 1 which means that we would have required division to decrease the proportional coefficient parameter of our PID control algorithm.</p>
+<h2><a class="anchor" id="quadrature_wheel_encoders"></a>
+Quadrature Wheel Encoders</h2>
+<p>Quadrature wheel encoders would have required more mechanical work (to mount the reflective IR sensors 90 degrees out-of-phase) and electrical work (wiring for twice as many sensors) but it would have helped solved some challenges with maneuvering the robot through precise sequences such as the bonus ball pickup.</p>
+<p>Quadrature encoders would have allowed us to perform overshoot correction easily and accurately. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Feb 24 2013 13:31:18 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Feb 24 2013 13:31:11 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
