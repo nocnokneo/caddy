@@ -61,25 +61,19 @@ Documenation in HTML and PDF format is generated using the following packages:
 Documentation Build Instructions
 ================================
 
-In your local caddy git repository, create a second clone of the caddy git
-repository from the main GitHub-hosted one and switch to the special
-`gh-pages` "orphan" branch:
+The first time you generate documenation in the `doc` directory a second clone
+of the caddy git repository will be created from the main
+GitHub-hosted. Pushing updates to the special `gh-pages` remote branch is how
+HTML documentation is published to http://nocnokneo.github.com/caddy/
+
+The documentation build, commit, and publish workflow looks like this:
 
 ```bash
-cd <YOUR_CADDY_CHECKOUT>/doc
-rm -rf html
-git clone git@github.com:nocnokneo/caddy.git html
-cd html
-git checkout gh-pages
-git config http.postBuffer 100000000   # required when pushing to http:// URL
-```
-
-Build, commit, and publish (push to origin/gh-pages) the documenation
-
-```bash
-make -C ..
+# Starting from the project base directory
+make doc
+cd doc/html
 git add .
-git commit -m "Update doxygen-generted documenation"
+git commit -m "Update doxygen-generated documentation"
 git push origin gh-pages
 ```
 
