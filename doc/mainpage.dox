@@ -73,6 +73,10 @@ the 2005 Roborodentia competition:
 <li><a href="design.html">Design</a></li>
 <li><a href="conclusion.html">Conclusion</a></li>
 </ul>
+
+The content of this site is also available as a <a href="caddy.pdf">single pdf
+report</a>.
+
 @endhtmlonly
 
 @page goals Goals

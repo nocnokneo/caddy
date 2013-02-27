@@ -11,6 +11,7 @@ all: Doxyfile check_doxygen_version
 	$(DOXYGEN) $<
 	cp images/caddy_in_arena.png latex/
 	$(MAKE) -C latex
+	cp latex/refman.pdf html/caddy.pdf
 
 check_doxygen_version:
 	@[ $(DOXYGEN_MIN_VERSION) = `echo -e "$(shell $(DOXYGEN) --version)\n$(DOXYGEN_MIN_VERSION)" | \
