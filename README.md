@@ -62,9 +62,9 @@ Documentation Build Instructions
 ================================
 
 The first time you generate documenation in the `doc` directory a second clone
-of the caddy git repository will be created from the main
-GitHub-hosted. Pushing updates to the special `gh-pages` remote branch is how
-HTML documentation is published to http://nocnokneo.github.com/caddy/
+of the caddy git repository will be created from the main GitHub-hosted
+one. Pushing updates to the special `gh-pages` remote branch publishes them
+to: http://nocnokneo.github.com/caddy/
 
 The documentation build, commit, and publish workflow looks like this:
 
