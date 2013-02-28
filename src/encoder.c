@@ -36,7 +36,6 @@
 //*****************************************************************************
 #ifndef WIN32
 #include <avr/io.h>
-#include <avr/signal.h>
 #include <avr/interrupt.h>
 #endif
 
