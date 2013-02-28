@@ -116,18 +116,18 @@ void rprintfStrLen(char str[], unsigned int start, unsigned int len)
 
 // *** rprintfProgStr ***
 // prints a null-terminated string stored in program ROM
-void rprintfProgStr(const prog_char str[])
-{
-	// print a string stored in program memory
-	register char c;
-
-	// check to make sure we have a good pointer
-	if (!str) return;
-	
-	// print the string until the null-terminator
-	while((c = pgm_read_byte(str++)))
-		rprintfChar(c);
-}
+//void rprintfProgStr(const prog_char str[])
+//{
+//	// print a string stored in program memory
+//	register char c;
+//
+//	// check to make sure we have a good pointer
+//	if (!str) return;
+//
+//	// print the string until the null-terminator
+//	while((c = pgm_read_byte(str++)))
+//		rprintfChar(c);
+//}
 
 // *** rprintfCRLF ***
 // prints carriage return and line feed
