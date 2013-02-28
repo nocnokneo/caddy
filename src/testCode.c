@@ -16,6 +16,7 @@
  */
 #include "testCode.h"
 #include "botCntrl.h"
+#include "junctionCode.h"
 #include "motorCntrl.h"
 #include "trackColor.h"
 #include "trackLine.h"
@@ -24,6 +25,8 @@
 #include "servos.h"
 #include "buttons.h"
 #include "eeProm.h"
+#include "ourLCD.h"
+#include "helperFunctions.h"
 
 // avr-libc
 #include <stdbool.h>

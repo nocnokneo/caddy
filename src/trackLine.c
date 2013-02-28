@@ -19,6 +19,7 @@
 #include "camera.h"
 #include "eeProm.h"
 #include "tetherUI.h"
+#include "ourLCD.h"
 
 // AVRLIB
 #include "rprintf.h"

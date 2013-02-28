@@ -22,6 +22,7 @@
 #include "junctionCode.h"
 #include "motorCntrl.h"
 #include "eeProm.h"
+#include "helperFunctions.h"
 
 // AVRLIB
 #include "rprintf.h"

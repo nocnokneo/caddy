@@ -19,8 +19,12 @@
 #include "botCntrl.h"
 #include "trackColor.h"
 #include "servos.h"
+#include "camera.h"
 #include "nodeList.h"
 #include "eeProm.h"
+#include "motorCntrl.h"
+#include "updatePath.h"
+#include "helperFunctions.h"
 
 // Global variables
 // initialized in initBotGlobals

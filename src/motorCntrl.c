@@ -32,7 +32,9 @@
 //    defined in timer.h
 //*****************************************************************************
 #include "motorCntrl.h"
+#include "encoder.h"
 #include "eeProm.h"
+#include "ourLCD.h"
 
 // avr-libc
 #include <stdint.h>

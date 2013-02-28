@@ -18,6 +18,7 @@
 #include "helperFunctions.h"
 #include "motorCntrl.h"
 #include "eeProm.h"
+#include "ourLCD.h"
 
 // AVRLIB
 #include "rprintf.h"

@@ -22,9 +22,11 @@
 #include "motorCntrl.h"
 #include "camera.h"
 #include "servos.h"
+#include "encoder.h"
 #include "buttons.h"
 #include "eeProm.h"
 #include "helperFunctions.h"
+#include "ourLCD.h"
 
 // avr-libc
 #include <avr/io.h>

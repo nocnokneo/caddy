@@ -19,6 +19,7 @@
 #include "updatePath.h"
 #include "junctionCode.h"
 #include "nodeList.h"
+#include "ourLCD.h"
 
 // AVRLIB
 #include "timer.h"

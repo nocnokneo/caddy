@@ -21,11 +21,14 @@
 #include "junctionCode.h"
 #include "updatePath.h"
 #include "motorCntrl.h"
+#include "camera.h"
 #include "servos.h"
 #include "buttons.h"
 #include "nodeList.h"
 #include "tetherUI.h"
 #include "eeProm.h"
+#include "ourLCD.h"
+#include "helperFunctions.h"
 
 // avr-libc
 #include <string.h>

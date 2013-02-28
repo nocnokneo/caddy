@@ -18,6 +18,8 @@
 #include "camera.h"
 #include "trackColor.h"
 #include "trackLine.h"
+#include "helperFunctions.h"
+#include "ourLCD.h"
 
 // AVRLIB
 #include "rprintf.h"

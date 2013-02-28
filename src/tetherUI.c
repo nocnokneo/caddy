@@ -17,6 +17,8 @@
 #include "tetherUI.h"
 #include "buttons.h"
 #include "eeProm.h"
+#include "ourLCD.h"
+#include "testCode.h"
 
 // AVRLIB
 #include "avrlibdefs.h"

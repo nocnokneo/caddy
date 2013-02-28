@@ -20,9 +20,13 @@
 #include "junctionCode.h"
 #include "nodeList.h"
 #include "linkedList.h"
+#include "ourLCD.h"
+#include "perms.h"
+#include "helperFunctions.h"
 
 // avr-libc
 #include <string.h>
+#include <stdlib.h>
 
 #define NO_PARENT  0xff
 #define MAX_COST   0xff
