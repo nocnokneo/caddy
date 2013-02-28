@@ -238,13 +238,6 @@ static inline int8_t getNextHeading(uint8_t nextBotNode)
 
     // get absolute direction of nextBotNode from node list
     getNode(botNode, &nextNode);
-    if (&nextNode == NULL )
-    {
-#if DEBUGGING
-        lcdWriteStr("nodeList error  ", 0, 0);
-#endif
-        while (1) ;
-    }
     nextNodeIndex = findValue(nextNode.adjNodes,
                               nextNode.numAdjNodes,
                               nextBotNode);
