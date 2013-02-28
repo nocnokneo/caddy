@@ -25,10 +25,26 @@
 #define LCD_LINES				2	///< visible lines
 #define LCD_LINE_LENGTH			16	///< line length (in characters)
 
+#ifdef DEBUGGING
+#define lcdInit()                       lcdInit_()
+#define lcdWriteStr(str, row, col)      lcdWriteStr_(str,  row, col)
+#define lcdPrintHex(data, row, col)     lcdPrintHex_(data, row, col)
+#define lcdPrintDec(data, row, col)     lcdPrintDec_(data, row, col)
+#define lcdPrintDecU08(data, row, col)  lcdPrintDecU08_(data, row, col)
+#define lcdPrintDecS08(data, row, col)  lcdPrintDecS08_(data, row, col)
+#else
+#define lcdInit()
+#define lcdWriteStr(str, row, col)
+#define lcdPrintHex(data, row, col)
+#define lcdPrintDec(data, row, col)
+#define lcdPrintDecU08(data, row, col)
+#define lcdPrintDecS08(data, row, col)
+#endif
+
 // Prototypes
-void lcdInit(void);
-void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col);
-void lcdPrintDec(int8_t data, uint8_t row, uint8_t col);
+void lcdInit_(void);
+void lcdPrintHex_(uint8_t data, uint8_t row, uint8_t col);
+void lcdPrintDec_(int8_t data, uint8_t row, uint8_t col);
 
 /**
  * @brief Print a string to the LCD
@@ -39,12 +55,12 @@ void lcdPrintDec(int8_t data, uint8_t row, uint8_t col);
  * @param row[in] Zero-based LCD row number to print on
  * @param col[in] Zero-based LCD column to print first character
  */
-void lcdWriteStr(const char *str, uint8_t row, uint8_t col);
+void lcdWriteStr_(const char *str, uint8_t row, uint8_t col);
 
 /**
  * @brief Print a 8-bit value to the LCD in decimal notation (2-3 characters)
  */
-void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col);
-void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col);
+void lcdPrintDecU08_(uint8_t data, uint8_t row, uint8_t col);
+void lcdPrintDecS08_(int8_t data, uint8_t row, uint8_t col);
 
 #endif  // #ifndef

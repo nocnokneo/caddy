@@ -66,7 +66,7 @@ void lcdSetCursor(uint8_t data);
 void lcdWrite(uint8_t data);
 
 //Critical Note: you must call timerInit(); before calling lcdInit();
-void lcdInit(void)
+void lcdInit_(void)
 {
     outb(LCD_DDR, 0x0F);
     // Turn on LCD
@@ -199,7 +199,7 @@ void lcdWrite(uint8_t data)
 }
 
 // Prints a uint8_t to the LCD as 2 hexadecimal characters
-void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)
+void lcdPrintHex_(uint8_t data, uint8_t row, uint8_t col)
 {
     lcdSetCursor(lcdLineAddr[row] + col);
 
@@ -217,7 +217,7 @@ void lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)
     lcdDataWrite(temp);
 }
 
-void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col)
+void lcdPrintDecU08_(uint8_t data, uint8_t row, uint8_t col)
 {
     lcdSetCursor(lcdLineAddr[row] + col);
 
@@ -233,7 +233,7 @@ void lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col)
 }
 
 //Prints a int8_t to the LCD with 3-4 characters (possible negative sign)
-void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
+void lcdPrintDecS08_(int8_t data, uint8_t row, uint8_t col)
 {
     uint8_t ones = 0;
     uint8_t tens = 0;
@@ -254,7 +254,7 @@ void lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)
     lcdDataWrite(ones + 0x30);
 }
 
-void lcdWriteStr(const char *str, uint8_t row, uint8_t col)
+void lcdWriteStr_(const char *str, uint8_t row, uint8_t col)
 {
     // make sure we don't have a null pointer
     if (!str)
