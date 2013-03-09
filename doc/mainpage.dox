@@ -14,7 +14,7 @@ predetermined corners of the maze such that the top of the golf ball was flush
 with the top of the wall.
 
 @image html  arena.png "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls"
-@image latex arena.eps "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls" width=10cm
+@image latex arena.png "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls" width=10cm
 
 The competition scoring breakdown is as follows:
 
@@ -221,7 +221,7 @@ white encoder disk that we printed out and glued to the inside edge of each
 drive wheel. @cite walters_dead_reckoning_2000
 
 @image html  encoder_disc.png "Reflective IR wheel encoder pattern"
-@image latex encoder_disc.eps "Reflective IR wheel encoder pattern" width=6cm
+@image latex encoder_disc.png "Reflective IR wheel encoder pattern" width=6cm
 
 @todo information, photo, schematic
 
@@ -235,7 +235,7 @@ free open-source tools and because we had a readily available development
 board, the ERE EMBMega32.
 
 @image html  ere_embmega32.png "EMBMega32 development board from ERE CO.,LTD"
-@image latex ere_embmega32.eps "EMBMega32 development board from ERE CO.,LTD" width=6cm
+@image latex ere_embmega32.png "EMBMega32 development board from ERE CO.,LTD" width=6cm
 
 @subsection line_tracking PID Line Tracking
 
@@ -252,7 +252,7 @@ Where @f$ e(t) @f$ is some error function and @f$ P_E @f$, @f$ P_I @f$, and
 error and the derivative of the error, respectively.
 
 @image html  line_tracking.png "Diagram of line tracking geometry"
-@image latex line_tracking.eps "Diagram of line tracking geometry" width=14cm
+@image latex line_tracking.png "Diagram of line tracking geometry" width=14cm
 
 @subsection maneuvering Maneuvering
 
@@ -330,7 +330,7 @@ Mechanical Engineering Student Fee Allocation Committee (MESFAC)
 @section gantt Gantt Chart
 
 @image html  caddy_gantt.png "Caddy project gantt chart"
-@image latex caddy_gantt.eps "Caddy project gantt chart" width=17cm
+@image latex caddy_gantt.png "Caddy project gantt chart" width=17cm
 
 @section contributions Individual Contributions
 
@@ -339,7 +339,7 @@ Messori, Scott Barlow, Michael Shelley, and Patrick McCarty. Primary
 contributors were Taylor, Logan, and Tyson.
 
 @image html  team_photo.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty"
-@image latex team_photo.eps "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty" width=12cm
+@image latex team_photo.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty" width=12cm
 
 @subsection taylor_contrib Contributions of Taylor Braun-Jones
 
