@@ -1,0 +1,2 @@
+gschem must be launched from this directory so that it can find the gafrc
+configuration file (which sets the component-library to "./symbols").
