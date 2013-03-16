@@ -1,2 +1,3 @@
 *.eps
-line_tracking.png
+*.dia.png
+*.sch.png
