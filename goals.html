@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Caddy: Goals</title>
+<title>Caddy: Goals and Requirements</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,21 +75,36 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Goals </div>  </div>
+<div class="title">Goals and Requirements </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>For our entry we decided to focus on the autonomous aspect of the Roborodentia competition. In particular we wanted a robot that could <em>actively adapt</em> to the random ball locations (unlike any previous entry had ever done). This was the driver for two of Caddy's unique requirements:</p>
+<div class="textblock"><p>The rules of the competition dictated a baseline set of goals that need to be met to be successful:</p>
+<ul>
+<li><b>Line following</b> - The corridors of the maze were constructed with a black electrical tape line down the center, meant as an aid for the autonomous navigation of the pathways - and we saw no reason not to take advantage of it.</li>
+</ul>
+<ul>
+<li><b>Junction detection</b> - To navigate the maze, Caddy would need the ability to detect when a junction was reach and to identify the type of junction (e.g. "T" junction, straight-or-right-turn junction, etc).</li>
+</ul>
+<ul>
+<li><b>Ground ball collection</b> - The maximum score without collecting any ground ball is 5 out of 36 possible points - so a ground ball collection system is a must to score well.</li>
+</ul>
+<ul>
+<li><b>Bonus ball collection</b> - Since the scoring distribution weighted bonus balls so heavily (16 of the 36 possible points are awarded for bonus ball tasks), we also decided that Caddy would need bonus ball collection capability in order to be competitive.</li>
+</ul>
+<ul>
+<li><b>Ball release-into-nest system</b> - For an additional 3 points per ball, having the ability to release balls into the nest seemed worthwhile and comparatively simple to implement.</li>
+</ul>
+<p>In addition to this baseline set of goals, we decided to focus on the autonomous aspect of the Roborodentia competition. In particular we wanted a robot that could <em>actively adapt</em> to the random ball locations (unlike any previous entry had ever done). This was the driver for an additional two requirements:</p>
 <ul>
 <li><b>Path planning</b> - Caddy needed a way to map the arena and a shortest path algorithm that could find the best path through a sequence of goals.</li>
 </ul>
 <ul>
-<li><b>Ball finding</b> - To make the best use of the path planning algorithm, we needed a way to actively search for balls down untraveled corridors.</li>
+<li><b>Ball finding</b> - To make the best use of the path planning algorithm, we needed a way to actively search for balls down untraveled corridors. </li>
 </ul>
-<p>Since the scoring distribution weighted bonus balls so heavily, we also decided that Caddy would need bonus ball collection capability in order to be competitive. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 26 2013 22:56:02 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 16 2013 00:25:07 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

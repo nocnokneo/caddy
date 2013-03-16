@@ -153,7 +153,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> lcdWrite(uint8_t data);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">//Critical Note: you must call timerInit(); before calling lcdInit();</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> lcdInit(<span class="keywordtype">void</span>)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> lcdInit_(<span class="keywordtype">void</span>)</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    outb(LCD_DDR, 0x0F);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// Turn on LCD</span></div>
@@ -286,7 +286,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">// Prints a uint8_t to the LCD as 2 hexadecimal characters</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="keywordtype">void</span> lcdPrintHex(uint8_t data, uint8_t row, uint8_t col)</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="keywordtype">void</span> lcdPrintHex_(uint8_t data, uint8_t row, uint8_t col)</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;{</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    lcdSetCursor(lcdLineAddr[row] + col);</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;</div>
@@ -304,7 +304,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    lcdDataWrite(temp);</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;}</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keywordtype">void</span> lcdPrintDecU08(uint8_t data, uint8_t row, uint8_t col)</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keywordtype">void</span> lcdPrintDecU08_(uint8_t data, uint8_t row, uint8_t col)</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;{</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    lcdSetCursor(lcdLineAddr[row] + col);</div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
@@ -320,7 +320,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment">//Prints a int8_t to the LCD with 3-4 characters (possible negative sign)</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keywordtype">void</span> lcdPrintDecS08(int8_t data, uint8_t row, uint8_t col)</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keywordtype">void</span> lcdPrintDecS08_(int8_t data, uint8_t row, uint8_t col)</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;{</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    uint8_t ones = 0;</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    uint8_t tens = 0;</div>
@@ -341,7 +341,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    lcdDataWrite(ones + 0x30);</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;}</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keywordtype">void</span> lcdWriteStr(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, uint8_t row, uint8_t col)</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keywordtype">void</span> lcdWriteStr_(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, uint8_t row, uint8_t col)</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;{</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="comment">// make sure we don&#39;t have a null pointer</span></div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordflow">if</span> (!str)</div>
@@ -361,7 +361,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Feb 26 2013 22:56:02 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 16 2013 00:25:07 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
