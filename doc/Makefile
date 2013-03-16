@@ -12,6 +12,7 @@ all: Doxyfile check_doxygen_version html/.git
 	cp images/caddy_in_arena.png latex/
 	$(MAKE) -C latex
 	cp latex/refman.pdf html/caddy.pdf
+	cp -r datasheets/ html/
 	@echo
 	@echo '========================================================================'
 	@echo 'Documentation generated sucessfully. Publish with:'
