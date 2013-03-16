@@ -55,8 +55,9 @@ Documenation in HTML and PDF format is generated using the following packages:
 * doxygen (>= 1.7.5 for BibTeX support)
 * graphviz
 * latex
-* ImageMagick (`convert` command)
+* convert (ImageMagick CLI)
 * perl
+* gschem (gEDA schematic capture application)
 
 Documentation Build Instructions
 ================================
