@@ -79,12 +79,37 @@ report</a>.
 
 @endhtmlonly
 
-@page goals Goals
+@page goals Goals and Requirements
 
-For our entry we decided to focus on the autonomous aspect of the Roborodentia
-competition. In particular we wanted a robot that could <em>actively adapt</em>
-to the random ball locations (unlike any previous entry had ever done). This
-was the driver for two of Caddy's unique requirements:
+The rules of the competition dictated a baseline set of goals that need to be
+met to be successful:
+
+@li <b>Line following</b> - The corridors of the maze were constructed with a
+black electrical tape line down the center, meant as an aid for the autonomous
+navigation of the pathways - and we saw no reason not to take advantage of it.
+
+@li <b>Junction detection</b> - To navigate the maze, Caddy would need the
+ability to detect when a junction was reach and to identify the type of
+junction (e.g. "T" junction, straight-or-right-turn junction, etc).
+
+@li <b>Ground ball collection</b> - The maximum score without collecting any
+ground ball is 5 out of 36 possible points - so a ground ball collection
+system is a must to score well.
+
+@li <b>Bonus ball collection</b> - Since the scoring distribution weighted
+bonus balls so heavily (16 of the 36 possible points are awarded for bonus
+ball tasks), we also decided that Caddy would need bonus ball collection
+capability in order to be competitive.
+
+@li <b>Ball release-into-nest system</b> - For an additional 3 points per
+ball, having the ability to release balls into the nest seemed worthwhile and
+comparatively simple to implement.
+
+In addition to this baseline set of goals, we decided to focus on the
+autonomous aspect of the Roborodentia competition. In particular we wanted a
+robot that could <em>actively adapt</em> to the random ball locations (unlike
+any previous entry had ever done). This was the driver for an additional two
+requirements:
 
 @li <b>Path planning</b> - Caddy needed a way to map the arena and a shortest
 path algorithm that could find the best path through a sequence of goals.
@@ -92,15 +117,9 @@ path algorithm that could find the best path through a sequence of goals.
 @li <b>Ball finding</b> - To make the best use of the path planning algorithm,
 we needed a way to actively search for balls down untraveled corridors.
 
-Since the scoring distribution weighted bonus balls so heavily, we also
-decided that Caddy would need bonus ball collection capability in order to be
-competitive.
-
 @page design Design
 
 @section team_process Collaborative Team Process
-
-@section collaborative_tools Collaborative Tools
 
 The team for this project was formed from interested members of the the
 <a href="http://robotics.ee.calpoly.edu/">Cal Poly Robotics Club</a>.
@@ -111,21 +130,35 @@ to create a Gantt chart.
 
 For code control and collaboration we used Concurrent Versions System
 (CVS). Since this project had a competitive nature, we chose to setup and host
-our own private CVS server over some of the free CVS hosting services found on
-the internet.
+our own private CVS server rather than use a free, Internet-based hosting
+service.
 
 Between face-to-face team meetings we used Drupal to host a private forum for
 discussing ideas, sharing progress, etc.
 
-Inline code documentation as well as this project report were managed using <a
-href="http://doxygen.org">Doxygen</a>. Keeping the documentation in plain text
-and means that the documentation can be version controlled the very same way as
-the source code. The documentation also tends to stay more up to date since it
-is "close to the code".
+The inline code documentation and this project report were both managed using
+<a href="http://doxygen.org">Doxygen</a>. Keeping the documentation in plain
+text and means that the documentation can be version controlled the very same
+way as the source code. The documentation also tends to stay more up to date
+since it can be more conveniently updated at the same time as the source code.
 
 @section system_arch System Architecture
 
-Info about system architecture
+When taking a wholistic look at the project goals and requirements, it is
+clear that a camera-based vision system can satisfy line following, junction
+detection and ball-finding requirements. The image processing required for
+these task can all be done with a camera that is low resolution, low power,
+and low cost. The ball finding task, in particular, has few other options that
+are both low cost and simple to implement. The <a
+href="http://cmucam.org/projects/cmucam2">CMUcam2</a> developed by students
+at Carnegie Mellon University and sold through distributors as a packaged
+vision system, met our needs well.
+
+Since the CMUcam can handle all the computationally intensive image processing
+as well as drive 5 servo control outputs, our requirements on the main
+microcontroller were fairly relaxed. The most computationally demanding task
+for the main microcontroller is the shortest path algorith, but with a
+relatively small map even this could be handled by a low-end microcontroller.
 
 @section electrical_design Electrical Design
 
