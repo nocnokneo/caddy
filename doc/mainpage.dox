@@ -72,15 +72,12 @@ the 2005 Roborodentia competition:
 <li><a href="goals.html">Goals</a></li>
 <li><a href="design.html">Design</a></li>
 <li><a href="conclusion.html">Conclusion</a></li>
+<li><a href="appendix.html">Appendix</a></li>
 </ul>
 
 <p>
 The content of this site is also available as a <a href="caddy.pdf">single pdf
 report</a>.
-</p>
-
-<p>
-Relevant datasheets can be found <a href="datasheets/">here</a>.
 </p>
 
 @endhtmlonly
@@ -370,6 +367,8 @@ Mechanical Engineering Student Fee Allocation Committee (MESFAC)
 
 @image html  caddy_gantt.png "Caddy project gantt chart"
 @image latex caddy_gantt.png "Caddy project gantt chart" width=17cm
+
+@htmlinclude datasheets.html
 
 @section contributions Individual Contributions
 

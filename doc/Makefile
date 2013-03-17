@@ -6,7 +6,7 @@ DOXYGEN_MIN_VERSION=1.8.0
 
 # caddy_in_arena.png is a special case not handled automatically by Doxygen
 # because it is hard-coded into the title page (header.tex)
-all: Doxyfile check_doxygen_version html/.git
+all: Doxyfile check_doxygen_version datasheets.html html/.git
 	$(MAKE) -C images
 	$(DOXYGEN) $<
 	cp images/caddy_in_arena.png latex/
@@ -23,6 +23,12 @@ all: Doxyfile check_doxygen_version html/.git
 	@echo 'git push origin gh-pages'
 	@echo
 	@echo '========================================================================'
+
+# Workaround for GitHub Pages not supporting HTML directory listings
+datasheets.html: $(wildcard datasheets/*)
+	( echo '<h1>Datasheets</h1><ul>'; \
+	  for f in $^; do echo "<li><a href=\"$$f\">`basename $$f`</a></li>"; done; \
+	  echo '</ul>' ) > $@
 
 # Create a second clone of the caddy git repository from the main
 # GitHub-hosted one and switch to the special gh-pages "orphan" branch:

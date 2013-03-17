@@ -30,6 +30,7 @@
 # Doxygen output
 doc/html
 doc/latex
+doc/datasheets.html
 
 # Elf output file
 caddy
