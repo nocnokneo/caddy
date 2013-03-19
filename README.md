@@ -57,7 +57,15 @@ Documenation in HTML and PDF format is generated using the following packages:
 * latex
 * convert (ImageMagick CLI)
 * perl
-* gschem (gEDA schematic capture application)
+* gaf >= 1.9 (from gEDA toolset)
+
+To install version 1.9 of gaf on an Ubuntu system run:
+
+```bash
+sudo add-apt-repository ppa:mehanik/geda-unstable
+sudo apt-get update
+sudo apt-get install geda-gaf
+```
 
 Documentation Build Instructions
 ================================

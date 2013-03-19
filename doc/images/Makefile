@@ -1,16 +1,19 @@
 SCHEM_DIR := ../../schem
-generated_png_images += $(addsuffix .png,$(wildcard *.dia))
-generated_png_images += $(addsuffix .png,$(notdir $(wildcard $(SCHEM_DIR)/*.sch)))
+generated_images += $(addsuffix .png,$(wildcard *.dia))
+generated_images += $(addsuffix .png,$(subst .,_,$(notdir $(wildcard $(SCHEM_DIR)/*.sch))))
+generated_images += $(addsuffix .eps,$(subst .,_,$(notdir $(wildcard $(SCHEM_DIR)/*.sch))))
 
-all: $(generated_png_images)
+all: $(generated_images)
 
 # Generate .png version of .dia diagrams
 %.dia.png: %.dia
 	dia --nosplash --export $@ $<
 
-# Generate .png version of .sch schematic diagrams
-%.sch.png: $(SCHEM_DIR)/%.sch
-	cd $(dir $<); gschem -p -o $(CURDIR)/$@ -s export_image.scm $(notdir $<)
+# Generate .png and .eps version of .sch schematic diagrams
+%_sch.png: $(SCHEM_DIR)/%.sch
+	gaf export --size=auto --color -o $@ $<
+%_sch.eps: $(SCHEM_DIR)/%.sch
+	gaf export --size=auto --color -o $@ $<
 
 clean:
-	$(RM) $(generated_png_images)
+	$(RM) $(generated_images)
