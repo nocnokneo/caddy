@@ -147,7 +147,7 @@ since it can be more conveniently updated at the same time as the source code.
 
 @section system_arch System Architecture
 
-When taking a wholistic look at the project goals and requirements, it is
+When taking a holistic look at the project goals and requirements, it is
 clear that a camera-based vision system can satisfy line following, junction
 detection and ball-finding requirements. The image processing required for
 these task can all be done with a camera that is low resolution, low power,
@@ -160,7 +160,7 @@ vision system, met our needs well.
 Since the CMUcam can handle all the computationally intensive image processing
 as well as drive 5 servo control outputs, our requirements on the main
 microcontroller were fairly relaxed. The most computationally demanding task
-for the main microcontroller is the shortest path algorith, but with a
+for the main microcontroller is the shortest path algorithm, but with a
 relatively small map even this could be handled by a low-end microcontroller.
 
 @section electrical_design Electrical Design
@@ -171,7 +171,7 @@ We opted to design and build our own power regulation and motor control
 circuitry over purchasing one of the more expensive off-the-shelf solutions.
 To ensure that we were not debugging software and electrical issues at the
 same time (difficult!) made sure to include robust regulation and decouple
-in the design. Our power subcomponent power needs were:
+in the design. Our power sub-component power needs were:
 
 @li +5V regulated power for the ATMega32 and the rest of the electronics
 @li +6-15V unregulated power for the CMUcam2
@@ -195,23 +195,24 @@ components to filter the inherently higher noise they generate.
 @li Cheaper
 
 Switching regulators are more efficient, however any efficiency gains would be
-dewarfed in comparision with the power demands of unregulator components
-(motors and CMUcam2). The circuit diagram for our implementation is shown
+dwarfed in comparison with the power demands of the unregulated components (DC
+motors and CMUcam2). The circuit diagram for our implementation is shown
 below:
 
-@image html  power_sch.png "Power regulation schematic"
-@image latex power_sch.eps "Power regulation schematic" width=14cm
+@image html  power_sch.png "Power regulation circuit"
+@image latex power_sch.eps "Power regulation circuit" width=14cm
 
-To control the motors via digital signal we used an H-bridge cicuit. We
-connected diodes as shown in the schematic below for added protection of the
-electronics from the back-EMF voltage of the motors.
+To control the motors via digital signal we used an H-bridge circuit. For
+added protection of the electronics from the back-EMF voltage of the motors,
+additional diodes were connected as shown in the schematic below.
 
-@image html  motor_control_sch.png "Motor control schematic"
-@image latex motor_control_sch.eps "Motor control schematic" width=17cm
+@image html  motor_control_sch.png "Motor control circuit"
+@image latex motor_control_sch.eps "Motor control circuit" width=17cm
 
-The power regulation and motor control circuits were fabricated together on
-single board. We made sure to use polarized headers for all the connections to
-avoid making any accidental reverse polarity mistakes (we still managed to
+The power regulation and motor control circuits were fabricated together on a
+single board using a copper-plated board, etching solution, and a laser print
+out of the circuit layout. We made sure to use polarized headers for all the
+connections to avoid making any reverse polarity mistakes (we still managed to
 make a couple!).
 
 @subsection ir_break_beam IR Break Beam
@@ -310,15 +311,63 @@ proportional–integral–derivative (PID) controller. In PID theory, the output
 of a PID controller, @f$c(t)@f$, is defined as:
 
 @f[
-c(t) = P_E e(t) + P_I \int e(t) dt + \P_0 \frac{de}{dt}
+c(t) = P_E e(t) + P_I \int e(t) dt + P_D \frac{de}{dt}
 @f]
 
 Where @f$ e(t) @f$ is some error function and @f$ P_E @f$, @f$ P_I @f$, and
 @f$ P_D @f$ are adjustment coefficients for the observed error, the integrated
-error and the derivative of the error, respectively.
+error and the derivative of the error, respectively. We define our error
+term:
 
-@image html  line_tracking_dia.png "Diagram of line tracking geometry"
-@image latex line_tracking_dia.png "Diagram of line tracking geometry" width=14cm
+@f[
+e(t) = \frac{dx}{dt}
+@f]
+
+By substitution, we get:
+
+@f[
+c(t) = P_E \frac{dx}{dt} + P_I x(t) + P_D \frac{d^2x}{dt^2}
+@f]
+
+Broken down and interpretted for the task of line tracking, these terms are:
+
+@li @f$ P_E \frac{dx}{dt} \leftarrow @f$ How fast are we drifting from the center line?
+@li @f$ P_I x(t) \leftarrow @f$ How far are we from from the center line?
+@li @f$ P_D \frac{d^2x}{dt^2} \leftarrow @f$ How fast is the drift rate accelerating?
+
+Provided that there is a way to measure or compute each of these terms, this
+is a more robust form of the equation because it eliminates the integral term
+which can cause problems due to accumulated error.
+
+The figure below shows how the camera was used to measure @f$ P_E \frac{dx}{dt} @f$:
+
+@image html  line_tracking_dia.png "Diagram of line tracking geometry (NOT to scale)"
+@image latex line_tracking_dia.png "Diagram of line tracking geometry (NOT to scale)" width=14cm
+
+The drift rate is the slope of the black line with respect to the center line
+of the robot. For points @f$ P_1 = (x_1,y_1) @f$ and @f$ P_2 = (x_2,y_2) @f$
+from the diagram above we define:
+
+@f[
+\frac{dx}{dt} = \frac{y_2-y_1}{x_2-x_1}
+@f]
+
+And for point @f$ P_3 = (x_3,y_3) @f$ with constant, measurable value for @f$
+y_3 @f$ and for constant, measurable line center @f$ x_{center} @f$
+
+@f[
+x_3 = x_{center} - \frac{dx}{dt} (y_3 - y_1) + x_1;
+@f]
+
+Lastly, by storing the previously computed value of @f$ \frac{dx}{dt} @f$, we can
+compute the third term:
+
+@f[
+\frac{d^2x}{dt^2} = \frac{dx}{dt} - \frac{dx}{dt}_{previous}
+@f]
+
+The coefficients for each of these terms were determined by trial and error
+using a tethered remote and stored persistently in EEPROM.
 
 @subsection maneuvering Maneuvering
 
@@ -336,7 +385,7 @@ turn amounts, and turn types, the amount of time to brake was never the
 same. If we did not brake the motors for a long enough delay, our bot would
 stop counting excess ticks and begin to drive the motors in the opposite
 direction, too soon. With our unsophisticated encoders that cannot detect the
-direction of wheel motion this resulted in a "reverse ticks" being counted
+direction of wheel motion this resulted in "reverse ticks" being counted
 before the wheel had actually started moving in the reverse direction.
 
 @subsection ball_detection Ball Detection and Localization
@@ -386,13 +435,6 @@ easily and accurately.
 
 @page appendix Appendix
 
-@section bom Bill of Materials
-
-The materials for this project were funded in part by a $525 grant from the
-Mechanical Engineering Student Fee Allocation Committee (MESFAC)
-
-@todo list of materials and costs
-
 @section gantt Gantt Chart
 
 @image html  caddy_gantt.png "Caddy project gantt chart"
@@ -405,6 +447,8 @@ Mechanical Engineering Student Fee Allocation Committee (MESFAC)
 Caddy was a joint effort between Taylor Braun-Jones, Logan Kinde, Tyson
 Messori, Scott Barlow, Michael Shelley, and Patrick McCarty. Primary
 contributors were Taylor, Logan, and Tyson.
+
+Funding is thanks to 
 
 @image html  team_photo.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty"
 @image latex team_photo.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty" width=12cm
@@ -419,11 +463,16 @@ including:
 @li Part ordering and budget management
 @li Creation and administration of the code repository
 
-Taylor contributed the bracket used to mount the CMUcam2 to the panning
-servo. Nearly all the rest of the mechanical work was owned by Tyson Messori.
+Taylor's electrical and mechanical contributions include:
 
-Taylor contributed the concept and implementation of a detachable tethered
-remote for debugging and run-time parameter adjustment.
+@li Custom-made battery packs from shrink wrap and five +1.2V rechargable NiMH
+AA batteries
+
+@li The design and implemenation of the bracket used to mount the CMUcam2 to
+the panning servo
+
+@li The concept and implementation of a detachable tethered remote for
+debugging and run-time parameter adjustment
 
 The software contributions are attributed as follows:
 
@@ -432,14 +481,20 @@ The software contributions are attributed as follows:
 @li EEPROM reading and writing - Patrick McCarty
 @li PWM motor controller - Michael Shelly
 
-Nearly all the rest of the code (the majority of the code base) was developed
-between Taylor and Logan together using the <a
+The rest of the code and the majority of the code base was developed between
+Taylor and Logan together using the <a
 href="http://en.wikipedia.org/wiki/Pair_programming">pair programming</a>
-technique. This includes:
+technique. These pieces include:
 
 @li PID line tracking
 @li Ball detection and seeking
 @li Course traversal 
 @li Ball collection maneuvers
+
+@section acknowledgments Acknowledgments
+
+This project was made possible by a generous $525 grant from the Cal Poly
+Mechanical Engineering Student Fee Allocation Committee (MESFAC) and from
+various part and monetary contributions of the the Cal Poly Robotics Club.
 
 */
