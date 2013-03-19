@@ -11,9 +11,9 @@ all: $(generated_images)
 
 # Generate .png and .eps version of .sch schematic diagrams
 %_sch.png: $(SCHEM_DIR)/%.sch
-	gaf export --size=auto --color -o $@ $<
+	gaf export --size=auto --margins="20 1" --color -o $@ $<
 %_sch.eps: $(SCHEM_DIR)/%.sch
-	gaf export --size=auto --color -o $@ $<
+	gaf export --size=auto --margins="20 1" --color -o $@ $<
 
 clean:
 	$(RM) $(generated_images)

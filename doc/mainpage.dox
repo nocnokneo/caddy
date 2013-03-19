@@ -207,7 +207,7 @@ connected diodes as shown in the schematic below for added protection of the
 electronics from the back-EMF voltage of the motors.
 
 @image html  motor_control_sch.png "Motor control schematic"
-@image latex motor_control_sch.eps "Motor control schematic" width=14cm
+@image latex motor_control_sch.eps "Motor control schematic" width=17cm
 
 The power regulation and motor control circuits were fabricated together on
 single board. We made sure to use polarized headers for all the connections to
