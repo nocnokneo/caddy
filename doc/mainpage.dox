@@ -317,8 +317,8 @@ Where @f$ e(t) @f$ is some error function and @f$ P_E @f$, @f$ P_I @f$, and
 @f$ P_D @f$ are adjustment coefficients for the observed error, the integrated
 error and the derivative of the error, respectively.
 
-@image html  line_tracking.png "Diagram of line tracking geometry"
-@image latex line_tracking.png "Diagram of line tracking geometry" width=14cm
+@image html  line_tracking_dia.png "Diagram of line tracking geometry"
+@image latex line_tracking_dia.png "Diagram of line tracking geometry" width=14cm
 
 @subsection maneuvering Maneuvering
 
