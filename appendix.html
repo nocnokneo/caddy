@@ -78,18 +78,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Appendix </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="bom"></a>
-Bill of Materials</h1>
-<p>The materials for this project were funded in part by a $525 grant from the Mechanical Engineering Student Fee Allocation Committee (MESFAC)</p>
-<h1><a class="anchor" id="gantt"></a>
+<div class="textblock"><h1><a class="anchor" id="gantt"></a>
 Gantt Chart</h1>
 <div class="image">
 <img src="caddy_gantt.png" alt="caddy_gantt.png"/>
 <div class="caption">
 Caddy project gantt chart</div></div>
+<h1>Datasheets</h1><ul>
+<li><a href="datasheets/CMUcam2GUI_overview.pdf">CMUcam2GUI_overview.pdf</a></li>
+<li><a href="datasheets/CMUcam2_manual.pdf">CMUcam2_manual.pdf</a></li>
+<li><a href="datasheets/EMBMEGA32_MANUAL_E.pdf">EMBMEGA32_MANUAL_E.pdf</a></li>
+<li><a href="datasheets/L298_H_Bridge.pdf">L298_H_Bridge.pdf</a></li>
+<li><a href="datasheets/P5587_Photoreflector.pdf">P5587_Photoreflector.pdf</a></li>
+</ul>
 <h1><a class="anchor" id="contributions"></a>
 Individual Contributions</h1>
 <p>Caddy was a joint effort between Taylor Braun-Jones, Logan Kinde, Tyson Messori, Scott Barlow, Michael Shelley, and Patrick McCarty. Primary contributors were Taylor, Logan, and Tyson.</p>
+<p>Funding is thanks to</p>
 <div class="image">
 <img src="team_photo.png" alt="team_photo.png"/>
 <div class="caption">
@@ -103,8 +108,16 @@ Contributions of Taylor Braun-Jones</h2>
 <li>Part ordering and budget management </li>
 <li>Creation and administration of the code repository</li>
 </ul>
-<p>Taylor contributed the bracket used to mount the CMUcam2 to the panning servo. Nearly all the rest of the mechanical work was owned by Tyson Messori.</p>
-<p>Taylor contributed the concept and implementation of a detachable tethered remote for debugging and run-time parameter adjustment.</p>
+<p>Taylor's electrical and mechanical contributions include:</p>
+<ul>
+<li>Custom-made battery packs from shrink wrap and five +1.2V rechargable NiMH AA batteries</li>
+</ul>
+<ul>
+<li>The design and implemenation of the bracket used to mount the CMUcam2 to the panning servo</li>
+</ul>
+<ul>
+<li>The concept and implementation of a detachable tethered remote for debugging and run-time parameter adjustment</li>
+</ul>
 <p>The software contributions are attributed as follows:</p>
 <ul>
 <li>Code structure, high level architecture, and build system - Taylor Braun-Jones </li>
@@ -112,17 +125,20 @@ Contributions of Taylor Braun-Jones</h2>
 <li>EEPROM reading and writing - Patrick McCarty </li>
 <li>PWM motor controller - Michael Shelly</li>
 </ul>
-<p>Nearly all the rest of the code (the majority of the code base) was developed between Taylor and Logan together using the <a href="http://en.wikipedia.org/wiki/Pair_programming">pair programming</a> technique. This includes:</p>
+<p>The rest of the code and the majority of the code base was developed between Taylor and Logan together using the <a href="http://en.wikipedia.org/wiki/Pair_programming">pair programming</a> technique. These pieces include:</p>
 <ul>
 <li>PID line tracking </li>
 <li>Ball detection and seeking </li>
 <li>Course traversal </li>
-<li>Ball collection maneuvers </li>
+<li>Ball collection maneuvers</li>
 </ul>
+<h1><a class="anchor" id="acknowledgments"></a>
+Acknowledgments</h1>
+<p>This project was made possible by a generous $525 grant from the Cal Poly Mechanical Engineering Student Fee Allocation Committee (MESFAC) and from various part and monetary contributions of the the Cal Poly Robotics Club. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 16 2013 00:25:07 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 19 2013 00:10:30 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

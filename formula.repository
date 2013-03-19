@@ -4,3 +4,29 @@
 \form#3:$ P_E $
 \form#4:$ P_I $
 \form#5:$ P_D $
+\form#6:\[ c(t) = P_E e(t) + P_I \int e(t) dt + \P_o \frac{de}{dt} \]
+\form#7:\[ c(t) = P_E e(t) + P_I \int e(t) dt + P_0 \frac{de}{dt} \]
+\form#8:\[ c(t) = P_E e(t) + P_I \int e(t) dt + P_D \frac{de}{dt} \]
+\form#9:\[ e(t) = \frac{dx}{dt} \]
+\form#10:\[ c(t) = P_E \frac{dx}{dt} + P_I x(t) + P_D \frac{d^2x}{dt^2} \]
+\form#11:$ P_E \frac{dx}{dt} \rightarrow $
+\form#12:$ P_E \frac{dx}{dt} \leftarrow $
+\form#13:$ P_I x(t) \leftarrow $
+\form#14:$ P_D \frac{d^2x}{dt^2} \leftarrow $
+\form#15:$ P_E \frac{dx}{dt} $
+\form#16:\[ \frac{dx}{dt} = \frac{y_2-y_1}{x_2-x_1} \]
+\form#17:$ and $f$ P2 = (x_2,y_2) $
+\form#18:$ P1 = (x_1,y_1) $
+\form#19:$ P2 = (x_2,y_2) $
+\form#20:$ P3 = (x_3,y_3) $
+\form#21:$ y_3 $
+\form#22:$ x_center $
+\form#23:\[ x_3 = x_center - (\frac{dx}{dt} * (y_3 - y_1) + x_1); \]
+\form#24:$ \frac{dx}{dt} $
+\form#25:\[ \frac{d^2x}{dt^2} = \frac{dx}{dt} - \frac{dx}{dt}_{previous} \]
+\form#26:$ x_{center} $
+\form#27:\[ x_3 = x_{center} - (\frac{dx}{dt} * (y_3 - y_1) + x_1); \]
+\form#28:\[ x_3 = x_{center} - \frac{dx}{dt} (y_3 - y_1) + x_1; \]
+\form#29:$ P_1 = (x_1,y_1) $
+\form#30:$ P_2 = (x_2,y_2) $
+\form#31:$ P_3 = (x_3,y_3) $
