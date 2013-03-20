@@ -6,13 +6,13 @@ DOXYGEN_MIN_VERSION=1.8.0
 
 # caddy_in_arena.png is a special case not handled automatically by Doxygen
 # because it is hard-coded into the title page (header.tex)
-all: Doxyfile check_doxygen_version datasheets.html html/.git
+all: Doxyfile check_doxygen_version reference.html html/.git
 	$(MAKE) -C images
 	$(DOXYGEN) $<
 	cp images/caddy_in_arena.png latex/
 	$(MAKE) -C latex
 	cp latex/refman.pdf html/caddy.pdf
-	cp -r datasheets/ html/
+	cp -r reference/ html/
 	@echo
 	@echo '========================================================================'
 	@echo 'Documentation generated sucessfully. Publish with:'
@@ -25,8 +25,8 @@ all: Doxyfile check_doxygen_version datasheets.html html/.git
 	@echo '========================================================================'
 
 # Workaround for GitHub Pages not supporting HTML directory listings
-datasheets.html: $(wildcard datasheets/*)
-	( echo '<h1>Datasheets</h1><ul>'; \
+reference.html: $(wildcard reference/*)
+	( echo '<h1>Reference Material</h1><ul>'; \
 	  for f in $^; do echo "<li><a href=\"$$f\">`basename $$f`</a></li>"; done; \
 	  echo '</ul>' ) > $@
 

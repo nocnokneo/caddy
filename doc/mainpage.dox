@@ -440,7 +440,7 @@ easily and accurately.
 @image html  caddy_gantt.png "Caddy project gantt chart"
 @image latex caddy_gantt.png "Caddy project gantt chart" width=17cm
 
-@htmlinclude datasheets.html
+@htmlinclude reference.html
 
 @section contributions Individual Contributions
 
