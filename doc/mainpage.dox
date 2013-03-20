@@ -163,6 +163,9 @@ microcontroller were fairly relaxed. The most computationally demanding task
 for the main microcontroller is the shortest path algorithm, but with a
 relatively small map even this could be handled by a low-end microcontroller.
 
+@image html  electronics_block_diagram_dia.png "Electronics block diagram"
+@image latex electronics_block_diagram_dia.png "Electronics block diagram" width=12cm
+
 @section electrical_design Electrical Design
 
 @subsection power_motor Power Regulation and Motor Controller
