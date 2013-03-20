@@ -164,7 +164,7 @@ for the main microcontroller is the shortest path algorithm, but with a
 relatively small map even this could be handled by a low-end microcontroller.
 
 @image html  electronics_block_diagram_dia.png "Electronics block diagram"
-@image latex electronics_block_diagram_dia.png "Electronics block diagram" width=12cm
+@image latex electronics_block_diagram_dia.eps "Electronics block diagram" width=12cm
 
 @section electrical_design Electrical Design
 
@@ -343,7 +343,7 @@ which can cause problems due to accumulated error.
 The figure below shows how the camera was used to measure @f$ P_E \frac{dx}{dt} @f$:
 
 @image html  line_tracking_dia.png "Diagram of line tracking geometry (NOT to scale)"
-@image latex line_tracking_dia.png "Diagram of line tracking geometry (NOT to scale)" width=14cm
+@image latex line_tracking_dia.eps "Diagram of line tracking geometry (NOT to scale)" width=14cm
 
 The drift rate is the slope of the black line with respect to the center line
 of the robot. For points @f$ P_1 = (x_1,y_1) @f$ and @f$ P_2 = (x_2,y_2) @f$
