@@ -429,7 +429,7 @@ with maneuvering the robot through precise sequences such as the bonus ball
 pickup.
 
 Quadrature encoders would have allowed us to perform overshoot correction
-easily and accurately. 
+easily and accurately.
 
 @page appendix Appendix
 
@@ -484,7 +484,7 @@ technique. These pieces include:
 
 @li PID line tracking
 @li Ball detection and seeking
-@li Course traversal 
+@li Course traversal
 @li Ball collection maneuvers
 
 @section acknowledgments Acknowledgments
