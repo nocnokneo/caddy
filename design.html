@@ -123,10 +123,9 @@ Motor control circuit</div></div>
 <p>The power regulation and motor control circuits were fabricated together on a single board using a copper-plated board, etching solution, and a laser print out of the circuit layout. We made sure to use polarized headers for all the connections to avoid making any reverse polarity mistakes (we still managed to make a couple!).</p>
 <h2><a class="anchor" id="ir_break_beam"></a>
 IR Break Beam</h2>
-<p>To detect when a ball is within the grasp of the lift we had two options. Originally we thought that we could simply use the centroid tracking feature of the camera since we would have the camera facing down watching the line anyway. This turned out to be difficult for a couple reasons.</p>
-<p>When the camera is configured to track a black line, glare from the overhead lighting and red golf balls have the same effect on what the camera sees – a gap in the line. This seemed like an easily surmountable problem at first. Just change modes whenever a gap is detected, determine if it is a ball or a glare, and act accordingly. As with any software program, introducing one seemingly small change has the potential to severely affect the rest of the system. This particular case was no exception. First, the CMUcam did not handle rapid mode/parameter changes well, taking longer than we expected to go from one mode to another. This lead to a failure in our finely tuned PID line tracking algorithm which relied on frequent, regular updates over time. We considered and experimented with some ways of solving this problem but none were the quick, elegant solution we were looking for.</p>
-<p>With a fast approaching deadline and still much to do, we decided that the quickest way to solve the problem was to simply setup a break beam sensor in just the right position to detect when the lift mechanism should be raised. This was fast to implement and worked reliably.</p>
-<p>Here is a schematic of our break beam circuit:</p>
+<p>In order to capture ground balls, Caddy needed a way to detect when a ball was within the grasp of its lift mechanism.</p>
+<p>Originally planned to use the centroid tracking feature of the camera since the camera would always be facing down for line tracking during the times it needed to detect ground balls. This turned out to be difficult mainly due to the limitations of the camera. When the camera is configured to track a black line, glare from the overhead lighting and red golf balls have the same effect on what the camera detects – a gap in the line. We tried to simply change modes whenever a gap was detected, determine if the gap was due to a glare or a due to a ball, and then act accordingly. Unfortunately, the CMUcam did not handle rapid mode and parameter changes well, taking too long to switch from one mode to another. This lead to a failure in our carefully tuned PID line tracking algorithm which relied on frequent, regular updates over time. We considered and experimented with some ways of solving this problem but none were the quick, elegant solution we were looking for.</p>
+<p>With a fast approaching deadline, we opted for a quick, but less elegant, solution. We installed an IR break beam sensor looking across the front of the lift arm so that when the arm was down and fully open a ground ball would break the beam as is passed under the arm.</p>
 <h2><a class="anchor" id="servo_reverser"></a>
 Servo Reverser</h2>
 <p>The mechanical design of Caddy required 6 servos:</p>
@@ -141,7 +140,7 @@ Servo Reverser</h2>
 <p>This meant that the original plan to use the five servo control outputs of the CMUcam would be inadequate.</p>
 <p>The following approaches were considered for accommodating the 6th servo output:</p>
 <ul>
-<li><b>Mechanical:</b> Modify the mechanical design so that the ball pickup mechanism could be controlled by just one high-torque servo. Tyson had already done such an awesome job of designing the lift to be actuated by just one mechanical motion that this seemed like too much to ask.</li>
+<li><b>Mechanical:</b> Modify the mechanical design so that the ball pickup mechanism could be controlled by just one high-torque servo. The lift mechanism had already been iteratively refined to the point that it could be actuated by just one mechanical motion. Going this route would likely mean some major rework of the mechanical design - not ideal since we were otherwise happy with the mechanics of the robot.</li>
 </ul>
 <ul>
 <li><b>Software:</b> Use some of the extra pins on the ATmega32 to generate a servo PWM signal. Unfortunately we were already using the two PWM peripherals on the ATmega32 so we would have to do this in software. We had limited timer resources on our chip and weren't sure how we might need to use them in the future so this was not an ideal solution.</li>
@@ -149,10 +148,10 @@ Servo Reverser</h2>
 <ul>
 <li><b>Electrical:</b> Leverage the fact that the 2 servos controlling the ball pickup were the same signal, 180 degrees out of phase. This seemed like a perfect application for a simple 555 timer circuit.</li>
 </ul>
-<p>We decided to use the 555 timer approach. Using plans found online, we fabricated the board with a 4-pin header so that the circuit could easily be reused in the future.</p>
+<p>Searching the Internet, we found we were not the only ones to think of using a 555 timer to create a servo reverser. Using the well documented plans from C. Dane <a class="el" href="citelist.html#CITEREF_dane_the_reverser">[1]</a> we fabricated a board the size of a postage stamp.</p>
 <h2><a class="anchor" id="wheel_encoders"></a>
 Wheel Encoders</h2>
-<p>The maneuvers needed at junctions and for the bonus ball pick up sequences needed to be accurate and repeatable. To achieve this we used a black and white encoder disk that we printed out and glued to the inside edge of each drive wheel. <a class="el" href="citelist.html#CITEREF_walters_dead_reckoning_2000">[1]</a></p>
+<p>The maneuvers needed at junctions and for the bonus ball pick up sequences needed to be accurate and repeatable. To achieve this we used a black and white encoder disk that we printed out and glued to the inside edge of each drive wheel. <a class="el" href="citelist.html#CITEREF_walters_dead_reckoning_2000">[2]</a></p>
 <div class="image">
 <img src="encoder_disc.png" alt="encoder_disc.png"/>
 <div class="caption">
@@ -217,7 +216,7 @@ Path Planning</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 19 2013 00:10:30 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Mar 19 2013 22:38:24 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
