@@ -217,32 +217,27 @@ make a couple!).
 
 @subsection ir_break_beam IR Break Beam
 
-To detect when a ball is within the grasp of the lift we had two
-options. Originally we thought that we could simply use the centroid tracking
-feature of the camera since we would have the camera facing down watching the
-line anyway. This turned out to be difficult for a couple reasons.
+In order to capture ground balls, Caddy needed a way to detect when a ball was
+within the grasp of its lift mechanism.
 
-When the camera is configured to track a black line, glare from the overhead
-lighting and red golf balls have the same effect on what the camera sees – a
-gap in the line. This seemed like an easily surmountable problem at
-first. Just change modes whenever a gap is detected, determine if it is a ball
-or a glare, and act accordingly. As with any software program, introducing one
-seemingly small change has the potential to severely affect the rest of the
-system. This particular case was no exception. First, the CMUcam did not
-handle rapid mode/parameter changes well, taking longer than we expected to go
-from one mode to another. This lead to a failure in our finely tuned PID line
+Originally planned to use the centroid tracking feature of the camera since
+the camera would always be facing down for line tracking during the times it
+needed to detect ground balls. This turned out to be difficult mainly due to
+the limitations of the camera. When the camera is configured to track a black
+line, glare from the overhead lighting and red golf balls have the same effect
+on what the camera detects – a gap in the line. We tried to simply change
+modes whenever a gap was detected, determine if the gap was due to a glare or
+a due to a ball, and then act accordingly. Unfortunately, the CMUcam did not
+handle rapid mode and parameter changes well, taking too long to switch from
+one mode to another. This lead to a failure in our carefully tuned PID line
 tracking algorithm which relied on frequent, regular updates over time. We
 considered and experimented with some ways of solving this problem but none
 were the quick, elegant solution we were looking for.
 
-With a fast approaching deadline and still much to do, we decided that the
-quickest way to solve the problem was to simply setup a break beam sensor in
-just the right position to detect when the lift mechanism should be
-raised. This was fast to implement and worked reliably.
-
-Here is a schematic of our break beam circuit:
-
-@todo Add a schematic of break beam circuit.
+With a fast approaching deadline, we opted for a quick, but less elegant,
+solution. We installed an IR break beam sensor looking across the front of
+the lift arm so that when the arm was down and fully open a ground ball would
+break the beam as is passed under the arm.
 
 @subsection servo_reverser Servo Reverser
 
@@ -262,9 +257,11 @@ The following approaches were considered for accommodating the 6th servo
 output:
 
 @li \b Mechanical: Modify the mechanical design so that the ball pickup
-mechanism could be controlled by just one high-torque servo. Tyson had already
-done such an awesome job of designing the lift to be actuated by just one
-mechanical motion that this seemed like too much to ask.
+mechanism could be controlled by just one high-torque servo. The lift
+mechanism had already been iteratively refined to the point that it could be
+actuated by just one mechanical motion. Going this route would likely mean
+some major rework of the mechanical design - not ideal since we were otherwise
+happy with the mechanics of the robot.
 
 @li \b Software: Use some of the extra pins on the ATmega32 to generate a
 servo PWM signal. Unfortunately we were already using the two PWM peripherals
@@ -276,9 +273,10 @@ future so this was not an ideal solution.
 pickup were the same signal, 180 degrees out of phase. This seemed like a
 perfect application for a simple 555 timer circuit.
 
-We decided to use the 555 timer approach. Using plans found online, we
-fabricated the board with a 4-pin header so that the circuit could easily be
-reused in the future.
+Searching the Internet, we found we were not the only ones to think of using a
+555 timer to create a servo reverser. Using the well documented plans from
+C. Dane @cite dane_the_reverser we fabricated a board the size of a postage
+stamp.
 
 @subsection wheel_encoders Wheel Encoders
 
@@ -426,7 +424,7 @@ algorithm.
 
 Quadrature wheel encoders would have required more mechanical work (to mount
 the reflective IR sensors 90 degrees out-of-phase) and electrical work (wiring
-for twice as many sensors) but it would have helped solved some challenges
+for twice as many sensors) but it would have helped solve some challenges
 with maneuvering the robot through precise sequences such as the bonus ball
 pickup.
 
