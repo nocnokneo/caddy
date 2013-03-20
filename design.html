@@ -89,6 +89,10 @@ Collaborative Team Process</h1>
 System Architecture</h1>
 <p>When taking a holistic look at the project goals and requirements, it is clear that a camera-based vision system can satisfy line following, junction detection and ball-finding requirements. The image processing required for these task can all be done with a camera that is low resolution, low power, and low cost. The ball finding task, in particular, has few other options that are both low cost and simple to implement. The <a href="http://cmucam.org/projects/cmucam2">CMUcam2</a> developed by students at Carnegie Mellon University and sold through distributors as a packaged vision system, met our needs well.</p>
 <p>Since the CMUcam can handle all the computationally intensive image processing as well as drive 5 servo control outputs, our requirements on the main microcontroller were fairly relaxed. The most computationally demanding task for the main microcontroller is the shortest path algorithm, but with a relatively small map even this could be handled by a low-end microcontroller.</p>
+<div class="image">
+<img src="electronics_block_diagram_dia.png" alt="electronics_block_diagram_dia.png"/>
+<div class="caption">
+Electronics block diagram</div></div>
 <h1><a class="anchor" id="electrical_design"></a>
 Electrical Design</h1>
 <h2><a class="anchor" id="power_motor"></a>
@@ -216,7 +220,7 @@ Path Planning</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Mar 19 2013 22:38:24 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Mar 20 2013 00:04:47 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
