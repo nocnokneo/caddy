@@ -4,14 +4,15 @@
 
 @section problem_summary Problem Summary
 
-Caddy is a robot entered into the 2005 Roborodentia. Roborodentia is an annual
-autonomous robotics competition held during Cal Poly's Open House by the IEEE
-Computer Society. Robot entries must navigate a maze searching for three
-randomly placed golf balls, collect them, and then deposit the balls in the
-“nest” at the end of the maze. The 2005 competition also included a new
-aspect. Two bonus balls were placed on a platform behind the wall in two
-predetermined corners of the maze such that the top of the golf ball was flush
-with the top of the wall.
+Caddy is a robot that was entered into the 2005 Roborodentia
+competition. Roborodentia is an annual autonomous robotics competition held
+during Cal Poly's Open House by the Cal Poly Chapter of the IEEE Computer
+Society. Robot entries must navigate a maze searching for three randomly
+placed golf balls, collect them, and then deposit the balls in the “nest” at
+the end of the maze. A newly added aspect for the 2005 competition included
+two bonus balls that were placed on a platform behind the wall in two
+predetermined corners of the maze. These platforms raised the bonus balls such
+that the top of the golf ball was flush with the top of the wall.
 
 @image html  arena.png "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls"
 @image latex arena.png "Arena map showing the two fixed bonus ball locations and the potential locations of the randomly placed ground balls" width=10cm
@@ -41,11 +42,11 @@ The competition scoring breakdown is as follows:
   </tr>
   <tr>
     <td>3</td>
-    <td>Bringing each ground ball to “nest” - Area B (1 point per ball)</td>
+    <td>Bringing each ground ball to the “nest” - Area B (1 point per ball)</td>
   </tr>
   <tr>
     <td>9</td>
-    <td>Placing each ground ball in “nest” - Point E (3 points per ball)</td>
+    <td>Placing each ground ball in the “nest” - Point E (3 points per ball)</td>
   </tr>
   <tr>
     <td>10</td>
@@ -84,8 +85,8 @@ report</a>.
 
 @page goals Goals and Requirements
 
-The rules of the competition dictated a baseline set of goals that need to be
-met to be successful:
+The rules of the competition dictated a baseline set of requirements that
+needed to be met in order to be successful:
 
 @li <b>Line following</b> - The corridors of the maze were constructed with a
 black electrical tape line down the center, meant as an aid for the autonomous
@@ -218,24 +219,52 @@ out of the circuit layout. We made sure to use polarized headers for all the
 connections to avoid making any reverse polarity mistakes (we still managed to
 make a couple!).
 
+@subsection wheel_encoders Wheel Encoders
+
+@image html  mounted_encoders.png "Reflective IR sensors mounted on a bracket inside the left drive wheel"
+@image latex mounted_encoders.png "Reflective IR sensors mounted on a bracket inside the left drive wheel" width=8cm
+
+The maneuvers needed at junctions and for the bonus ball pick up sequences
+needed to be accurate and repeatable. To achieve this we use a simple
+differential drive system with encoders on each drive wheel. The encoders were
+made up of reflective IR sensors pointed at black and white patterned disks
+pasted to the inside edge of each drive wheel. @cite walters_dead_reckoning_2000
+
+@image html  encoder_disc.png "48 segment pattern for reflective IR wheel encoders"
+@image latex encoder_disc.png "48 segment pattern for reflective IR wheel encoders" width=6cm
+
+The reflective IR sensors emit infrared light and measure the amount of
+infrared light that is reflected back with a photodiode. Since the white
+segments of the pattern reflect more light than the black segments, rotations
+of the wheel can be detected by thresholding the measured IR signal level. To
+guard against "chattering" when signals close to the threshold are applied a
+dual-threshold Schmitt trigger is needed. The precision of this wheel encoder
+system is equal to about one segment arc angle — 7.5° for a 48 segment
+pattern.
+
+The P5587 reflective IR sensor package chosen for Caddy was designed
+for exactly this type of high contrast edge detection and so came with built
+in Schmitt triggers and a logic-level output that could be easily read by GPIO
+input port on the microcontroller.
+
 @subsection ir_break_beam IR Break Beam
 
 In order to capture ground balls, Caddy needed a way to detect when a ball was
 within the grasp of its lift mechanism.
 
-Originally planned to use the centroid tracking feature of the camera since
+We originally planned to use the centroid tracking feature of the camera since
 the camera would always be facing down for line tracking during the times it
 needed to detect ground balls. This turned out to be difficult mainly due to
 the limitations of the camera. When the camera is configured to track a black
-line, glare from the overhead lighting and red golf balls have the same effect
-on what the camera detects – a gap in the line. We tried to simply change
-modes whenever a gap was detected, determine if the gap was due to a glare or
-a due to a ball, and then act accordingly. Unfortunately, the CMUcam did not
-handle rapid mode and parameter changes well, taking too long to switch from
-one mode to another. This lead to a failure in our carefully tuned PID line
-tracking algorithm which relied on frequent, regular updates over time. We
-considered and experimented with some ways of solving this problem but none
-were the quick, elegant solution we were looking for.
+line both the glare from the overhead lighting and the randomly placed ground
+have the same effect on what the camera detects – a gap in the line. We tried
+to simply change modes whenever a gap was detected, determine if the gap was
+due to a glare or a due to a ball, and then act accordingly. Unfortunately,
+the CMUcam did not handle rapid mode and parameter changes well, taking too
+long to switch from one mode to another. This lead to a failure in our
+carefully tuned PID line tracking algorithm which relied on frequent, regular
+updates over time. We considered and experimented with some ways of solving
+this problem but none were the quick, elegant solution we were looking for.
 
 With a fast approaching deadline, we opted for a quick, but less elegant,
 solution. We installed an IR break beam sensor looking across the front of
@@ -281,19 +310,7 @@ Searching the Internet, we found we were not the only ones to think of using a
 C. Dane @cite dane_the_reverser we fabricated a board the size of a postage
 stamp.
 
-@subsection wheel_encoders Wheel Encoders
-
-The maneuvers needed at junctions and for the bonus ball pick up sequences
-needed to be accurate and repeatable. To achieve this we used a black and
-white encoder disk that we printed out and glued to the inside edge of each
-drive wheel. @cite walters_dead_reckoning_2000
-
-@image html  encoder_disc.png "Reflective IR wheel encoder pattern"
-@image latex encoder_disc.png "Reflective IR wheel encoder pattern" width=6cm
-
-@todo information, photo, schematic
-
-@section software_architecture Software Architecture
+@section software_architecture Software Architecture and Algorithms
 
 @subsection computing_platform Computing Platform
 
@@ -389,9 +406,102 @@ direction, too soon. With our unsophisticated encoders that cannot detect the
 direction of wheel motion this resulted in "reverse ticks" being counted
 before the wheel had actually started moving in the reverse direction.
 
-@subsection ball_detection Ball Detection and Localization
+@subsection localization Localization
+
+The most basic pieces of information needed for a path planning algorithm are:
+
+@li A map
+@li A location
+@li One or more destinations
+
+This section will talk about the first two; the next section on ball detection
+will cover the third.
+
+While the locations of the ground balls were not known a priori, the map of
+the course was. We defined the course as a connected undirected graph with 42
+nodes (vertices) as shown below. A node was placed at:
+
+@li The start of the course
+@li The end of the course
+@li Every junction
+@li Every potential ground ball location
+
+@image html  arena_caddy.png "Caddy's connected graph representation of the arena"
+@image latex arena_caddy.png "Caddy's connected graph representation of the arena" width=8cm
+
+The software implementation of this graph was done using a C struct, @ref
+NODE:
+
+@code
+typedef struct nodeStruct
+{
+    /** number of nodes adjacent to this node */
+    uint8_t numAdjNodes;
+    /** node numbers of adjacent nodes */
+    uint8_t adjNodes[MAX_ADJ_NODES];
+    /** distances to adjacent nodes (6 inches increments) */
+    uint8_t adjCosts[MAX_ADJ_NODES];
+    /** directions towards adjacent nodes (brads) */
+    int8_t adjHeadings[MAX_ADJ_NODES];
+} NODE;
+@endcode
+
+Each node defined the adjacent node numbers, directions, and distances to each
+adjacent node. Headings were defined in units of 8-bit binary radians or
+"brads". An 8-bit brad is 1/256 of a complete rotation. Brads are particularly
+useful in that they leverage the inherent rollover digital adders to
+automatically constrain the range of angular arithmetic operations to [0° 360°).
+
+To conserve space, information about the type of node was encoded in the node
+number:
+
+@li Node 0: Start
+@li Node 1-20: Ball nodes
+@li Node 21-41: Junction nodes
+@li Node 42: End
+
+SRAM memory was particularly limited on our ATMega32 platform, so to conserve
+it for other uses, the node list was stored in FLASH using a switch statement
+lookup table. This technique forces the constant values to be encoded in Load
+Program Memory (LPM) instruction words which are stored and accessed directly
+from FLASH.
+
+@code
+void getNode(uint8_t nodeNum, NODE *node)
+{
+    switch (nodeNum)
+    {
+    case 0:                          // START_NODE
+        node->numAdjNodes = 1;
+        node->   adjNodes[0] = 21;
+        node->   adjCosts[0] = 9;
+        node->adjHeadings[0] = -64;
+        break;
+    case 1:                          // First ball node
+        node->numAdjNodes = 2;
+        node->   adjNodes[0] = 21;
+        node->   adjNodes[1] = 22;
+        node->   adjCosts[0] = 4;
+        node->   adjCosts[1] = 4;
+        node->adjHeadings[0] = -128;
+        node->adjHeadings[1] = 0;
+        break;
+        
+    // ...
+
+    case 42:                         // STOP_NODE
+        node->numAdjNodes = 1;
+        node->   adjNodes[0] = 41;
+        node->   adjCosts[0] = 5;
+        node->adjHeadings[0] = 0;
+        break;
+    }
+@endcode
+
+@subsection ball_detection Ball Detection
 
 @subsection path_planning Path Planning
+
 
 @page conclusion Conclusion
 
