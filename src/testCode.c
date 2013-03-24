@@ -126,7 +126,7 @@ void runFixedPath( void )
     moveToJunction(1, true);
 
     botHeading = -64;              // Pick up Bonus Ball 1
-    bbPositioning(32, 0);
+    bonusBallPickUpManeuver(32, 0);
 
     // To bonus ball 2
     moveToJunction(1, true);
@@ -138,7 +138,7 @@ void runFixedPath( void )
     moveToJunction(1, true);
 
     botHeading = 64;               // Pick up Bonus Ball 2
-    bbPositioning(-96, -128);
+    bonusBallPickUpManeuver(-96, -128);
 
     // To nest
     moveToJunction(1, true);

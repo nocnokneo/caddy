@@ -145,12 +145,12 @@ inline bool positionBot(void)
     // BB PICKUP CHECK
     if (botNode == BONUS_BALL_1 && isInGoalList(BONUS_BALL_1))
     {
-        bbPositioning(BB1_HEADING, nextHeading);
+        bonusBallPickUpManeuver(BB1_HEADING, nextHeading);
         removeFromGoalList(BONUS_BALL_1);
     }
     else if (botNode == BONUS_BALL_2 && isInGoalList(BONUS_BALL_2))
     {
-        bbPositioning(BB2_HEADING, nextHeading);
+        bonusBallPickUpManeuver(BB2_HEADING, nextHeading);
         removeFromGoalList(BONUS_BALL_2);
     }
 
@@ -260,7 +260,7 @@ static inline int8_t getNextHeading(uint8_t nextBotNode)
  *    bbHeading   - heading bot must have for bb pickup.
  *    nextHeading - heading bot must have after bb pickup
  */
-inline void bbPositioning(int8_t bbHeading, int8_t nextHeading)
+inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
 {
     // move forward (camera will be over junction at this point)
     // May or may not need to move foward (requires testing)

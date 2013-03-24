@@ -38,6 +38,6 @@ inline bool positionBot(void);
 inline void moveToJunction(uint8_t numJunctions, bool justTurned);
 void bbSequence(void);
 void nestSequence(void);
-inline void bbPositioning(int8_t bbHeading, int8_t nextHeading);
+inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading);
 
 #endif // #ifndef BOTCNTRL_H_
