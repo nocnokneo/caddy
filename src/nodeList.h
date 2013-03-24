@@ -41,37 +41,70 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define NUM_NODES       43        // number of nodes in arena
+/** Total number of nodes in the arena map */
+#define NUM_NODES       43
 
-#define BALL_NODE_MIN   1         // ball node number range
+/** Beginning of node number range used for ball nodes */
+#define BALL_NODE_MIN   1         
+/** End of node number range used for ball nodes */
 #define BALL_NODE_MAX   20
-#define JUNCTION_MIN    21        // junction node number range
+/** Beginning of node number range used for junction nodes */
+#define JUNCTION_MIN    21
+/** End of node number range used for junction nodes */
 #define JUNCTION_MAX    41
 
 #define NUM_BALL_NODES  (BALL_NODE_MAX - BALL_NODE_MAX + 1)
 
 
-#define MAX_ADJ_NODES   3         // max. nodes that can be adjacent to one node
-#define N_WEST          -41       // direction of north west in binary radians (brads)
-#define S_EAST          87        // direction of south east in binary radians (brads)
+/** Maximum number nodes that can be adjacent to one node */
+#define MAX_ADJ_NODES   3
+/** Direction of north west in binary radians (brads) */
+#define N_WEST          -41
+/** Convenience macor for direction of south east in (brads) */
+#define S_EAST          87
 
+/** Node number of bonus ball 1 */
 #define BONUS_BALL_1    24
+/** Node number of bonus ball 2 */
 #define BONUS_BALL_2    30
+/** Node number of the nest release sensor */
 #define SENSOR_NODE     37
 
+/** The heading required to pickup bonus ball 1 */
 #define BB1_HEADING     32
+/** The heading required to pickup bonus ball 2 */
 #define BB2_HEADING     -96
 
+/** The number of goals known a priori (nest sensor and two bonus balls) */
 #define NUM_FIXED_GOALS    3
+/** The number of goals with unknown location at the start of a run (ground balls) */
 #define NUM_RANDOM_GOALS   3
+/** Total number of goals */
 #define NUM_GOALS          NUM_FIXED_GOALS + NUM_RANDOM_GOALS
 
+/**
+ * @brief Definition of each node (vertex) in the course map node
+ *
+ * Defines the directions and distances to adjacent nodes.
+ */
 typedef struct nodeStruct
 {
-    uint8_t numAdjNodes;                  // number of nodes adjacent to this node
-    uint8_t adjNodes[MAX_ADJ_NODES];      // node numbers of adjacent nodes
-    uint8_t adjCosts[MAX_ADJ_NODES];      // distances to adjacent nodes (6 inches increments)
-    int8_t adjHeadings[MAX_ADJ_NODES];   // directions towards adjacent nodes (brads)
+    /**
+     * number of nodes adjacent to this node
+     */
+    uint8_t numAdjNodes;
+    /**
+     * node numbers of adjacent nodes
+     */
+    uint8_t adjNodes[MAX_ADJ_NODES];
+    /**
+     * distances to adjacent nodes (6 inches increments)
+     */
+    uint8_t adjCosts[MAX_ADJ_NODES];
+    /**
+     * directions towards adjacent nodes in 8-bit @link brads
+     */
+    int8_t adjHeadings[MAX_ADJ_NODES];
 } NODE;
 
 

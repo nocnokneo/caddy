@@ -32,12 +32,47 @@ extern uint8_t botNode;
 extern int8_t botHeading;
 extern uint8_t numUnreachedGoals;
 
+/**
+ * @brief Run the Roborodentia course from start to finish
+ *
+ * Returns once all balls have been collected and placed in the nest.
+ */
 inline void runRoborodentiaCourse(void);
+
+/**
+ *  @brief Initialize some of bot's global variables
+ */
 inline void initBotGlobals(void);
+
+/**
+ * @brief Turn bot, if necessary, at junctions and ball nodes
+ *
+ * Maintains (owns) botHeading global variable. Performs bonus ball pickup
+ * liftDown actions.
+ *
+ * @return True when bot just turned. (Used to tell moveToJunction to
+ * begin looking for next junction immediately.)
+ *
+ * @pre The camera is NOT streaming
+ */
 inline bool positionBot(void);
 inline void moveToJunction(uint8_t numJunctions, bool justTurned);
 void bbSequence(void);
+
+/**
+ * @brief Sequence of actions to peform once the nest is reached
+ *
+ * Main purpose is to release the balls from the hopper.
+ */
 void nestSequence(void);
+
+/**
+ * @brief Orients Caddy to grab a bonus ball, grabs the ball, and reorients
+ * for the next node
+ *
+ * @param[in] bbHeading    Heading Caddy must have for bonus ball pickup
+ * @param[in] nextHeading  Heading Caddy must have after bonus ball pickup
+ */
 inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading);
 
 #endif // #ifndef BOTCNTRL_H_

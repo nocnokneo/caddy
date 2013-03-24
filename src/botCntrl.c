@@ -108,9 +108,6 @@ inline void runRoborodentiaCourse(void)
     }
 }
 
-/*
- *  Initializes some of bot's global variables
- */
 inline void initBotGlobals(void)
 {
     // init bot's path to INITIAL_PATH_LIST
@@ -125,16 +122,6 @@ inline void initBotGlobals(void)
     upComingBallNum = 0;
 }
 
-/*
- * @brief Turn bot at junctions and, if necessary, ball nodes
- *
- * Maintains botHeading. Performs bonus ball pickup liftDown actions
- *
- * @return True when bot just turned. (Used to tell moveToJunction to
- * begin looking for next junction immediately.)
- *
- * PRE: camera is not streaming
- */
 inline bool positionBot(void)
 {
     bool justTurned = true;
@@ -227,8 +214,12 @@ inline bool positionBot(void)
     return justTurned;
 }
 
-/*
- * Returns absolute heading of next node given botNode and the next botNode.
+/**
+ * @brief Return the absolute heading of next
+ *
+ * @param[in] nextBotNode The next node number
+ *
+ * @remark Uses @ref botNode global variable
  */
 static inline int8_t getNextHeading(uint8_t nextBotNode)
 {
@@ -256,10 +247,6 @@ static inline int8_t getNextHeading(uint8_t nextBotNode)
     return nextHeading;
 }
 
-/* Rotates bot before and after Bonus Ball grab
- *    bbHeading   - heading bot must have for bb pickup.
- *    nextHeading - heading bot must have after bb pickup
- */
 inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
 {
     // move forward (camera will be over junction at this point)
@@ -321,8 +308,8 @@ inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
     }
 }
 
-/*
- * Moves to next junction in pathList.
+/**
+ * @brief Move to next junction in pathList.
  */
 inline void moveToJunction(uint8_t numJunctions, bool justTurned)
 {
