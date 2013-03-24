@@ -58,10 +58,12 @@ uint8_t getNodeAtHeading(NODE *node, int8_t heading)
 
 void getNode(uint8_t nodeNum, NODE *node)
 {
+    // Bounds check on input node number
     if (nodeNum >= NUM_NODES)
     {
-        node = NULL;
-    }
+        node->numAdjNodes = 0;
+        return;
+     }
 
     switch (nodeNum)
     {
