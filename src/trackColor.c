@@ -146,18 +146,6 @@ bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls )
     }
     maxBallX[i] = scanLimit;
 
-    /*
-     #if DEBUGGING
-     lcdWriteStr("maxBallX =      ",0,0);
-     lcdWriteStr("                ",1,0);
-     for( i = 0; i < numUncheckedBalls; i++ )
-     {
-     lcdPrintHex(maxBallX[i],1,3*i);
-     }
-     waitFor(RED_BUTTON);
-     #endif
-     */
-
     // scan from small ground distance to large ground distance
     while (x - scanHeight > scanLimit)
     {
@@ -175,20 +163,6 @@ bool cameraSeekLeft( uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls )
                 i++;
             }
             addToGoalList(uncheckedBalls[i][BALL_NODE_NUM]);
-
-#if DEBUGGING
-            labelColorStats();
-            refreshColorStats();
-#endif
-
-            /*
-             #if DEBUGGING
-             lcdWriteStr("Added:          ",0,0);
-             lcdWriteStr("                ",1,0);
-             lcdPrintHex(uncheckedBalls[i][BALL_NODE_NUM],1,0);
-             waitFor(RED_BUTTON);
-             #endif
-             */
 
             while (seeBall())
             {
@@ -262,18 +236,6 @@ bool cameraSeekRight(uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls)
     }
     maxBallX[i] = scanLimit;
 
-/*
-#if DEBUGGING
-    lcdWriteStr("maxBallX =      ", 0, 0);
-    lcdWriteStr("                ", 1, 0);
-    for (i = 0; i < numUncheckedBalls; i++)
-    {
-        lcdPrintHex(maxBallX[i], 1, 3 * i);
-    }
-    waitFor(RED_BUTTON);
-#endif
-*/
-
     // scan from small ground distance to large ground distance
     while (x + scanHeight < scanLimit)
     {
@@ -291,22 +253,6 @@ bool cameraSeekRight(uint8_t uncheckedBalls[][2], uint8_t numUncheckedBalls)
                 i++;
             }
             addToGoalList(uncheckedBalls[i][BALL_NODE_NUM]);
-
-#if DEBUGGING
-            labelColorStats();
-            refreshColorStats();
-#endif
-
-/*
-#if DEBUGGING
-            msDelay(1000);
-            clearColorStats();
-            lcdWriteStr("Added:          ", 0, 0);
-            lcdWriteStr("                ", 1, 0);
-            lcdPrintHex(uncheckedBalls[i][BALL_NODE_NUM], 1, 0);
-            waitFor(RED_BUTTON);
-#endif
-*/
 
             while (seeBall())
             {

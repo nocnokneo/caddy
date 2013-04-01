@@ -103,7 +103,7 @@ bool standardBallSearch( void )
     NODE curNode;
     NODE nextNode;
     uint8_t nextNodeNum;
-    int8_t lookDir = -1;                   // look left first
+    int8_t lookDir = -1; /// -1: look left, +1: look right
     int8_t hallHeading = 0;
     uint8_t ballDist = 0;
     uint8_t uncheckedBalls[3][2];
@@ -114,24 +114,16 @@ bool standardBallSearch( void )
     bool stopped = false;
     inSeekPosition = false;
 
-    // Check for balls in two directions (left/right)
+    // Check for balls to the left, then to the right
     for (i = 0; i < 2; i++)
     {
         ballDist = 0;
         hallHeading = botHeading + lookDir * 64;
         nextNodeNum = botNode;
         numUncheckedBalls = 0;
-        // Continue traversing nodes left of right until you hit the end
+        // Continue traversing nodes to the left (or right) until you hit the end
         while (nextNodeNum > 0)
         {
-            /*
-             #if DEBUGGING
-             lcdWriteStr("N:   H:   ", 0, 0);
-             lcdPrintHex(nextNodeNum, 0, 2);
-             lcdPrintHex(hallHeading, 0, 7);
-             waitFor(RED_BUTTON);
-             #endif
-             */
             getNode(nextNodeNum, &curNode);
             nextNodeNum = getNodeAtHeading(&curNode, hallHeading);
             if (nextNodeNum > 0)
@@ -142,8 +134,7 @@ bool standardBallSearch( void )
                 if (isBallNode(nextNodeNum) && !checkedList[nextNodeNum])
                 {
                     uncheckedBalls[numUncheckedBalls][BALL_DIST] = ballDist;
-                    uncheckedBalls[numUncheckedBalls][BALL_NODE_NUM] =
-                                    nextNodeNum;
+                    uncheckedBalls[numUncheckedBalls][BALL_NODE_NUM] = nextNodeNum;
                     checkedList[nextNodeNum] = true;
                     numUncheckedBalls++;
                 }
@@ -164,21 +155,6 @@ bool standardBallSearch( void )
                 foundBall |= cameraSeekRight(uncheckedBalls, numUncheckedBalls);
             }
         }
-
-        /*
-         #if DEBUGGING
-         lcdWriteStr("Seek (  ) for:  ", 0, 0);
-         lcdPrintHex(lookDir, 0, 6);
-         lcdWriteStr("                ", 1, 0);
-         for(j = 0; j < numUncheckedBalls; j++)
-         {
-         lcdPrintHex(uncheckedBalls[j][BALL_NODE_NUM], 1, 0);
-         lcdPrintHex(uncheckedBalls[j][BALL_DIST], 1, 3);
-         waitFor(RED_BUTTON);
-         }
-         waitFor(RED_BUTTON);
-         #endif
-         */
 
         lookDir *= -1;  // Look the other way the next time through
     }
@@ -238,21 +214,6 @@ inline bool nodeCode22()
 
          addToGoalList( foundBallNum );
 
-#if DEBUGGING
-         labelColorStats();
-         refreshColorStats();
-         //msDelay(1000);
-         //clearColorStats();
-#endif
-
-/*
-#if DEBUGGING
-         lcdWriteStr("Added:          ",0,0);
-         lcdWriteStr("                ",1,0);
-         lcdPrintHex(foundBallNum,1,0);
-         waitFor(RED_BUTTON);
-#endif
-*/
          while ( seeBall() )
          {
             y -= scanHeight;
