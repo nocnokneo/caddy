@@ -450,10 +450,13 @@ Each node defined the adjacent node numbers, directions, and distances to each
 adjacent node. Headings were defined in units of 8-bit binary radians or
 "brads". An 8-bit brad is 1/256 of a complete rotation. Brads are particularly
 useful in that they leverage the inherent rollover digital adders to
-automatically constrain the range of angular arithmetic operations to [0° 360°).
+automatically constrain the range of angular arithmetic operations to [0°
+360°). Distances were stored using inches scaled by a factor of 1/6 since most
+node-to-node distances were multiples of 6 inches. This allowed all distances
+to be encoded in an 8-bit integer data type.
 
-To conserve space, information about the type of node was encoded in the node
-number:
+As an additional space conservation measure, information about the type of
+node was encoded in the node number:
 
 @li Node 0: Start
 @li Node 1-20: Ball nodes
@@ -486,7 +489,7 @@ void getNode(uint8_t nodeNum, NODE *node)
         node->adjHeadings[0] = -128;
         node->adjHeadings[1] = 0;
         break;
-        
+
     // ...
 
     case 42:                         // STOP_NODE
@@ -499,6 +502,52 @@ void getNode(uint8_t nodeNum, NODE *node)
 @endcode
 
 @subsection ball_detection Ball Detection
+
+Except for a couple special cases, all ball detection was done at junctions
+with the tilt servo oriented vertically and the panning servo oriented at a
+fixed angle to the left or right. This covered all junctions in which a ground
+ball could be located down a corridor to the left or right.
+
+The ball detection algorithm was implemented using the built-in color tracking
+and virtual window features of the CMUcam. As with the line tracking, it was
+important that all the data processing intensive operations be done on the
+CMUcam processor in order to have low execution time.
+
+At every junction, Caddy traversed all connected nodes in the graph extending
+to the left, for example. For any ball node that had not yet been checked, the
+node number was recorded along with distance away from the Caddy's current
+node location. If there was at least one unchecked ball node to the left,
+Caddy would orient the camera pan/tilt servos to look in that direction and
+use a sliding window algorithm to search for the ball.
+
+As shown in the diagram below, the ball detection algorithm searched for the
+bottom of the ball by progressively moving a narrow image window through the
+image and using an upper and lower color intensity thresholds to determine if
+any orange pixels were within the image window.
+
+@image html  ball_seek_left_view_dia.png "The view of the camera while searching for a ball down a corridor to the left"
+@image latex ball_seek_left_view_dia.eps "The view of the camera while searching for a ball down a corridor to the left" width=10cm
+
+If an orange pixel was found, a look-up table was used to convert the the
+horizontal X coordinate of the image window to a physical distance away from
+the bot. This distance was then compared with the values in the unchecked ball
+list to find the most likely node number corresponding to the blob of orange
+pixels.
+
+Since stopping to perform these ball searches added time to the run we made
+sure to mark any node that was "seen" during a ball search or physically
+crossed by Caddy as having been checked. Also, once the final ground ball was
+discovered all remaining unchecked nodes were marked as having been checked
+(by process of elimination). These optimizations ensured that Caddy only
+performed ball searches when necessary.
+
+To optimize the computation time of the sliding window search algorithm, the
+window width was increased from 1 pixel to 4 pixels. We found that this gave
+sufficient resolution while providing a speedup of nearly 4.0. We also limited
+the far end of the sliding window range to cover just six inches past the
+farthest unchecked ball node since there was no point in search through parts
+of the image which we knew would not offer any new information. With these
+optimizations a typical ball search to the left or right took about 1 second.
 
 @subsection path_planning Path Planning
 
