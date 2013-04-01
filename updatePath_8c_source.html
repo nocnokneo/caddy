@@ -122,7 +122,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MAX_COST   0xff</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;uint8_t pathList[MAX_PATH_LIST_SIZE];<span class="comment">// = INITIAL_PATH_LIST;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<a class="code" href="structsearchNode.html">SEARCH_NODE</a> searchSpace[NUM_NODES];</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<a class="code" href="structsearchNode.html">SEARCH_NODE</a> searchSpace[<a class="code" href="nodeList_8h.html#a196d5a36c4126bfa58ee4ea50baaae39">NUM_NODES</a>];</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;uint8_t pathListSize;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;uint8_t pathListIndex;</div>
@@ -130,14 +130,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// returns distance of path found</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;uint8_t updatePath(<span class="keywordtype">void</span>)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    uint8_t startCost[NUM_GOALS];</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    uint8_t goalCost[NUM_GOALS][NUM_GOALS];</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    uint8_t stopCost[NUM_GOALS];</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    uint8_t startCost[<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    uint8_t goalCost[<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>][<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>];</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    uint8_t stopCost[<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>];</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    uint8_t tempGoalList[NUM_GOALS];</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    uint8_t tempGoalList[<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>];</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    uint8_t curPerm[NUM_GOALS];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    uint8_t bestPerm[NUM_GOALS];</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    uint8_t curPerm[<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>];</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    uint8_t bestPerm[<a class="code" href="nodeList_8h.html#a57d2ecdbb79634c923c62a60b9fed25e">NUM_GOALS</a>];</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    uint8_t bestCost;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    uint8_t i;</div>
@@ -234,7 +234,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">// returns distance of path found</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">inline</span> uint8_t uniformCostSearch(uint8_t startNode, uint8_t goalNode)</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;{</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="structnodeStruct.html">NODE</a> nodeData;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="structnodeStruct.html" title="Definition of each node (vertex) in the course map node.">NODE</a> nodeData;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    uint8_t n;</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <a class="code" href="structPathList.html">PATH_LIST_PTR</a> visitList = NULL;</div>
@@ -243,7 +243,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="comment">// init searchSpace</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    uint8_t i;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; NUM_NODES; i++)</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="nodeList_8h.html#a196d5a36c4126bfa58ee4ea50baaae39">NUM_NODES</a>; i++)</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    {</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        searchSpace[i].parent = NO_PARENT;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        searchSpace[i].pathCost = MAX_COST;</div>
@@ -256,14 +256,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    {</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="comment">// explore successors, if haven&#39;t visited yet</span></div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        getNode(curNodeNum, &amp;nodeData);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">for</span> (i = 0; i &lt; nodeData.numAdjNodes; i++)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">for</span> (i = 0; i &lt; nodeData.<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a>; i++)</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            n = nodeData.adjNodes[i];</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            n = nodeData.<a class="code" href="structnodeStruct.html#a93415dcd566014cb05867997dabe1a1a">adjNodes</a>[i];</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="comment">// if not visited and not found yet, add to visit list</span></div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <span class="keywordflow">if</span> (!searchSpace[n].visited &amp;&amp; searchSpace[n].pathCost == MAX_COST)</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            {</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                searchSpace[n].parent = curNodeNum;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                searchSpace[n].pathCost = curCost + nodeData.adjCosts[i];</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                searchSpace[n].pathCost = curCost + nodeData.<a class="code" href="structnodeStruct.html#a9886991b7d974aec084313455b24448f">adjCosts</a>[i];</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                visitList = addNodeByCost(visitList, n <span class="comment">/*, searchSpace*/</span>);</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            }</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        }</div>
@@ -359,7 +359,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 20 2013 00:04:46 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 31 2013 22:51:18 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

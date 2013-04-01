@@ -125,10 +125,23 @@ Power regulation circuit</div></div>
 <div class="caption">
 Motor control circuit</div></div>
 <p>The power regulation and motor control circuits were fabricated together on a single board using a copper-plated board, etching solution, and a laser print out of the circuit layout. We made sure to use polarized headers for all the connections to avoid making any reverse polarity mistakes (we still managed to make a couple!).</p>
+<h2><a class="anchor" id="wheel_encoders"></a>
+Wheel Encoders</h2>
+<div class="image">
+<img src="mounted_encoders.png" alt="mounted_encoders.png"/>
+<div class="caption">
+Reflective IR sensors mounted on a bracket inside the left drive wheel</div></div>
+<p>The maneuvers needed at junctions and for the bonus ball pick up sequences needed to be accurate and repeatable. To achieve this we use a simple differential drive system with encoders on each drive wheel. The encoders were made up of reflective IR sensors pointed at black and white patterned disks pasted to the inside edge of each drive wheel. <a class="el" href="citelist.html#CITEREF_walters_dead_reckoning_2000">[2]</a></p>
+<div class="image">
+<img src="encoder_disc.png" alt="encoder_disc.png"/>
+<div class="caption">
+48 segment pattern for reflective IR wheel encoders</div></div>
+<p>The reflective IR sensors emit infrared light and measure the amount of infrared light that is reflected back with a photodiode. Since the white segments of the pattern reflect more light than the black segments, rotations of the wheel can be detected by thresholding the measured IR signal level. To guard against "chattering" when signals close to the threshold are applied a dual-threshold Schmitt trigger is needed. The precision of this wheel encoder system is equal to about one segment arc angle — 7.5° for a 48 segment pattern.</p>
+<p>The P5587 reflective IR sensor package chosen for Caddy was designed for exactly this type of high contrast edge detection and so came with built in Schmitt triggers and a logic-level output that could be easily read by GPIO input port on the microcontroller.</p>
 <h2><a class="anchor" id="ir_break_beam"></a>
 IR Break Beam</h2>
 <p>In order to capture ground balls, Caddy needed a way to detect when a ball was within the grasp of its lift mechanism.</p>
-<p>Originally planned to use the centroid tracking feature of the camera since the camera would always be facing down for line tracking during the times it needed to detect ground balls. This turned out to be difficult mainly due to the limitations of the camera. When the camera is configured to track a black line, glare from the overhead lighting and red golf balls have the same effect on what the camera detects – a gap in the line. We tried to simply change modes whenever a gap was detected, determine if the gap was due to a glare or a due to a ball, and then act accordingly. Unfortunately, the CMUcam did not handle rapid mode and parameter changes well, taking too long to switch from one mode to another. This lead to a failure in our carefully tuned PID line tracking algorithm which relied on frequent, regular updates over time. We considered and experimented with some ways of solving this problem but none were the quick, elegant solution we were looking for.</p>
+<p>We originally planned to use the centroid tracking feature of the camera since the camera would always be facing down for line tracking during the times it needed to detect ground balls. This turned out to be difficult mainly due to the limitations of the camera. When the camera is configured to track a black line both the glare from the overhead lighting and the randomly placed ground have the same effect on what the camera detects – a gap in the line. We tried to simply change modes whenever a gap was detected, determine if the gap was due to a glare or a due to a ball, and then act accordingly. Unfortunately, the CMUcam did not handle rapid mode and parameter changes well, taking too long to switch from one mode to another. This lead to a failure in our carefully tuned PID line tracking algorithm which relied on frequent, regular updates over time. We considered and experimented with some ways of solving this problem but none were the quick, elegant solution we were looking for.</p>
 <p>With a fast approaching deadline, we opted for a quick, but less elegant, solution. We installed an IR break beam sensor looking across the front of the lift arm so that when the arm was down and fully open a ground ball would break the beam as is passed under the arm.</p>
 <h2><a class="anchor" id="servo_reverser"></a>
 Servo Reverser</h2>
@@ -153,15 +166,8 @@ Servo Reverser</h2>
 <li><b>Electrical:</b> Leverage the fact that the 2 servos controlling the ball pickup were the same signal, 180 degrees out of phase. This seemed like a perfect application for a simple 555 timer circuit.</li>
 </ul>
 <p>Searching the Internet, we found we were not the only ones to think of using a 555 timer to create a servo reverser. Using the well documented plans from C. Dane <a class="el" href="citelist.html#CITEREF_dane_the_reverser">[1]</a> we fabricated a board the size of a postage stamp.</p>
-<h2><a class="anchor" id="wheel_encoders"></a>
-Wheel Encoders</h2>
-<p>The maneuvers needed at junctions and for the bonus ball pick up sequences needed to be accurate and repeatable. To achieve this we used a black and white encoder disk that we printed out and glued to the inside edge of each drive wheel. <a class="el" href="citelist.html#CITEREF_walters_dead_reckoning_2000">[2]</a></p>
-<div class="image">
-<img src="encoder_disc.png" alt="encoder_disc.png"/>
-<div class="caption">
-Reflective IR wheel encoder pattern</div></div>
 <h1><a class="anchor" id="software_architecture"></a>
-Software Architecture</h1>
+Software Architecture and Algorithms</h1>
 <h2><a class="anchor" id="computing_platform"></a>
 Computing Platform</h2>
 <p>For our our computing platform we chose an ATmega32 microcontroller from Atmel's 8-bit AVR line of microcontrollers because it was C-programmable with free open-source tools and because we had a readily available development board, the ERE EMBMega32.</p>
@@ -213,14 +219,91 @@ Maneuvering</h2>
 <p>When turning our bot by a certain number of ticks, we experienced overshoot despite actively applying DC motor braking. We addressed the problem with the following software solution.</p>
 <p>After turning for the desired number of ticks, we applied braking and counted the number of excess ticks that occurred from the instant braking was commanded. After a fixed delay, we drove the wheels in the opposite direction for that same number of ticks.</p>
 <p>This worked well for the most part, however, with different battery charges, turn amounts, and turn types, the amount of time to brake was never the same. If we did not brake the motors for a long enough delay, our bot would stop counting excess ticks and begin to drive the motors in the opposite direction, too soon. With our unsophisticated encoders that cannot detect the direction of wheel motion this resulted in "reverse ticks" being counted before the wheel had actually started moving in the reverse direction.</p>
-<h2><a class="anchor" id="ball_detection"></a>
-Ball Detection and Localization</h2>
+<h2><a class="anchor" id="localization"></a>
+Localization</h2>
+<p>The most basic pieces of information needed for a path planning algorithm are:</p>
+<ul>
+<li>A map </li>
+<li>A location </li>
+<li>One or more destinations</li>
+</ul>
+<p>This section will talk about the first two; the next section on ball detection will cover the third.</p>
+<p>While the locations of the ground balls were not known a priori, the map of the course was. We defined the course as a connected undirected graph with 42 nodes (vertices) as shown below. A node was placed at:</p>
+<ul>
+<li>The start of the course </li>
+<li>The end of the course </li>
+<li>Every junction </li>
+<li>Every potential ground ball location</li>
+</ul>
+<div class="image">
+<img src="arena_caddy.png" alt="arena_caddy.png"/>
+<div class="caption">
+Caddy's connected graph representation of the arena</div></div>
+<p>The software implementation of this graph was done using a C struct, NODE:</p>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structnodeStruct.html" title="Definition of each node (vertex) in the course map node.">nodeStruct</a></div>
+<div class="line">{</div>
+<div class="line">    uint8_t <a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a>;</div>
+<div class="line">    uint8_t <a class="code" href="structnodeStruct.html#a93415dcd566014cb05867997dabe1a1a">adjNodes</a>[<a class="code" href="nodeList_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
+<div class="line">    uint8_t <a class="code" href="structnodeStruct.html#a9886991b7d974aec084313455b24448f">adjCosts</a>[<a class="code" href="nodeList_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
+<div class="line">    int8_t <a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[<a class="code" href="nodeList_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
+<div class="line">} <a class="code" href="nodeList_8h.html#a5c87e1e80e32ded67ac9c7d61b170aea" title="Definition of each node (vertex) in the course map node.">NODE</a>;</div>
+</div><!-- fragment --><p>Each node defined the adjacent node numbers, directions, and distances to each adjacent node. Headings were defined in units of 8-bit binary radians or "brads". An 8-bit brad is 1/256 of a complete rotation. Brads are particularly useful in that they leverage the inherent rollover digital adders to automatically constrain the range of angular arithmetic operations to [0° 360°). Distances were stored using inches scaled by a factor of 1/6 since most node-to-node distances were multiples of 6 inches. This allowed all distances to be encoded in an 8-bit integer data type.</p>
+<p>As an additional space conservation measure, information about the type of node was encoded in the node number:</p>
+<ul>
+<li>Node 0: Start </li>
+<li>Node 1-20: Ball nodes </li>
+<li>Node 21-41: Junction nodes </li>
+<li>Node 42: End</li>
+</ul>
+<p>SRAM memory was particularly limited on our ATMega32 platform, so to conserve it for other uses, the node list was stored in FLASH using a switch statement lookup table. This technique forces the constant values to be encoded in Load Program Memory (LPM) instruction words which are stored and accessed directly from FLASH.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> getNode(uint8_t nodeNum, <a class="code" href="structnodeStruct.html" title="Definition of each node (vertex) in the course map node.">NODE</a> *node)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">switch</span> (nodeNum)</div>
+<div class="line">    {</div>
+<div class="line">    <span class="keywordflow">case</span> 0:                          <span class="comment">// START_NODE</span></div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a> = 1;</div>
+<div class="line">        node-&gt;   adjNodes[0] = 21;</div>
+<div class="line">        node-&gt;   adjCosts[0] = 9;</div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[0] = -64;</div>
+<div class="line">        <span class="keywordflow">break</span>;</div>
+<div class="line">    <span class="keywordflow">case</span> 1:                          <span class="comment">// First ball node</span></div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a> = 2;</div>
+<div class="line">        node-&gt;   adjNodes[0] = 21;</div>
+<div class="line">        node-&gt;   adjNodes[1] = 22;</div>
+<div class="line">        node-&gt;   adjCosts[0] = 4;</div>
+<div class="line">        node-&gt;   adjCosts[1] = 4;</div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[0] = -128;</div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[1] = 0;</div>
+<div class="line">        <span class="keywordflow">break</span>;</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// ...</span></div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">case</span> 42:                         <span class="comment">// STOP_NODE</span></div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a> = 1;</div>
+<div class="line">        node-&gt;   adjNodes[0] = 41;</div>
+<div class="line">        node-&gt;   adjCosts[0] = 5;</div>
+<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[0] = 0;</div>
+<div class="line">        <span class="keywordflow">break</span>;</div>
+<div class="line">    }</div>
+</div><!-- fragment --><h2><a class="anchor" id="ball_detection"></a>
+Ball Detection</h2>
+<p>Except for a couple special cases, all ball detection was done at junctions with the tilt servo oriented vertically and the panning servo oriented at a fixed angle to the left or right. This covered all junctions in which a ground ball could be located down a corridor to the left or right.</p>
+<p>The ball detection algorithm was implemented using the built-in color tracking and virtual window features of the CMUcam. As with the line tracking, it was important that all the data processing intensive operations be done on the CMUcam processor in order to have low execution time.</p>
+<p>At every junction, Caddy traversed all connected nodes in the graph extending to the left, for example. For any ball node that had not yet been checked, the node number was recorded along with distance away from the Caddy's current node location. If there was at least one unchecked ball node to the left, Caddy would orient the camera pan/tilt servos to look in that direction and use a sliding window algorithm to search for the ball.</p>
+<p>As shown in the diagram below, the ball detection algorithm searched for the bottom of the ball by progressively moving a narrow image window through the image and using an upper and lower color intensity thresholds to determine if any orange pixels were within the image window.</p>
+<div class="image">
+<img src="ball_seek_left_view_dia.png" alt="ball_seek_left_view_dia.png"/>
+<div class="caption">
+The view of the camera while searching for a ball down a corridor to the left</div></div>
+<p>If an orange pixel was found, a look-up table was used to convert the the horizontal X coordinate of the image window to a physical distance away from the bot. This distance was then compared with the values in the unchecked ball list to find the most likely node number corresponding to the blob of orange pixels.</p>
+<p>Since stopping to perform these ball searches added time to the run we made sure to mark any node that was "seen" during a ball search or physically crossed by Caddy as having been checked. Also, once the final ground ball was discovered all remaining unchecked nodes were marked as having been checked (by process of elimination). These optimizations ensured that Caddy only performed ball searches when necessary.</p>
+<p>To optimize the computation time of the sliding window search algorithm, the window width was increased from 1 pixel to 4 pixels. We found that this gave sufficient resolution while providing a speedup of nearly 4.0. We also limited the far end of the sliding window range to cover just six inches past the farthest unchecked ball node since there was no point in search through parts of the image which we knew would not offer any new information. With these optimizations a typical ball search to the left or right took about 1 second.</p>
 <h2><a class="anchor" id="path_planning"></a>
 Path Planning</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 20 2013 00:04:47 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 31 2013 22:51:19 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -177,7 +177,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    initAtmel();</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    loadTweakValues();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    initBotGlobals();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="botCntrl_8c.html#a9679cd61943b2aa0c5dfccc86bff5656" title="Initialize some of bot&#39;s global variables.">initBotGlobals</a>();</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    resetCamera();</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    moveServosToStart();</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="camera_8c.html#a2832f1319747cb00f0a4c334a9f9e4a8" title="Optimize the white balance for current conditions.">cameraWhiteBalance</a>();</div>
@@ -189,7 +189,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor"></span>    waitFor(RED_BUTTON);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    myDelay(<a class="code" href="caddy_8c.html#aea2a43b25237d43e21faa5c413922331">START_DELAY</a>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    runRoborodentiaCourse();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="botCntrl_8c.html#ab103b55ab5b80dfab8e68fb24119b7db" title="Run the Roborodentia course from start to finish.">runRoborodentiaCourse</a>();</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    brake(BOTH);</div>
@@ -203,7 +203,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 20 2013 00:04:46 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Mar 31 2013 22:51:17 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
