@@ -534,6 +534,9 @@ the bot. This distance was then compared with the values in the unchecked ball
 list to find the most likely node number corresponding to the blob of orange
 pixels.
 
+@image html  ball_search_flowchart_dia.png "Perpendicular corridor ball searching flow chart"
+@image latex ball_search_flowchart_dia.eps "Perpendicular corridor ball searching flow chart" width=10cm
+
 Since stopping to perform these ball searches added time to the run we made
 sure to mark any node that was "seen" during a ball search or physically
 crossed by Caddy as having been checked. Also, once the final ground ball was
