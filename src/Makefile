@@ -30,7 +30,6 @@ SRC += camera.c
 SRC += motorCntrl.c
 SRC += trackColor.c
 SRC += eeProm.c
-SRC += linkedList.c
 SRC += perms.c
 SRC += $(TRG).c
 
