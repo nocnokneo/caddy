@@ -31,11 +31,32 @@
 #define NO_PARENT  0xff
 #define MAX_COST   0xff
 
-uint8_t pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;
-SEARCH_NODE searchSpace[NUM_NODES];
+typedef struct SearchNode
+{
+    uint8_t parent;
+    uint8_t pathCost;
+    bool    visited;
+} SearchNodeType;
 
+typedef struct PathListNode
+{
+    uint8_t nodeNum;
+    struct PathListNode *nextNode;
+} PathListNodeType ;
+
+static SearchNodeType searchSpace[NUM_NODES];
+
+// Globals
+uint8_t pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;
 uint8_t pathListSize;
 uint8_t pathListIndex;
+
+static inline uint8_t uniformCostSearch( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
+static inline PathListNodeType * addNodeByCost(PathListNodeType *head, uint8_t newNodeNum /*, SEARCH_NODE searchSpace[]*/ );
+static inline void recostructPath( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
+static inline uint8_t updatePathTo( uint8_t nodeNum );
+static inline void freeList(PathListNodeType *head);
+static inline PathListNodeType * freeNode(PathListNodeType *head);
 
 // returns distance of path found
 uint8_t updatePath(void)
@@ -147,7 +168,7 @@ inline uint8_t uniformCostSearch(uint8_t startNode, uint8_t goalNode)
     NODE nodeData;
     uint8_t n;
 
-    PATH_LIST_PTR visitList = NULL;
+    PathListNodeType *visitList = NULL;
     uint8_t curNodeNum = startNode;
     uint8_t curCost = 0;
 
@@ -203,14 +224,14 @@ inline uint8_t uniformCostSearch(uint8_t startNode, uint8_t goalNode)
     return searchSpace[goalNode].pathCost;
 }
 
-PATH_LIST_PTR addNodeByCost(PATH_LIST_PTR head, uint8_t newNodeNum)
+PathListNodeType * addNodeByCost(PathListNodeType *head, uint8_t newNodeNum)
 {
-    PATH_LIST_PTR current = NULL;
-    PATH_LIST_PTR next = NULL;
-    PATH_LIST_PTR newNode = NULL;      // node being inserted
+    PathListNodeType *current = NULL;
+    PathListNodeType *next = NULL;
+    PathListNodeType *newNode = NULL;      // node being inserted
 
     // allocate space for new node
-    newNode = (PATH_LIST_PTR) malloc(sizeof(PATH_LIST));
+    newNode = (PathListNodeType *) malloc(sizeof(PathListNodeType));
     newNode->nodeNum = newNodeNum;
     newNode->nextNode = NULL;
 
@@ -265,4 +286,23 @@ inline void recostructPath(uint8_t startNode, uint8_t goalNode)
         pathListIndex--;
         pathList[pathListIndex] = goalNode;
     }
+}
+
+// Frees all nodes in list at head
+inline void freeList(PathListNodeType *head)
+{
+    while (head != NULL)
+    {
+        head = freeNode(head);
+    }
+}
+
+// Frees node at head and returns pointer to next node
+inline PathListNodeType * freeNode(PathListNodeType *head)
+{
+    PathListNodeType *temp = NULL;
+    temp = head;
+    head = head->nextNode;
+    free(temp);
+    return head;
 }
