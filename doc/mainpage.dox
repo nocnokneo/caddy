@@ -126,7 +126,7 @@ we needed a way to actively search for balls down untraveled corridors.
 @section team_process Collaborative Team Process
 
 The team for this project was formed from interested members of the the
-<a href="http://robotics.ee.calpoly.edu/">Cal Poly Robotics Club</a>.
+<a href="http://robotics.calpoly.edu/">Cal Poly Robotics Club</a>.
 
 To organize the tasks and identify critical paths in the (short) project
 time line, we used <a href="http://www.ganttproject.biz/">GanttProject</a>
@@ -359,8 +359,8 @@ which can cause problems due to accumulated error.
 
 The figure below shows how the camera was used to measure @f$ P_E \frac{dx}{dt} @f$:
 
-@image html  line_tracking_dia.png "Diagram of line tracking geometry (NOT to scale)"
-@image latex line_tracking_dia.eps "Diagram of line tracking geometry (NOT to scale)" width=14cm
+@image html  line_tracking_dia.png "Diagram of line tracking geometry (not to scale)"
+@image latex line_tracking_dia.eps "Diagram of line tracking geometry (not to scale)" width=14cm
 
 The drift rate is the slope of the black line with respect to the center line
 of the robot. For points @f$ P_1 = (x_1,y_1) @f$ and @f$ P_2 = (x_2,y_2) @f$
@@ -408,15 +408,6 @@ before the wheel had actually started moving in the reverse direction.
 
 @subsection localization Localization
 
-The most basic pieces of information needed for a path planning algorithm are:
-
-@li A map
-@li A location
-@li One or more destinations
-
-This section will talk about the first two; the next section on ball detection
-will cover the third.
-
 While the locations of the ground balls were not known a priori, the map of
 the course was. We defined the course as a connected undirected graph with 42
 nodes (vertices) as shown below. A node was placed at:
@@ -429,8 +420,7 @@ nodes (vertices) as shown below. A node was placed at:
 @image html  arena_caddy.png "Caddy's connected graph representation of the arena"
 @image latex arena_caddy.png "Caddy's connected graph representation of the arena" width=8cm
 
-The software implementation of this graph was done using a C struct, @ref
-NODE:
+The software implementation of this graph was done using a C struct:
 
 @code
 typedef struct nodeStruct
@@ -455,8 +445,8 @@ automatically constrain the range of angular arithmetic operations to [0°
 node-to-node distances were multiples of 6 inches. This allowed all distances
 to be encoded in an 8-bit integer data type.
 
-As an additional space conservation measure, information about the type of
-node was encoded in the node number:
+As an additional measure to conserve memory resources, information about the
+type of node was encoded in the node number:
 
 @li Node 0: Start
 @li Node 1-20: Ball nodes
@@ -505,8 +495,9 @@ void getNode(uint8_t nodeNum, NODE *node)
 
 Except for a couple special cases, all ball detection was done at junctions
 with the tilt servo oriented vertically and the panning servo oriented at a
-fixed angle to the left or right. This covered all junctions in which a ground
-ball could be located down a corridor to the left or right.
+fixed angle to the left or to the right. This covered all junctions in which a
+ground ball could be located down a perpendicular corridor to the left or
+right.
 
 The ball detection algorithm was implemented using the built-in color tracking
 and virtual window features of the CMUcam. As with the line tracking, it was
@@ -514,19 +505,20 @@ important that all the data processing intensive operations be done on the
 CMUcam processor in order to have low execution time.
 
 At every junction, Caddy traversed all connected nodes in the graph extending
-to the left, for example. For any ball node that had not yet been checked, the
-node number was recorded along with distance away from the Caddy's current
-node location. If there was at least one unchecked ball node to the left,
-Caddy would orient the camera pan/tilt servos to look in that direction and
-use a sliding window algorithm to search for the ball.
+to the left, for example. For any ground ball node encountered during this
+graph traversal that had not yet been checked, the node number was recorded
+along with distance away from the Caddy's current node location. If there was
+at least one unchecked ball node to the left, Caddy would orient the camera
+pan/tilt servos to look in that direction and use a sliding window algorithm
+to search for the ball.
 
 As shown in the diagram below, the ball detection algorithm searched for the
 bottom of the ball by progressively moving a narrow image window through the
 image and using an upper and lower color intensity thresholds to determine if
 any orange pixels were within the image window.
 
-@image html  ball_seek_left_view_dia.png "The view of the camera while searching for a ball down a corridor to the left"
-@image latex ball_seek_left_view_dia.eps "The view of the camera while searching for a ball down a corridor to the left" width=10cm
+@image html  ball_seek_left_view_dia.png "The camera's view while searching for a ball down a corridor to the left"
+@image latex ball_seek_left_view_dia.eps "The camera's view while searching for a ball down a corridor to the left" width=10cm
 
 If an orange pixel was found, a look-up table was used to convert the the
 horizontal X coordinate of the image window to a physical distance away from
@@ -554,6 +546,28 @@ optimizations a typical ball search to the left or right took about 1 second.
 
 @subsection path_planning Path Planning
 
+The connected graph map of the arena and ball detection features described in
+the previous sections provided pieces of information needed for a path
+planning algorithm:
+
+@li A map
+@li A location
+@li One or more destinations (goals)
+
+Now, every time a goal was added to the goal list (i.e. a ground ball was
+found), the path planning algorithm would compute the cost through all
+permutations of known goals starting from the current node and ending at nest
+node. This required two sub-algorithms:
+
+@li A method to compute the shortest path between any two nodes
+@li A method to compute all permutations of known goals
+
+The permutation algorithm proved to be more challenging than originally
+expected because the limited stack space of the ATmega32 precluded the use of
+a recursive permuation algorithm. With some research we found a simple
+itertive implementation in the GNU C++ Standard Template Library
+(STL). Adapting this templated code to C99 C code we had a solution for
+computing all permuations of any array of 8-bit values.
 
 @page conclusion Conclusion
 
