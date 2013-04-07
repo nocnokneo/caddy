@@ -15,7 +15,7 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "trackLine.h"
-#include "motorCntrl.h"
+#include "motor_control.h"
 #include "camera.h"
 #include "eeProm.h"
 #include "tetherUI.h"

@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "motorCntrl.h"
+#include "motor_control.h"
 #include "encoder.h"
 #include "eeProm.h"
 #include "ourLCD.h"

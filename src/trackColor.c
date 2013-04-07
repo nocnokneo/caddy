@@ -20,7 +20,7 @@
 #include "camera.h"
 #include "servos.h"
 #include "junctionCode.h"
-#include "motorCntrl.h"
+#include "motor_control.h"
 #include "eeProm.h"
 #include "helperFunctions.h"
 

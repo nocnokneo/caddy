@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "updatePath.h"
+#include "path_planning.h"
 #include "botCntrl.h"
 #include "servos.h"
 #include "junctionCode.h"

@@ -22,8 +22,8 @@
 #include "camera.h"
 #include "nodeList.h"
 #include "eeProm.h"
-#include "motorCntrl.h"
-#include "updatePath.h"
+#include "motor_control.h"
+#include "path_planning.h"
 #include "helperFunctions.h"
 
 // Static global variables
