@@ -124,13 +124,13 @@ uint8_t updatePath(void)
         if (tempCost < bestCost)
         {
             bestCost = tempCost;
-            copyList(curPerm, bestPerm, goalListSize);
+            memcpy(bestPerm, curPerm, goalListSize * sizeof(*bestPerm));
         }
 
     } while (generateNextPermutation(curPerm, curPerm + goalListSize));
 
     // Re-order goalList according to bestPerm.
-    copyList(goalList, tempGoalList, goalListSize);
+    memcpy(tempGoalList, goalList, goalListSize * sizeof(*tempGoalList));
     for (i = 0; i < goalListSize; i++)
         goalList[i] = tempGoalList[bestPerm[i]];
 
@@ -149,6 +149,87 @@ uint8_t updatePath(void)
     //printPathList();
 
     return bestCost;
+}
+
+inline void addToGoalList(uint8_t nodeNum)
+{
+    if (!isInGoalList(nodeNum))
+    {
+        goalList[goalListSize++] = nodeNum;
+        numKnownGoals++;
+    }
+}
+
+bool removeFromGoalList(uint8_t nodeNum)
+{
+    int8_t i = findValue(goalList, goalListSize, nodeNum);
+    if (i == -1)
+    {
+        numUnreachedGoals--;
+        numKnownGoals++;
+        return false;
+    }
+
+    for (; i < goalListSize - 1; i++)
+    {
+        goalList[i] = goalList[i + 1];
+    }
+    goalListSize--;
+    numUnreachedGoals--;
+
+    return true;
+}
+
+inline bool isInGoalList(uint8_t nodeNum)
+{
+    return findValue(goalList, goalListSize, nodeNum) != -1;
+}
+
+inline void printGoalList(void)
+{
+#if DEBUGGING
+    uint8_t i;
+
+    lcdWriteStr("                ", 0, 0);
+
+    if (goalListSize == 0)
+    {
+        lcdWriteStr("(empty)", 0, 0);
+    } else
+    {
+        for (i = 0; i < goalListSize; i++)
+        {
+            lcdPrintDecU08(goalList[i], 0, 3 * i);
+        }
+    }
+#endif
+}
+
+// tells bot where fixed goals are
+inline void initGoalList(void)
+{
+    goalListSize = 0;
+    addToGoalList(BONUS_BALL_1);
+    addToGoalList(BONUS_BALL_2);
+    addToGoalList(SENSOR_NODE);
+}
+
+// returns 0 if no ball is in goalList
+uint8_t getUpcomingBallNum(void)
+{
+    uint8_t i = 1;
+    uint8_t nodeNum = pathList[pathListIndex + i];
+    while (isBallNode(nodeNum))
+    {
+        if (isInGoalList(nodeNum))
+        {
+            return nodeNum;
+        }
+        i++;
+        nodeNum = pathList[pathListIndex + i];
+    }
+
+    return 0;
 }
 
 // returns distance of path found

@@ -35,12 +35,4 @@ void msDelay(uint16_t ms);
  */
 int8_t findValue(const uint8_t *array, const uint8_t arraySize, uint8_t value);
 
-inline void initGoalList( void );
-inline bool isInGoalList( uint8_t nodeNum );
-inline void addToGoalList( uint8_t nodeNum );
-bool removeFromGoalList( uint8_t nodeNum );
-inline void printGoalList( void );
-inline void copyList(uint8_t srcList[], uint8_t destList[], uint8_t numElements);
-uint8_t getUpcomingBallNum( void );
-
 #endif // #ifndef HELPERFUNCTIONS_H_

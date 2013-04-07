@@ -39,6 +39,12 @@ extern uint8_t pathList[];
 extern uint8_t pathListSize;
 extern uint8_t pathListIndex;
 
+inline void initGoalList( void );
 uint8_t updatePath( void );
+inline bool isInGoalList( uint8_t nodeNum );
+inline void addToGoalList( uint8_t nodeNum );
+bool removeFromGoalList( uint8_t nodeNum );
+inline void printGoalList( void );
+uint8_t getUpcomingBallNum( void );
 
 #endif  // #ifndef UPDATEPATH_H_
