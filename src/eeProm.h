@@ -16,7 +16,7 @@
  */
 /**
  * @file
- * @brief Loading and store "tweak values" into eeProm.
+ * @brief Interface to the "tweak values" stored in EEPROM
  *
  * Tweak values are runtime configurable parameters that can be adjusted e.g.
  * with the tether UI and saved persistently in EEPROM.

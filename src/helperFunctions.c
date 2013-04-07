@@ -15,11 +15,6 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "helperFunctions.h"
-#include "botCntrl.h"
-#include "updatePath.h"
-#include "junctionCode.h"
-#include "nodeList.h"
-#include "ourLCD.h"
 
 // AVRLIB
 #include "timer.h"

@@ -93,12 +93,12 @@ void trackLineInit(void)
     lineStatsProcessed = true;
 
     // Initialize wheel speeds to forward, zero pwm
-    forward(BOTH, 0);
+    forward(BOTH_MOTORS, 0);
     PWM_LEFT(l_base);
     PWM_RIGHT(r_base);
 
     // Set Low Resolution
-    lowResMode();
+    cameraLowResMode();
     // Downsample the image
     rprintf("DS %d %d\r", DS_X_LINE, DS_Y_LINE);
     // set virtual window

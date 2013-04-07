@@ -23,23 +23,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+/** Worst case number of nodes to complete the course */
 #define MAX_PATH_LIST_SIZE 70
 
-#define START_NODE      0              // initial node
-#define START_HEADING   -64            // initial heading
-#define STOP_NODE       42             // node by nest
-#define INITIAL_PATH_LIST_SIZE    29
-#define INITIAL_PATH_LIST   {0,21,1,22,2,23,3,24,3,23,28,8,30,31,32,16,40,18,39,38,37,38,39,18,40,19,20,41,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
-
-// FIXED PATH
-//#define INITIAL_PATH_LIST_SIZE    47
-//#define INITIAL_PATH_LIST   {0,21,1,22,9,29,11,12,33,13,34,17,35,36,37,38,39,18,40,19,20,41,5,26,25,4,24,3,23,2,22,9,29,10,30,8,28,6,27,7,32,16,40,19,20,41,42,0,0,00,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
+/** List of nodes to be visited. Updated as new goals are discovered. */
 extern uint8_t pathList[];
-extern uint8_t pathListSize;
+/** Index into @ref pathList corresponding to the robot's current position */
 extern uint8_t pathListIndex;
 
-inline void initGoalList( void );
 uint8_t updatePath( void );
 inline bool isInGoalList( uint8_t nodeNum );
 inline void addToGoalList( uint8_t nodeNum );

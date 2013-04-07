@@ -28,6 +28,11 @@
 // avr-libc
 #include <stdbool.h>
 
+// Packet types
+#define NEW_PACKET   0
+#define FE_RCV       1
+#define T_RCV        2
+
 #define CMU_BAUD 38400
 
 static uint8_t mode;
@@ -57,13 +62,20 @@ inline void cameraWhiteBalance()
     rprintf("CR 18 40\r");
 }
 
-inline void resetCamera( void )
+inline void initCamera( void )
 {
     mode = NEW_PACKET;
     byteNum = 0;
 
+    /*
+     * Applies the following settings:
+     *  - Output from the camera is in raw bytes
+     *  - “ACK\r” and “NCK\r” confirmations are suppressed
+     *  - Input to the camera is in ASCII
+     */
     rprintf("RM 3\r");
 }
+
 
 void packetRcv(uint8_t c)
 {
@@ -132,7 +144,7 @@ inline void trackColorRcv(uint8_t c)
 }
 
 
-inline void streamModeOff( void )
+inline void cameraStreamingOff( void )
 {
     rprintf("\r\r"); // add an extra return as recommended by CMUcam manual
     msDelay(32);     // wait for streaming to stop ( 16ms delay ok )
@@ -142,4 +154,14 @@ inline void streamModeOff( void )
 inline void setVirtualWindow(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 {
     rprintf("VW %d %d %d %d\r", x1, y1, x2, y2);
+}
+
+inline void cameraHighResMode(void)
+{
+    rprintf("HR 1\r");
+}
+
+inline void cameraLowResMode(void)
+{
+    rprintf("HR 0\r");
 }

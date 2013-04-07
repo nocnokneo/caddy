@@ -14,38 +14,24 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-//*****************************************************************************
-//
-// File Name	: 'global.h'
-// Title		: AVR project global include
-// Author		: Pascal Stang
-// Created		: 7/12/2001
-// Revised		: 9/30/2002
-// Version		: 1.1
-// Target MCU	: Atmel AVR series
-// Editor Tabs	: 4
-//
-//	Description : This include file is designed to contain items useful to all
-//					code files and projects.
-//
-// This code is distributed under the GNU Public License
-//		which can be found at http://www.gnu.org/licenses/gpl.txt
-//
-//*****************************************************************************
-
-#ifndef GLOBAL_H
-#define GLOBAL_H
+/**
+ * @file
+ * @brief Global project include file (required by AVRLIB)
+ *
+ * A file of the name global.h is required by the AVRLIB and must contain, at
+ * a minimum, a defining for F_CPU.
+ */
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
 
 // global AVRLIB defines
 #include "avrlibdefs.h"
 // global AVRLIB types definitions
 #include "avrlibtypes.h"
 
-// project/system dependent defines
+/** CPU clock speed [Hz]. (macro required by AVRLIB) */
+#define F_CPU        16000000
+/** CPU cycles per microsecond. (macro required by AVRLIB) */
+#define CYCLES_PER_US ((F_CPU+500000)/1000000)
 
-// CPU clock speed
-#define F_CPU        16000000               		// 16MHz processor
-#define CYCLES_PER_US ((F_CPU+500000)/1000000) 	// cpu cycles per microsecond
-
-#endif
+#endif /* end ifndef GLOBAL_H_ */

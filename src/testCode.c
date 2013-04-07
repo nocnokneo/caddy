@@ -182,11 +182,6 @@ void seekBallTest( void )
     bool justTurned = true;
     NODE node;
 
-    initGoalList();
-    removeFromGoalList(BONUS_BALL_1);
-    removeFromGoalList(BONUS_BALL_2);
-    removeFromGoalList(SENSOR_NODE);
-
     botNode = tempTweak1;                   // set path to next junction
     botHeading = tempTweak2; // tempTweak1 must be adjacent to junction at heading in tempTweak2
 
@@ -204,7 +199,7 @@ void seekBallTest( void )
 #endif
 
     moveToJunction(1, justTurned);
-    brake(BOTH);
+    brake(BOTH_MOTORS);
     msDelay(1000);
     updatePath();                    // sets path to nest, b/c goalList is empty
     junctionCode();                       // updates path to ball, if ball found
@@ -224,7 +219,7 @@ void seekBallTest( void )
 
     printGoalList();
 
-    brake(BOTH);
+    brake(BOTH_MOTORS);
 }
 
 

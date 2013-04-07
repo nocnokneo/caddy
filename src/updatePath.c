@@ -46,9 +46,12 @@ typedef struct PathListNode
 static SearchNodeType searchSpace[NUM_NODES];
 
 // Globals
-uint8_t pathList[MAX_PATH_LIST_SIZE];// = INITIAL_PATH_LIST;
-uint8_t pathListSize;
-uint8_t pathListIndex;
+uint8_t pathList[MAX_PATH_LIST_SIZE];
+uint8_t pathListIndex = 0;
+
+// initialized in initBotGlobals
+static uint8_t goalList[NUM_GOALS];
+static uint8_t goalListSize = 0;
 
 static inline uint8_t uniformCostSearch( uint8_t startNode, uint8_t goalNode /*, SEARCH_NODE searchSpace[]*/ );
 static inline PathListNodeType * addNodeByCost(PathListNodeType *head, uint8_t newNodeNum /*, SEARCH_NODE searchSpace[]*/ );
@@ -203,15 +206,6 @@ inline void printGoalList(void)
         }
     }
 #endif
-}
-
-// tells bot where fixed goals are
-inline void initGoalList(void)
-{
-    goalListSize = 0;
-    addToGoalList(BONUS_BALL_1);
-    addToGoalList(BONUS_BALL_2);
-    addToGoalList(SENSOR_NODE);
 }
 
 // returns 0 if no ball is in goalList

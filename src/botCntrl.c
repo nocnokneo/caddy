@@ -42,15 +42,27 @@ uint8_t botNode = START_NODE;
 int8_t botHeading = START_HEADING;
 uint8_t numUnreachedGoals = NUM_GOALS;
 
-static bool liftDown;
-static uint8_t upComingBallNum;
+static bool liftDown = false;
+static uint8_t upComingBallNum = 0;
 
+/**
+ * Moves servos to initial poistions.
+ */
+static void moveServosToStart(void);
 static inline int8_t getNextHeading(uint8_t nextBotNode);
 
 inline void runRoborodentiaCourse(void)
 {
     bool justTurned = false;
     bool firstRun = true;
+
+    // Known, fixed goals
+    addToGoalList(BONUS_BALL_1);
+    addToGoalList(BONUS_BALL_2);
+    addToGoalList(SENSOR_NODE);
+
+    moveServosToStart();
+    initBallSeeking();
 
     updatePath();
 
@@ -108,18 +120,21 @@ inline void runRoborodentiaCourse(void)
     }
 }
 
-inline void initBotGlobals(void)
+void moveServosToStart(void)
 {
-    // init bot's path to INITIAL_PATH_LIST
-    pathListIndex = 0;
-    pathListSize = INITIAL_PATH_LIST_SIZE;
-    // (pathList initialized in updatePath.c)
-
-    initGoalList();
-    numKnownGoals = NUM_FIXED_GOALS;
-
-    liftDown = false;
-    upComingBallNum = 0;
+#if DEBUGGING
+    lcdWriteStr("Servos    ", 0, 6);
+#endif
+    setServo(PAN, PAN_CENTER + panOffset);
+    setServo(TILT, TILT_FORWARD);
+    setServo(BOOM, BOOM_UP);
+    setServo(DOOR, DOOR_CLOSED);
+    myDelay(30);
+    setServo(LIFT, LIFT_UP);
+    myDelay(50);
+    disableServo(BOOM);
+    disableServo(DOOR);
+    disableServo(LIFT);
 }
 
 inline bool positionBot(void)
@@ -239,7 +254,7 @@ static inline int8_t getNextHeading(uint8_t nextBotNode)
 #if DEBUGGING
         lcdWriteStr("pathList error  ", 0, 0);
 #endif
-        brake(BOTH);
+        brake(BOTH_MOTORS);
         while (1) ;
     }
     nextHeading = nextNode.adjHeadings[nextNodeIndex];
@@ -275,13 +290,46 @@ inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
         lcdWriteStr("ERROR:          ", 0, 0);
         lcdWriteStr("Turn Amt =      ", 1, 0);
         lcdPrintDecS08(bbHeading - botHeading, 1, 11);
-        brake(BOTH);
+        brake(BOTH_MOTORS);
         while (1) ;
 #endif
         break;
     }
 
-    grabBonusBall(); // Grab the BB
+    // Get in position
+    // setPose(BB_READY);
+    setServo(TILT, TILT_BACK);
+    setServo(LIFT, LIFT_BB_READY);
+    myDelay(40);
+
+    // Drive up to the corner
+    forward(BOTH_MOTORS, 255);
+    msDelay(1000);
+    brake(BOTH_MOTORS);
+
+    // Back and and move back into the corner (help align better)
+    moveStraight(-10, 255);
+    forward(BOTH_MOTORS, 255);
+    msDelay(400);
+    brake(BOTH_MOTORS);
+
+    // Execute the pickup sequence
+    setServo(BOOM, BOOM_BB_GRAB);
+    myDelay(10);
+    setServo(TILT, TILT_BB_GRAB);
+    myDelay(10);
+    setServo(BOOM, BOOM_UP);
+    myDelay(10);
+    setServo(TILT, TILT_VERT + tiltOffset);
+    myDelay(10);
+    setServo(LIFT, LIFT_UP);
+
+    // Back away from the corner
+    moveStraight(-18, 255);
+    setServo(TILT, TILT_FORWARD);
+
+    disableServo(BOOM);
+    disableServo(LIFT);
 
     // Rotate by (nextHeading - bbHeading)
     // (This should only be 32, -32, or -96)
@@ -301,7 +349,7 @@ inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
         lcdWriteStr("ERROR:          ", 0, 0);
         lcdWriteStr("nH - bbH =      ", 1, 0);
         lcdPrintDecS08(bbHeading - botHeading, 1, 11);
-        brake(BOTH);
+        brake(BOTH_MOTORS);
         while (1) ;
 #endif
         break;
@@ -383,7 +431,7 @@ inline void moveToJunction(uint8_t numJunctions, bool justTurned)
         // BEGIN PICKUP CHECK
         if (liftDown && ignoreBreakBeamCount == 0 && BREAK_BEAM_TRIGGERED)
         {
-            streamModeOff();
+            cameraStreamingOff();
             setServo(LIFT, LIFT_CORRAL); // Perhaps raise it slowly if there are pick-up problems
             msDelay(30);
             trackLineInit();
@@ -400,7 +448,7 @@ inline void moveToJunction(uint8_t numJunctions, bool justTurned)
 
             if (pickingUpCount == CORRAL_COUNT)
             {
-                streamModeOff();
+                cameraStreamingOff();
                 setServo(LIFT, LIFT_UP);
                 trackLineInit();
             }
@@ -424,7 +472,7 @@ inline void moveToJunction(uint8_t numJunctions, bool justTurned)
                     pathListIndex++;
                 }
 
-                streamModeOff();      // Turn off line tracking
+                cameraStreamingOff();      // Turn off line tracking
                 disableServo(LIFT);
                 positionBot(); // In case we want to make a -128 brad turn after picking up ball
                 ignoreBreakBeamCount = BEAM_IGNORE_COUNT;
@@ -434,12 +482,12 @@ inline void moveToJunction(uint8_t numJunctions, bool justTurned)
         }
     }
 
-    streamModeOff();
+    cameraStreamingOff();
 
     // Make sure lift is up (in case we missed a ball or incorrectly thought one was there)
     if (liftDown)
     {
-        brake(BOTH);
+        brake(BOTH_MOTORS);
 #if DEBUGGING
         lcdWriteStr("No ball         ", 0, 0);
 #endif
@@ -471,15 +519,15 @@ void nestSequence(void)
         debounceButtons();
     }
 
-    brake(BOTH);
-    streamModeOff();
+    brake(BOTH_MOTORS);
+    cameraStreamingOff();
     setServo(LIFT, LIFT_UP);       // Turn lift on
     msDelay(300);
 
     // Open door, back up, close door
     setServo(DOOR, DOOR_OPEN);
     moveStraight(-1, 255);              // Back up to take pressure off button
-    brake(BOTH);
+    brake(BOTH_MOTORS);
     //myDelay(25);                     // Let balls roll out
     msDelay(3000);
     setServo(DOOR, DOOR_CLOSED); // Leaves door closed, so lift and door don't colide on power up.

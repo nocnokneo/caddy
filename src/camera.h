@@ -14,19 +14,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-/** @file */
+/** @file
+ * @brief Interface to the CMUcam vision system
+ */
 #ifndef CAMERA_H_
 #define CAMERA_H_
 
 #include <stdint.h>
-
-// Packet types
-#define NEW_PACKET   0
-#define FE_RCV       1
-#define T_RCV        2
-
-#define hiResMode()  rprintf("HR 1\r")
-#define lowResMode() rprintf("HR 0\r")
 
 /**
  * @brief Initialize the UART for communicating with the CMUcam
@@ -43,8 +37,19 @@ inline void cmuCamInit(void);
  */
 inline void cameraWhiteBalance( void );
 
-inline void resetCamera( void );
-inline void streamModeOff( void );
+/**
+ * @brief Reset the packet receiving state and put the camera into raw send mode
+ *
+ * @sa CMUcam2 manual p.48
+ */
+inline void initCamera( void );
+
+/**
+ * @brief Stop the CMUcam from streaming data
+ *
+ * @sa CMUcam2 manual p.30
+ */
+inline void cameraStreamingOff( void );
 
 /**
  * @brief Constrain field of view used for subsequent image processing commands
@@ -52,5 +57,17 @@ inline void streamModeOff( void );
  * @sa CMUcam2 manual p.55
  */
 inline void setVirtualWindow(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+
+/**
+ * @brief Set the camera to 176x255 resolution
+ *
+ * @note This resolution is @em truncated from 176x287
+ */
+inline void cameraHighResMode(void);
+
+/**
+ * @brief Set the camera to 88x143 resolution
+ */
+inline void cameraLowResMode(void);
 
 #endif // #ifndef CAMERA_H_

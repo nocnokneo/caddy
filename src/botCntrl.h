@@ -40,11 +40,6 @@ extern uint8_t numUnreachedGoals;
 inline void runRoborodentiaCourse(void);
 
 /**
- *  @brief Initialize some of bot's global variables
- */
-inline void initBotGlobals(void);
-
-/**
  * @brief Turn bot, if necessary, at junctions and ball nodes
  *
  * Maintains (owns) botHeading global variable. Performs bonus ball pickup

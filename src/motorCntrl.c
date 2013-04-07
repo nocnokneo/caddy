@@ -14,23 +14,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-//*****************************************************************************
-// motorCntrl.c
-//
-// Motor control functions.
-//
-// Revision History:
-//   3/21/05 created by Mike, based on motorTest.c
-//       added #define's
-//       added support for speed, motor selection
-//       all speeds declared as 8 bit, uint8_t
-//   3/23/05 modified by Mike for use with the caddy
-//       not sure which pwm controls which though..
-//       so could be wrong
-//
-//  assumes motor enable is connected to PWM A,B
-//    defined in timer.h
-//*****************************************************************************
 #include "motorCntrl.h"
 #include "encoder.h"
 #include "eeProm.h"
@@ -53,7 +36,7 @@ void forward(uint8_t motorSelect, uint8_t speed)
         cbi(MC_PORT, REVERSE_RIGHT);
         PWM_RIGHT(speed);
         break;
-    case BOTH:
+    case BOTH_MOTORS:
         // both motors forward
         sbi(MC_PORT, FORWARD_LEFT);
         sbi(MC_PORT, FORWARD_RIGHT);
@@ -149,8 +132,10 @@ void tankTurn(uint8_t speed, int8_t brads)
 {
     int8_t halfBrads = brads / 2;
     tickWheels(halfBrads, (-1 * halfBrads), speed);
+
     // Now we correct/prevent overshoot
-    delay(TANK_OVERSHOOT_DELAY);
+    delay(16000);
+
     if (brads < 0)
     {
         tickWheels(encoderGetPosition(LEFT_ENC) + halfBrads,
@@ -179,7 +164,7 @@ void reverse(uint8_t motorSelect, uint8_t speed)
         cbi(MC_PORT, FORWARD_RIGHT);
         PWM_RIGHT(speed);
         break;
-    case BOTH:
+    case BOTH_MOTORS:
         // both motors reverse
         sbi(MC_PORT, REVERSE_LEFT);
         sbi(MC_PORT, REVERSE_RIGHT);
@@ -212,7 +197,7 @@ void brake(uint8_t motorSelect)
         cbi(MC_PORT, REVERSE_RIGHT);
         cbi(MC_PORT, FORWARD_RIGHT);
         break;
-    case BOTH:
+    case BOTH_MOTORS:
         // both motors reverse
         cbi(MC_PORT, REVERSE_LEFT);
         cbi(MC_PORT, REVERSE_RIGHT);

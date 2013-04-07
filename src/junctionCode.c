@@ -26,17 +26,19 @@
 #include "updatePath.h"
 #include "helperFunctions.h"
 
-// Global variables
+// Static global variables
 // initialized in initBotGlobals
-bool checkedList[] = { false, false, false, false, false, false,
-                       false, false, false, false, false, false,
-                       false, false, false, false, false, false,
-                       false, false, false };
-// initialized in initBotGlobals
-uint8_t goalList[NUM_GOALS];
+static bool checkedList[BALL_NODE_MAX];
+uint8_t numKnownGoals = NUM_FIXED_GOALS;
 
-uint8_t goalListSize;
-uint8_t numKnownGoals;
+inline void initBallSeeking(void)
+{
+    uint8_t i;
+    for (i = 0; i < ELEMENTSOF(checkedList); ++i)
+    {
+        checkedList[i] = false;
+    }
+}
 
 /*
  * Searches for ground balls, picks-up bonous balls, and computes best path.

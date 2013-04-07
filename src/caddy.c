@@ -21,7 +21,6 @@
 #include "botCntrl.h"
 #include "motorCntrl.h"
 #include "camera.h"
-#include "servos.h"
 #include "encoder.h"
 #include "buttons.h"
 #include "eeProm.h"
@@ -101,9 +100,7 @@ int main(void)
 {
     initAtmel();
     loadTweakValues();
-    initBotGlobals();
-    resetCamera();
-    moveServosToStart();
+    initCamera();
     cameraWhiteBalance();
 
 #if DEBUGGING
@@ -116,7 +113,7 @@ int main(void)
     runRoborodentiaCourse();
 #endif
 
-    brake(BOTH);
+    brake(BOTH_MOTORS);
 #if DEBUGGING
     lcdWriteStr("Done            ", 0, 0);
     lcdWriteStr("                ", 1, 0);

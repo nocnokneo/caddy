@@ -28,9 +28,6 @@
 #define BALL_NODE_NUM   1
 
 // Global variables
-extern bool checkedList[];
-extern uint8_t goalList[];
-extern uint8_t goalListSize;
 extern uint8_t numKnownGoals;
 
 void junctionCode(void);

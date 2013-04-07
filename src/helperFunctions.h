@@ -19,7 +19,9 @@
 
 // avr-libc
 #include <stdint.h>
-#include <stdbool.h>
+
+// Number of elements in a 1-dimensional array
+#define ELEMENTSOF(x)  (sizeof(x)/sizeof((x)[0]))
 
 void myDelay(uint16_t outerDelay);
 void msDelay(uint16_t ms);

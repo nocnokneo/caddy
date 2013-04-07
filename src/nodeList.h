@@ -26,14 +26,8 @@
  *   - Nodes 1-20 are ball nodes
  *   - Nodes 21-41 are junctions
  * - Distance resolution is 6 inches.
- * -Direction is measured in binary radians or brads. (see www.urcp.com)
+ * - Direction is measured in binary radians or brads. (see www.urcp.com)
  *
- * Version History:
- * 2/17/05 - Created by Logan
- * 2/21/05 - Checked by Logan, Scott, and Patrick
- *         - Changed syntax for Atmel - Logan
- *         - Added more defines - Logan
- * 4/11/05 - Re-structured for FLASH - Logan
  */
 #ifndef NODELIST_H_
 #define NODELIST_H_
@@ -44,8 +38,15 @@
 /** Total number of nodes in the arena map */
 #define NUM_NODES       43
 
+/** Beginning of the course */
+#define START_NODE      0
+/** Heading of the robot at the beginning of the course */
+#define START_HEADING   -64
+/** End of the course */
+#define STOP_NODE       42
+
 /** Beginning of node number range used for ball nodes */
-#define BALL_NODE_MIN   1         
+#define BALL_NODE_MIN   1
 /** End of node number range used for ball nodes */
 #define BALL_NODE_MAX   20
 /** Beginning of node number range used for junction nodes */

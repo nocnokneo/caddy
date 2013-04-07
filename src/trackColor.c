@@ -49,7 +49,7 @@ void trackColorInit(int8_t dir)
 {
     if (!inSeekPosition)
     {
-        brake(BOTH);
+        brake(BOTH_MOTORS);
         msDelay(200);
         moveStraight(-1 * 0xb, 255);
         inSeekPosition = true;
@@ -75,7 +75,7 @@ void trackColorInit(int8_t dir)
     }
     msDelay(500);
 
-    hiResMode();
+    cameraHighResMode();
     rprintf("DS 1 1\r");
     rprintf("LM 0 0\r");
 

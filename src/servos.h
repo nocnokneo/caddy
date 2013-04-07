@@ -14,6 +14,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * @file
+ * @brief Servo control interface for Caddy
+ */
 #ifndef SERVOS_H
 #define SERVOS_H
 
@@ -113,10 +117,19 @@
 #define MAX_DOOR_CLOSED    71    ///< Close door _just_ to the point of touching
 #define MAX_DOOR_OPEN      200   ///< Mechanical limit of the door lever arm
 
-void moveServosToStart(void);
-void grabBonusBall(void);
-void moveServo(uint8_t servoNum, uint8_t servoPos);
+/**
+ * @brief Move servo to position and leave it on
+ *
+ * param[in] servoNum  Number of the servo output on the CMUcam2
+ * param[in] servoPos  0-255 value which maps to servo angle of 0-180 degrees
+ */
 void setServo(uint8_t servoNum, uint8_t servoPos);
+
+/**
+ * @brief Cut power to a specified servo
+ *
+ * param[in] servoNum  Number of the servo output on the CMUcam2
+ */
 void disableServo(uint8_t servoNum);
 
 #endif  // #ifndef
