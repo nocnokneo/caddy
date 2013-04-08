@@ -15,6 +15,8 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "helperFunctions.h"
+#include "motor_control.h"
+#include "ourLCD.h"
 
 // AVRLIB
 #include "timer.h"
@@ -45,4 +47,14 @@ int8_t findValue(const uint8_t *array, const uint8_t arraySize, uint8_t value)
         i++;
     }
     return -1;
+}
+
+void fatalError(const char *errorStr1, const char *errorStr2)
+{
+#if DEBUGGING
+    lcdWriteStr(errorStr1, 0, 0);
+    lcdWriteStr(errorStr2, 1, 0);
+#endif
+    brake(BOTH_MOTORS);
+    while (1) ;
 }

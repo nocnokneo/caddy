@@ -43,13 +43,12 @@ int8_t botHeading = START_HEADING;
 uint8_t numUnreachedGoals = NUM_GOALS;
 
 static bool liftDown = false;
-static uint8_t upComingBallNum = 0;
+static uint8_t nextBallNodeNum = 0;
 
 /**
  * Moves servos to initial poistions.
  */
 static void moveServosToStart(void);
-static inline int8_t getNextHeading(uint8_t nextBotNode);
 
 inline void runRoborodentiaCourse(void)
 {
@@ -92,7 +91,7 @@ inline void runRoborodentiaCourse(void)
             firstRun = false;
             setServo(LIFT, LIFT_OPEN); // Lower lift, on first run, b/c skipping seek at node 21
             msDelay(30);
-            upComingBallNum = 1;
+            nextBallNodeNum = 1;
             liftDown = true;
         }
 
@@ -141,7 +140,7 @@ inline bool positionBot(void)
 {
     bool justTurned = true;
 
-    int8_t nextHeading = getNextHeading(pathList[pathListIndex + 1]);
+    int8_t nextHeading = getNextHeading();
     int8_t bradsToTurn = nextHeading - botHeading;
 
     // BB PICKUP CHECK
@@ -218,8 +217,8 @@ inline bool positionBot(void)
     botHeading = nextHeading;
 
     // GB PICKUP CHECK: lower lift, if bot knows it will travel over ball
-    upComingBallNum = getUpcomingBallNum();
-    if (upComingBallNum != 0)
+    nextBallNodeNum = getNextBallNodeNum();
+    if (nextBallNodeNum != 0)
     {
         setServo(LIFT, LIFT_OPEN);
         msDelay(30);
@@ -227,39 +226,6 @@ inline bool positionBot(void)
     }
 
     return justTurned;
-}
-
-/**
- * @brief Return the absolute heading of next
- *
- * @param[in] nextBotNode The next node number
- *
- * @remark Uses @ref botNode global variable
- */
-static inline int8_t getNextHeading(uint8_t nextBotNode)
-{
-    NODE nextNode;            // info about nodes adjacent to botNode
-    int8_t nextNodeIndex;        // nextNode offset to nextBotNode
-    int8_t nextHeading;          // absolute direction to nextBotNode
-
-    // get absolute direction of nextBotNode from node list
-    getNode(botNode, &nextNode);
-    nextNodeIndex = findValue(nextNode.adjNodes,
-                              nextNode.numAdjNodes,
-                              nextBotNode);
-
-    // get next heading or report error
-    if (nextNodeIndex == -1)
-    {
-#if DEBUGGING
-        lcdWriteStr("pathList error  ", 0, 0);
-#endif
-        brake(BOTH_MOTORS);
-        while (1) ;
-    }
-    nextHeading = nextNode.adjHeadings[nextNodeIndex];
-
-    return nextHeading;
 }
 
 inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
@@ -458,10 +424,10 @@ inline void moveToJunction(uint8_t numJunctions, bool justTurned)
                 pickingUp = false;
 
                 // Set current botNode to node where this ball is
-                botNode = upComingBallNum;
-                removeFromGoalList(upComingBallNum);
+                botNode = nextBallNodeNum;
+                removeFromGoalList(nextBallNodeNum);
 
-                if (upComingBallNum == 1) // account for ball not found by camera prior to pickup
+                if (nextBallNodeNum == 1) // account for ball not found by camera prior to pickup
                 {
                     numKnownGoals++;
                 }
@@ -497,7 +463,7 @@ inline void moveToJunction(uint8_t numJunctions, bool justTurned)
         liftDown = false;
 
         // correct goal state
-        removeFromGoalList(upComingBallNum);
+        removeFromGoalList(nextBallNodeNum);
         numUnreachedGoals--;
         numKnownGoals--;
     }

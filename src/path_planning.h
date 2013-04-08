@@ -36,6 +36,7 @@ inline bool isInGoalList( uint8_t nodeNum );
 inline void addToGoalList( uint8_t nodeNum );
 bool removeFromGoalList( uint8_t nodeNum );
 inline void printGoalList( void );
-uint8_t getUpcomingBallNum( void );
+uint8_t getNextBallNodeNum( void );
+inline int8_t getNextHeading(void);
 
 #endif  // #ifndef UPDATEPATH_H_

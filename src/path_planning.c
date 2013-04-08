@@ -209,7 +209,7 @@ inline void printGoalList(void)
 }
 
 // returns 0 if no ball is in goalList
-uint8_t getUpcomingBallNum(void)
+uint8_t getNextBallNodeNum(void)
 {
     uint8_t i = 1;
     uint8_t nodeNum = pathList[pathListIndex + i];
@@ -225,6 +225,34 @@ uint8_t getUpcomingBallNum(void)
 
     return 0;
 }
+
+/**
+ * @brief Return the absolute heading of next
+ *
+ * @remark Uses @ref botNode global variable
+ */
+inline int8_t getNextHeading(void)
+{
+    NODE nextNode;            // info about nodes adjacent to botNode
+    int8_t nextNodeIndex;        // nextNode offset to nextBotNode
+    int8_t nextHeading;          // absolute direction to nextBotNode
+
+    // get absolute direction of nextBotNode from node list
+    getNode(botNode, &nextNode);
+    nextNodeIndex = findValue(nextNode.adjNodes,
+                              nextNode.numAdjNodes,
+                              pathList[pathListIndex + 1]);
+
+    // get next heading or report error
+    if (nextNodeIndex == -1)
+    {
+        fatalError("pathList error", "");
+    }
+    nextHeading = nextNode.adjHeadings[nextNodeIndex];
+
+    return nextHeading;
+}
+
 
 // returns distance of path found
 uint8_t updatePathTo(uint8_t nodeNum)

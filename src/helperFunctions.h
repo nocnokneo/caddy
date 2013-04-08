@@ -37,4 +37,11 @@ void msDelay(uint16_t ms);
  */
 int8_t findValue(const uint8_t *array, const uint8_t arraySize, uint8_t value);
 
+/**
+ * @brief Print an error message and halt the robot
+ *
+ * @note: Does not return
+ */
+void fatalError(const char *errorStr1, const char *errorStr2);
+
 #endif // #ifndef HELPERFUNCTIONS_H_
