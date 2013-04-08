@@ -571,23 +571,24 @@ computing all permuations of any array of 8-bit values.
 
 @page conclusion Conclusion
 
+The overall design of the robot proved to be a success. Caddy was able to
+perform all the tasks reliably and quickly. Unfortunately, the time
+constraints of the Robocompetition meant that full implemenation and debugging
+of all the features was not completed until just @em after the competition,
+when meant that Caddy did not rank as well as it have.
+
+The following section describes some of the technical aspects that, in
+hindsight, we would have chosen to do differently.
+
 @section future_work Future Work
 
 @subsection regulated_motor_voltage Regulated Motor Voltage
 
-If we end up working with higher voltage motors again, it may be worth losing
-some voltage in order to send regulated voltage to the motors. This allows for
-more consistent operation across fresh and low batteries. This should also
-condition our batteries better, because the battery voltage can drop until the
-regulator’s threshold is reached. As long as we drop the voltage down enough,
-it should be obvious when batteries are dead. As the regulator cuts out, the
-bot should slow down more dramatically. A common solution in ME 405
-(mechatronics) is to regulate 14.4V down to 12V with an adjustable regulator
-(LM1084) for each motor. One regulator was not able to provide enough current
-for both motors. When driving the motors at the same pulse width, we were able
-to see a difference in how straight the bot drove, if the motors received
-voltages a few hundredths apart. Yet, just having the ability to precisely and
-consistently set the voltage to the motors was very useful.
+If we end up working with higher voltage motors again, it may be worth the
+added cost and decrease in power efficiency of regulating the motor
+voltage. This allows for more consistent operation across fully charged and
+partially charged batteries, especially with low precision wheel encoders that
+do not sense direction.
 
 @subsection 16_pwm_motor_control 16-bit PWM Motor Control
 
