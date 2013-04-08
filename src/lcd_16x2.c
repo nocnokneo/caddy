@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ourLCD.h"
+#include "lcd_16x2.h"
 #include "timer.h"
 #include <avr/io.h>
 #include <stdint.h>

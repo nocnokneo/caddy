@@ -16,15 +16,15 @@
  */
 /** @file */
 #include "junctionCode.h"
-#include "botCntrl.h"
-#include "trackColor.h"
+#include "robot_control.h"
+#include "ball_tracking.h"
 #include "servos.h"
 #include "camera.h"
-#include "nodeList.h"
-#include "eeProm.h"
+#include "node_list.h"
+#include "tweak_data.h"
 #include "motor_control.h"
 #include "path_planning.h"
-#include "helperFunctions.h"
+#include "utility.h"
 
 // Static global variables
 // initialized in initBotGlobals

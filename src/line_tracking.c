@@ -14,12 +14,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "trackLine.h"
+#include "line_tracking.h"
 #include "motor_control.h"
 #include "camera.h"
-#include "eeProm.h"
-#include "tetherUI.h"
-#include "ourLCD.h"
+#include "tweak_data.h"
+#include "tether_ui.h"
+#include "lcd_16x2.h"
 
 // AVRLIB
 #include "rprintf.h"

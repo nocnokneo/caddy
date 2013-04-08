@@ -16,8 +16,8 @@
  */
 #include "motor_control.h"
 #include "encoder.h"
-#include "eeProm.h"
-#include "ourLCD.h"
+#include "tweak_data.h"
+#include "lcd_16x2.h"
 
 // avr-libc
 #include <stdint.h>

@@ -18,25 +18,25 @@ AVRLIB_SRC += rprintf.c
 AVRLIB_SRC += timer.c
 
 SRC += encoder.c
-SRC += nodeList.c
-SRC += botCntrl.c
+SRC += node_list.c
+SRC += robot_control.c
 SRC += servos.c
-SRC += helperFunctions.c
-SRC += trackLine.c
+SRC += utility.c
+SRC += line_tracking.c
 SRC += junctionCode.c
 SRC += path_planning.c
 SRC += buttons.c
 SRC += camera.c
 SRC += motor_control.c
-SRC += trackColor.c
-SRC += eeProm.c
-SRC += perms.c
+SRC += ball_tracking.c
+SRC += tweak_data.c
+SRC += permutation.c
 SRC += $(TRG).c
 
 # For debugging
-SRC += tetherUI.c
-SRC += ourLCD.c
-SRC += testCode.c
+SRC += tether_ui.c
+SRC += lcd_16x2.c
+SRC += test_routines.c
 
 # Assembler flags
 ASFLAGS += -Wa, -gstabs

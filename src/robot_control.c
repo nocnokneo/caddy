@@ -15,20 +15,20 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 /** @file */
-#include "botCntrl.h"
-#include "trackLine.h"
-#include "trackColor.h"
+#include "robot_control.h"
+#include "line_tracking.h"
+#include "ball_tracking.h"
 #include "junctionCode.h"
 #include "path_planning.h"
 #include "motor_control.h"
 #include "camera.h"
 #include "servos.h"
 #include "buttons.h"
-#include "nodeList.h"
-#include "tetherUI.h"
-#include "eeProm.h"
-#include "ourLCD.h"
-#include "helperFunctions.h"
+#include "node_list.h"
+#include "tether_ui.h"
+#include "tweak_data.h"
+#include "lcd_16x2.h"
+#include "utility.h"
 
 // avr-libc
 #include <string.h>

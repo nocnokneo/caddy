@@ -16,10 +16,10 @@
  */
 /** @file */
 #include "camera.h"
-#include "trackColor.h"
-#include "trackLine.h"
-#include "helperFunctions.h"
-#include "ourLCD.h"
+#include "ball_tracking.h"
+#include "line_tracking.h"
+#include "utility.h"
+#include "lcd_16x2.h"
 
 // AVRLIB
 #include "rprintf.h"

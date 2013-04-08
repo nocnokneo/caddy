@@ -15,7 +15,7 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 /** @file */
-#include "nodeList.h"
+#include "node_list.h"
 
 // avr-libc
 #include <string.h>

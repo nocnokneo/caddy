@@ -14,19 +14,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "testCode.h"
-#include "botCntrl.h"
+#include "test_routines.h"
+#include "robot_control.h"
 #include "junctionCode.h"
 #include "motor_control.h"
-#include "trackColor.h"
-#include "trackLine.h"
+#include "ball_tracking.h"
+#include "line_tracking.h"
 #include "path_planning.h"
-#include "nodeList.h"
+#include "node_list.h"
 #include "servos.h"
 #include "buttons.h"
-#include "eeProm.h"
-#include "ourLCD.h"
-#include "helperFunctions.h"
+#include "tweak_data.h"
+#include "lcd_16x2.h"
+#include "utility.h"
 
 // avr-libc
 #include <stdbool.h>

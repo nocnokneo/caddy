@@ -18,14 +18,14 @@
  * @file
  * @brief Caddy's main loop and Atmel initialization.
  */
-#include "botCntrl.h"
+#include "robot_control.h"
 #include "motor_control.h"
 #include "camera.h"
 #include "encoder.h"
 #include "buttons.h"
-#include "eeProm.h"
-#include "helperFunctions.h"
-#include "ourLCD.h"
+#include "tweak_data.h"
+#include "utility.h"
+#include "lcd_16x2.h"
 
 // avr-libc
 #include <avr/io.h>

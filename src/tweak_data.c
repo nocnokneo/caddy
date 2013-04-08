@@ -15,7 +15,7 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 /** @file */
-#include "eeProm.h"
+#include "tweak_data.h"
 
 // avr-libc
 #include <avr/io.h>
@@ -38,8 +38,8 @@ int8_t tempTweak2;
 uint16_t tempTweak3;
 uint16_t tempTweak4;
 
-uint8_t lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
-uint8_t testMode; // <- need to save this in eeProm
+uint8_t lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in EEPROM
+uint8_t testMode; // <- need to save this in EEPROM
 
 static uint8_t EEPROM_read(unsigned int uiAddress);
 static void EEPROM_write(unsigned int uiAddress, uint8_t ucData);

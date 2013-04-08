@@ -14,11 +14,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "tetherUI.h"
+#include "tether_ui.h"
 #include "buttons.h"
-#include "eeProm.h"
-#include "ourLCD.h"
-#include "testCode.h"
+#include "tweak_data.h"
+#include "lcd_16x2.h"
+#include "test_routines.h"
 
 // AVRLIB
 #include "avrlibdefs.h"

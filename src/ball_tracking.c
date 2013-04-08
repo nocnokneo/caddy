@@ -15,14 +15,14 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 /** @file */
-#include "trackColor.h"
-#include "trackLine.h"
+#include "ball_tracking.h"
+#include "line_tracking.h"
 #include "camera.h"
 #include "servos.h"
 #include "junctionCode.h"
 #include "motor_control.h"
-#include "eeProm.h"
-#include "helperFunctions.h"
+#include "tweak_data.h"
+#include "utility.h"
 
 // AVRLIB
 #include "rprintf.h"

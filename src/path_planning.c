@@ -15,13 +15,13 @@
  *  along with Caddy.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "path_planning.h"
-#include "botCntrl.h"
+#include "robot_control.h"
 #include "servos.h"
 #include "junctionCode.h"
-#include "nodeList.h"
-#include "ourLCD.h"
-#include "perms.h"
-#include "helperFunctions.h"
+#include "node_list.h"
+#include "lcd_16x2.h"
+#include "permutation.h"
+#include "utility.h"
 
 // avr-libc
 #include <string.h>

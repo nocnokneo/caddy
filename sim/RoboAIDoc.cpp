@@ -5,7 +5,7 @@
 #include "RoboAI.h"
 
 #include "RoboAIDoc.h"
-#include "perms.h"
+#include "permutation.h"
 
 // for file input
 #include <iostream>
