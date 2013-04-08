@@ -23,7 +23,6 @@ SRC += robot_control.c
 SRC += servos.c
 SRC += utility.c
 SRC += line_tracking.c
-SRC += junctionCode.c
 SRC += path_planning.c
 SRC += buttons.c
 SRC += camera.c

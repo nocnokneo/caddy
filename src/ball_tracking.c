@@ -19,7 +19,7 @@
 #include "line_tracking.h"
 #include "camera.h"
 #include "servos.h"
-#include "junctionCode.h"
+#include "robot_control.h"
 #include "motor_control.h"
 #include "tweak_data.h"
 #include "utility.h"

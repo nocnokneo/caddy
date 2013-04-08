@@ -17,7 +17,6 @@
 #include "path_planning.h"
 #include "robot_control.h"
 #include "servos.h"
-#include "junctionCode.h"
 #include "node_list.h"
 #include "lcd_16x2.h"
 #include "permutation.h"
@@ -43,9 +42,15 @@ typedef struct PathListNode
     struct PathListNode *nextNode;
 } PathListNodeType ;
 
+//
+// Static global variables
+//
 static SearchNodeType searchSpace[NUM_NODES];
+uint8_t numKnownGoals = NUM_FIXED_GOALS;
 
-// Globals
+//
+// Global variables
+//
 uint8_t pathList[MAX_PATH_LIST_SIZE];
 uint8_t pathListIndex = 0;
 
@@ -181,6 +186,16 @@ bool removeFromGoalList(uint8_t nodeNum)
     numUnreachedGoals--;
 
     return true;
+}
+
+inline void adjustNumKnownGoals( int8_t adjustment )
+{
+    numKnownGoals += adjustment;
+}
+
+inline bool allGoalsFound(void)
+{
+    return numKnownGoals >= NUM_GOALS;
 }
 
 inline bool isInGoalList(uint8_t nodeNum)

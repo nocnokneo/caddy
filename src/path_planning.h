@@ -35,6 +35,8 @@ uint8_t updatePath( void );
 inline bool isInGoalList( uint8_t nodeNum );
 inline void addToGoalList( uint8_t nodeNum );
 bool removeFromGoalList( uint8_t nodeNum );
+inline void adjustNumKnownGoals( int8_t adjustment );
+inline bool allGoalsFound(void);
 inline void printGoalList( void );
 uint8_t getNextBallNodeNum( void );
 inline int8_t getNextHeading(void);
