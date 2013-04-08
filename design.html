@@ -80,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="team_process"></a>
 Collaborative Team Process</h1>
-<p>The team for this project was formed from interested members of the the <a href="http://robotics.ee.calpoly.edu/">Cal Poly Robotics Club</a>.</p>
+<p>The team for this project was formed from interested members of the the <a href="http://robotics.calpoly.edu/">Cal Poly Robotics Club</a>.</p>
 <p>To organize the tasks and identify critical paths in the (short) project time line, we used <a href="http://www.ganttproject.biz/">GanttProject</a> to create a Gantt chart.</p>
 <p>For code control and collaboration we used Concurrent Versions System (CVS). Since this project had a competitive nature, we chose to setup and host our own private CVS server rather than use a free, Internet-based hosting service.</p>
 <p>Between face-to-face team meetings we used Drupal to host a private forum for discussing ideas, sharing progress, etc.</p>
@@ -200,7 +200,7 @@ PID Line Tracking</h2>
 <div class="image">
 <img src="line_tracking_dia.png" alt="line_tracking_dia.png"/>
 <div class="caption">
-Diagram of line tracking geometry (NOT to scale)</div></div>
+Diagram of line tracking geometry (not to scale)</div></div>
 <p>The drift rate is the slope of the black line with respect to the center line of the robot. For points <img class="formulaInl" alt="$ P_1 = (x_1,y_1) $" src="form_29.png"/> and <img class="formulaInl" alt="$ P_2 = (x_2,y_2) $" src="form_30.png"/> from the diagram above we define:</p>
 <p class="formulaDsp">
 <img class="formulaDsp" alt="\[ \frac{dx}{dt} = \frac{y_2-y_1}{x_2-x_1} \]" src="form_16.png"/>
@@ -221,13 +221,6 @@ Maneuvering</h2>
 <p>This worked well for the most part, however, with different battery charges, turn amounts, and turn types, the amount of time to brake was never the same. If we did not brake the motors for a long enough delay, our bot would stop counting excess ticks and begin to drive the motors in the opposite direction, too soon. With our unsophisticated encoders that cannot detect the direction of wheel motion this resulted in "reverse ticks" being counted before the wheel had actually started moving in the reverse direction.</p>
 <h2><a class="anchor" id="localization"></a>
 Localization</h2>
-<p>The most basic pieces of information needed for a path planning algorithm are:</p>
-<ul>
-<li>A map </li>
-<li>A location </li>
-<li>One or more destinations</li>
-</ul>
-<p>This section will talk about the first two; the next section on ball detection will cover the third.</p>
 <p>While the locations of the ground balls were not known a priori, the map of the course was. We defined the course as a connected undirected graph with 42 nodes (vertices) as shown below. A node was placed at:</p>
 <ul>
 <li>The start of the course </li>
@@ -239,16 +232,16 @@ Localization</h2>
 <img src="arena_caddy.png" alt="arena_caddy.png"/>
 <div class="caption">
 Caddy's connected graph representation of the arena</div></div>
-<p>The software implementation of this graph was done using a C struct, NODE:</p>
-<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structnodeStruct.html" title="Definition of each node (vertex) in the course map node.">nodeStruct</a></div>
+<p>The software implementation of this graph was done using a C struct:</p>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>nodeStruct</div>
 <div class="line">{</div>
-<div class="line">    uint8_t <a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a>;</div>
-<div class="line">    uint8_t <a class="code" href="structnodeStruct.html#a93415dcd566014cb05867997dabe1a1a">adjNodes</a>[<a class="code" href="nodeList_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
-<div class="line">    uint8_t <a class="code" href="structnodeStruct.html#a9886991b7d974aec084313455b24448f">adjCosts</a>[<a class="code" href="nodeList_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
-<div class="line">    int8_t <a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[<a class="code" href="nodeList_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
-<div class="line">} <a class="code" href="nodeList_8h.html#a5c87e1e80e32ded67ac9c7d61b170aea" title="Definition of each node (vertex) in the course map node.">NODE</a>;</div>
+<div class="line">    uint8_t numAdjNodes;</div>
+<div class="line">    uint8_t adjNodes[<a class="code" href="node__list_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
+<div class="line">    uint8_t adjCosts[<a class="code" href="node__list_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
+<div class="line">    int8_t adjHeadings[<a class="code" href="node__list_8h.html#a2fa5ac2ba1926088215fddc03912c90d">MAX_ADJ_NODES</a>];</div>
+<div class="line">} NODE;</div>
 </div><!-- fragment --><p>Each node defined the adjacent node numbers, directions, and distances to each adjacent node. Headings were defined in units of 8-bit binary radians or "brads". An 8-bit brad is 1/256 of a complete rotation. Brads are particularly useful in that they leverage the inherent rollover digital adders to automatically constrain the range of angular arithmetic operations to [0° 360°). Distances were stored using inches scaled by a factor of 1/6 since most node-to-node distances were multiples of 6 inches. This allowed all distances to be encoded in an 8-bit integer data type.</p>
-<p>As an additional space conservation measure, information about the type of node was encoded in the node number:</p>
+<p>As an additional measure to conserve memory resources, information about the type of node was encoded in the node number:</p>
 <ul>
 <li>Node 0: Start </li>
 <li>Node 1-20: Ball nodes </li>
@@ -256,54 +249,70 @@ Caddy's connected graph representation of the arena</div></div>
 <li>Node 42: End</li>
 </ul>
 <p>SRAM memory was particularly limited on our ATMega32 platform, so to conserve it for other uses, the node list was stored in FLASH using a switch statement lookup table. This technique forces the constant values to be encoded in Load Program Memory (LPM) instruction words which are stored and accessed directly from FLASH.</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> getNode(uint8_t nodeNum, <a class="code" href="structnodeStruct.html" title="Definition of each node (vertex) in the course map node.">NODE</a> *node)</div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> getNode(uint8_t nodeNum, NODE *node)</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">switch</span> (nodeNum)</div>
 <div class="line">    {</div>
 <div class="line">    <span class="keywordflow">case</span> 0:                          <span class="comment">// START_NODE</span></div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a> = 1;</div>
+<div class="line">        node-&gt;numAdjNodes = 1;</div>
 <div class="line">        node-&gt;   adjNodes[0] = 21;</div>
 <div class="line">        node-&gt;   adjCosts[0] = 9;</div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[0] = -64;</div>
+<div class="line">        node-&gt;adjHeadings[0] = -64;</div>
 <div class="line">        <span class="keywordflow">break</span>;</div>
 <div class="line">    <span class="keywordflow">case</span> 1:                          <span class="comment">// First ball node</span></div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a> = 2;</div>
+<div class="line">        node-&gt;numAdjNodes = 2;</div>
 <div class="line">        node-&gt;   adjNodes[0] = 21;</div>
 <div class="line">        node-&gt;   adjNodes[1] = 22;</div>
 <div class="line">        node-&gt;   adjCosts[0] = 4;</div>
 <div class="line">        node-&gt;   adjCosts[1] = 4;</div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[0] = -128;</div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[1] = 0;</div>
+<div class="line">        node-&gt;adjHeadings[0] = -128;</div>
+<div class="line">        node-&gt;adjHeadings[1] = 0;</div>
 <div class="line">        <span class="keywordflow">break</span>;</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// ...</span></div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">case</span> 42:                         <span class="comment">// STOP_NODE</span></div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a">numAdjNodes</a> = 1;</div>
+<div class="line">        node-&gt;numAdjNodes = 1;</div>
 <div class="line">        node-&gt;   adjNodes[0] = 41;</div>
 <div class="line">        node-&gt;   adjCosts[0] = 5;</div>
-<div class="line">        node-&gt;<a class="code" href="structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31">adjHeadings</a>[0] = 0;</div>
+<div class="line">        node-&gt;adjHeadings[0] = 0;</div>
 <div class="line">        <span class="keywordflow">break</span>;</div>
 <div class="line">    }</div>
 </div><!-- fragment --><h2><a class="anchor" id="ball_detection"></a>
 Ball Detection</h2>
-<p>Except for a couple special cases, all ball detection was done at junctions with the tilt servo oriented vertically and the panning servo oriented at a fixed angle to the left or right. This covered all junctions in which a ground ball could be located down a corridor to the left or right.</p>
+<p>Except for a couple special cases, all ball detection was done at junctions with the tilt servo oriented vertically and the panning servo oriented at a fixed angle to the left or to the right. This covered all junctions in which a ground ball could be located down a perpendicular corridor to the left or right.</p>
 <p>The ball detection algorithm was implemented using the built-in color tracking and virtual window features of the CMUcam. As with the line tracking, it was important that all the data processing intensive operations be done on the CMUcam processor in order to have low execution time.</p>
-<p>At every junction, Caddy traversed all connected nodes in the graph extending to the left, for example. For any ball node that had not yet been checked, the node number was recorded along with distance away from the Caddy's current node location. If there was at least one unchecked ball node to the left, Caddy would orient the camera pan/tilt servos to look in that direction and use a sliding window algorithm to search for the ball.</p>
+<p>At every junction, Caddy traversed all connected nodes in the graph extending to the left, for example. For any ground ball node encountered during this graph traversal that had not yet been checked, the node number was recorded along with distance away from the Caddy's current node location. If there was at least one unchecked ball node to the left, Caddy would orient the camera pan/tilt servos to look in that direction and use a sliding window algorithm to search for the ball.</p>
 <p>As shown in the diagram below, the ball detection algorithm searched for the bottom of the ball by progressively moving a narrow image window through the image and using an upper and lower color intensity thresholds to determine if any orange pixels were within the image window.</p>
 <div class="image">
 <img src="ball_seek_left_view_dia.png" alt="ball_seek_left_view_dia.png"/>
 <div class="caption">
-The view of the camera while searching for a ball down a corridor to the left</div></div>
+The camera's view while searching for a ball down a corridor to the left</div></div>
 <p>If an orange pixel was found, a look-up table was used to convert the the horizontal X coordinate of the image window to a physical distance away from the bot. This distance was then compared with the values in the unchecked ball list to find the most likely node number corresponding to the blob of orange pixels.</p>
+<div class="image">
+<img src="ball_search_flowchart_dia.png" alt="ball_search_flowchart_dia.png"/>
+<div class="caption">
+Perpendicular corridor ball searching flow chart</div></div>
 <p>Since stopping to perform these ball searches added time to the run we made sure to mark any node that was "seen" during a ball search or physically crossed by Caddy as having been checked. Also, once the final ground ball was discovered all remaining unchecked nodes were marked as having been checked (by process of elimination). These optimizations ensured that Caddy only performed ball searches when necessary.</p>
 <p>To optimize the computation time of the sliding window search algorithm, the window width was increased from 1 pixel to 4 pixels. We found that this gave sufficient resolution while providing a speedup of nearly 4.0. We also limited the far end of the sliding window range to cover just six inches past the farthest unchecked ball node since there was no point in search through parts of the image which we knew would not offer any new information. With these optimizations a typical ball search to the left or right took about 1 second.</p>
 <h2><a class="anchor" id="path_planning"></a>
 Path Planning</h2>
+<p>The connected graph map of the arena and ball detection features described in the previous sections provided pieces of information needed for a path planning algorithm:</p>
+<ul>
+<li>A map </li>
+<li>A location </li>
+<li>One or more destinations (goals)</li>
+</ul>
+<p>Now, every time a goal was added to the goal list (i.e. a ground ball was found), the path planning algorithm would compute the cost through all permutations of known goals starting from the current node and ending at nest node. This required two sub-algorithms:</p>
+<ul>
+<li>A method to compute the shortest path between any two nodes </li>
+<li>A method to compute all permutations of known goals</li>
+</ul>
+<p>The permutation algorithm proved to be more challenging than originally expected because the limited stack space of the ATmega32 precluded the use of a recursive permuation algorithm. With some research we found a simple itertive implementation in the GNU C++ Standard Template Library (STL). Adapting this templated code to C99 C code we had a solution for computing all permuations of any array of 8-bit values. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 31 2013 22:51:19 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 7 2013 21:58:50 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

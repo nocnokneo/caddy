@@ -78,11 +78,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Conclusion </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="future_work"></a>
+<div class="textblock"><p>The overall design of the robot proved to be a success. Caddy was able to perform all the tasks reliably and quickly. Unfortunately, the time constraints of the Robocompetition meant that full implemenation and debugging of all the features was not completed until just <em>after</em> the competition, when meant that Caddy did not rank as well as it have.</p>
+<p>The following section describes some of the technical aspects that, in hindsight, we would have chosen to do differently.</p>
+<h1><a class="anchor" id="future_work"></a>
 Future Work</h1>
 <h2><a class="anchor" id="regulated_motor_voltage"></a>
 Regulated Motor Voltage</h2>
-<p>If we end up working with higher voltage motors again, it may be worth losing some voltage in order to send regulated voltage to the motors. This allows for more consistent operation across fresh and low batteries. This should also condition our batteries better, because the battery voltage can drop until the regulator’s threshold is reached. As long as we drop the voltage down enough, it should be obvious when batteries are dead. As the regulator cuts out, the bot should slow down more dramatically. A common solution in ME 405 (mechatronics) is to regulate 14.4V down to 12V with an adjustable regulator (LM1084) for each motor. One regulator was not able to provide enough current for both motors. When driving the motors at the same pulse width, we were able to see a difference in how straight the bot drove, if the motors received voltages a few hundredths apart. Yet, just having the ability to precisely and consistently set the voltage to the motors was very useful.</p>
+<p>If we end up working with higher voltage motors again, it may be worth the added cost and decrease in power efficiency of regulating the motor voltage. This allows for more consistent operation across fully charged and partially charged batteries, especially with low precision wheel encoders that do not sense direction.</p>
 <h2><a class="anchor" id=""></a>
 </h2>
 <p>Since we were using timer 1 (a 16-bit timer) for PWM, we could have used 16-bit PWM. 8-bit resolution seemed to be sufficient with the original 6 volts motors, but when we switched to 12 volt motors, more precise control of the PWM signal would likely have improved the PID line tracking. As it was, we had to use a PID offset constant of 1 which means that we would have required division to decrease the proportional coefficient parameter of our PID control algorithm.</p>
@@ -93,7 +95,7 @@ Quadrature Wheel Encoders</h2>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 31 2013 22:51:19 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 7 2013 21:58:50 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

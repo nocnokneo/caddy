@@ -121,6 +121,9 @@ Data Structures</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a196d5a36c4126bfa58ee4ea50baaae39"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a196d5a36c4126bfa58ee4ea50baaae39">NUM_NODES</a>&#160;&#160;&#160;43</td></tr>
+<tr class="memitem:a7caaa7aa26e7eaaff8d66f0e5727aa87"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a7caaa7aa26e7eaaff8d66f0e5727aa87">START_NODE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a45bdd67ab77126607e10649fd606348c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a45bdd67ab77126607e10649fd606348c">START_HEADING</a>&#160;&#160;&#160;-64</td></tr>
+<tr class="memitem:a55efc82aefc6b140eae127b4d4ab00a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a55efc82aefc6b140eae127b4d4ab00a5">STOP_NODE</a>&#160;&#160;&#160;42</td></tr>
 <tr class="memitem:a07403514a6e02cf83fbd02b55ff60839"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a07403514a6e02cf83fbd02b55ff60839">BALL_NODE_MIN</a>&#160;&#160;&#160;1</td></tr>
 <tr class="memitem:a93a885ccfb6f5cd57f378ad1623cc313"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a93a885ccfb6f5cd57f378ad1623cc313">BALL_NODE_MAX</a>&#160;&#160;&#160;20</td></tr>
 <tr class="memitem:a3614f20bc35f670aec5b60b3e1b3cb98"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="nodeList_8h.html#a3614f20bc35f670aec5b60b3e1b3cb98">JUNCTION_MIN</a>&#160;&#160;&#160;21</td></tr>
@@ -167,12 +170,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 <li>Nodes 21-41 are junctions</li>
 </ul>
 </li>
-<li>Distance resolution is 6 inches. -Direction is measured in binary radians or brads. (see www.urcp.com)</li>
-</ul>
-<p>Version History: 2/17/05 - Created by Logan 2/21/05 - Checked by Logan, Scott, and Patrick</p>
-<ul>
-<li>Changed syntax for Atmel - Logan</li>
-<li>Added more defines - Logan 4/11/05 - Re-structured for FLASH - Logan </li>
+<li>Distance resolution is 6 inches.</li>
+<li>Direction is measured in binary radians or brads. (see www.urcp.com) </li>
 </ul>
 
 <p>Definition in file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
@@ -188,7 +187,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>End of node number range used for ball nodes </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00050">50</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00051">51</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -203,7 +202,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Beginning of node number range used for ball nodes </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00048">48</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00049">49</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -218,7 +217,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>The heading required to pickup bonus ball 1 </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00074">74</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00075">75</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -233,7 +232,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>The heading required to pickup bonus ball 2 </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00076">76</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00077">77</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -248,7 +247,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Node number of bonus ball 1 </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00067">67</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00068">68</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -263,7 +262,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Node number of bonus ball 2 </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00069">69</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00070">70</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -278,7 +277,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>End of node number range used for junction nodes </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00054">54</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00055">55</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -293,7 +292,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Beginning of node number range used for junction nodes </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00052">52</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00053">53</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -308,7 +307,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Maximum number nodes that can be adjacent to one node </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00060">60</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00061">61</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -323,7 +322,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Direction of north west in binary radians (brads) </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00062">62</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00063">63</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -338,7 +337,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>The number of goals known a priori (nest sensor and two bonus balls) </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00079">79</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00080">80</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -353,7 +352,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Total number of goals </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00083">83</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00084">84</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -368,7 +367,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Total number of nodes in the arena map </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00045">45</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00039">39</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -383,7 +382,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>The number of goals with unknown location at the start of a run (ground balls) </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00081">81</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00082">82</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -398,7 +397,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Convenience macor for direction of south east in (brads) </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00064">64</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00065">65</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -413,7 +412,52 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><div class="memdoc">
 <p>Node number of the nest release sensor </p>
 
-<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00071">71</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00072">72</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a45bdd67ab77126607e10649fd606348c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define START_HEADING&#160;&#160;&#160;-64</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Heading of the robot at the beginning of the course </p>
+
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00044">44</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7caaa7aa26e7eaaff8d66f0e5727aa87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define START_NODE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Beginning of the course </p>
+
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00042">42</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a55efc82aefc6b140eae127b4d4ab00a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STOP_NODE&#160;&#160;&#160;42</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>End of the course </p>
+
+<p>Definition at line <a class="el" href="nodeList_8h_source.html#l00046">46</a> of file <a class="el" href="nodeList_8h_source.html">nodeList.h</a>.</p>
 
 </div>
 </div>
@@ -436,7 +480,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>getNode</b> (uint8_t 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 31 2013 22:51:18 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 7 2013 19:43:52 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

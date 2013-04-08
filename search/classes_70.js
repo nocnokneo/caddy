@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pathlist',['PathList',['../structPathList.html',1,'']]]
+  ['pathlistnode',['PathListNode',['../structPathListNode.html',1,'']]]
 ];

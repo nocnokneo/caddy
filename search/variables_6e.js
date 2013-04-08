@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['numadjnodes',['numAdjNodes',['../structnodeStruct.html#a21d915fe36041df71bd6e7bd6d9cfb4a',1,'nodeStruct']]]
+  ['numadjnodes',['numAdjNodes',['../structGraphNode.html#aceb47c4a841a8d812969f6c1b57ca0e5',1,'GraphNode']]]
 ];

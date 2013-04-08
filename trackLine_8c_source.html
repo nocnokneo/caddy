@@ -105,9 +105,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  along with Caddy.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="trackLine_8h.html" title="Line detection and PID tracking using CMUcam2.">trackLine.h</a>&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;motorCntrl.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8h.html">camera.h</a>&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="eeProm_8h.html" title="Loading and store &quot;tweak values&quot; into eeProm.">eeProm.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="motorCntrl_8h.html" title="Interface to PWM motor controller.">motorCntrl.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8h.html" title="Interface to the CMUcam vision system.">camera.h</a>&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="eeProm_8h.html" title="Interface to the &quot;tweak values&quot; stored in EEPROM.">eeProm.h</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tetherUI_8h.html" title="Simple user interface to change parameters without reprogramming.">tetherUI.h</a>&quot;</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;ourLCD.h&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
@@ -183,12 +183,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    lineStatsProcessed = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// Initialize wheel speeds to forward, zero pwm</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    forward(BOTH, 0);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    forward(BOTH_MOTORS, 0);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    PWM_LEFT(l_base);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    PWM_RIGHT(r_base);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// Set Low Resolution</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    lowResMode();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="camera_8c.html#ac72b489113787f1f08fb2727ab390f20" title="Set the camera to 88x143 resolution.">cameraLowResMode</a>();</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// Downsample the image</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    rprintf(<span class="stringliteral">&quot;DS %d %d\r&quot;</span>, DS_X_LINE, DS_Y_LINE);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// set virtual window</span></div>
@@ -382,7 +382,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 31 2013 22:51:18 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Apr 7 2013 19:43:52 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

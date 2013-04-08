@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['perms_2eh',['perms.h',['../perms_8h.html',1,'']]]
+  ['permutation_2eh',['permutation.h',['../permutation_8h.html',1,'']]]
 ];

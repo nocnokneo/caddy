@@ -1,0 +1,47 @@
+digraph "junctionCode.c"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="junctionCode.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="junctionCode.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$junctionCode_8h.html",tooltip="Actions that occur at junctions."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="stdint.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="stdbool.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="botCntrl.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$botCntrl_8h.html",tooltip="High-level logic controlling Caddy&#39;s actions."];
+  Node5 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="trackColor.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$trackColor_8h.html",tooltip="Simple tracking Roborodentia objects of interest by color."];
+  Node6 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="servos.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$servos_8h.html",tooltip="Servo control interface for Caddy."];
+  Node7 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="camera.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$camera_8h.html",tooltip="Interface to the CMUcam vision system."];
+  Node8 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="nodeList.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$nodeList_8h.html",tooltip="Course defined by a connected grid of nodes."];
+  Node9 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="eeProm.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$eeProm_8h.html",tooltip="Interface to the &quot;tweak values&quot; stored in EEPROM."];
+  Node10 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="motorCntrl.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$motorCntrl_8h.html",tooltip="Interface to PWM motor controller."];
+  Node11 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="timer.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node11 -> Node13 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="avr/io.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node11 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="updatePath.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$updatePath_8h_source.html"];
+  Node14 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="helperFunctions.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$helperFunctions_8h_source.html"];
+  Node15 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

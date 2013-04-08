@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['adjcosts',['adjCosts',['../structnodeStruct.html#a9886991b7d974aec084313455b24448f',1,'nodeStruct']]],
-  ['adjheadings',['adjHeadings',['../structnodeStruct.html#ad41b103073cb16ac92589a0563df7d31',1,'nodeStruct']]],
-  ['adjnodes',['adjNodes',['../structnodeStruct.html#a93415dcd566014cb05867997dabe1a1a',1,'nodeStruct']]]
+  ['adjcosts',['adjCosts',['../structGraphNode.html#a509b8a30bc39df5c1565bbb2a48410f3',1,'GraphNode']]],
+  ['adjheadings',['adjHeadings',['../structGraphNode.html#a156cb6f59ba937aa1831ab4babb2f374',1,'GraphNode']]],
+  ['adjnodes',['adjNodes',['../structGraphNode.html#a9ab3b0200d01b7c2979a75a99260c49d',1,'GraphNode']]]
 ];
