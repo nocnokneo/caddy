@@ -594,8 +594,8 @@ void junctionCode(void)
  */
 bool standardBallSearch( void )
 {
-    NODE curNode;
-    NODE nextNode;
+    GraphNodeType curNode;
+    GraphNodeType nextNode;
     uint8_t nextNodeNum;
     int8_t lookDir = -1; /// -1: look left, +1: look right
     int8_t hallHeading = 0;

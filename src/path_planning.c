@@ -248,7 +248,7 @@ uint8_t getNextBallNodeNum(void)
  */
 inline int8_t getNextHeading(void)
 {
-    NODE nextNode;            // info about nodes adjacent to botNode
+    GraphNodeType nextNode;            // info about nodes adjacent to botNode
     int8_t nextNodeIndex;        // nextNode offset to nextBotNode
     int8_t nextHeading;          // absolute direction to nextBotNode
 
@@ -282,7 +282,7 @@ uint8_t updatePathTo(uint8_t nodeNum)
 // returns distance of path found
 inline uint8_t uniformCostSearch(uint8_t startNode, uint8_t goalNode)
 {
-    NODE nodeData;
+    GraphNodeType nodeData;
     uint8_t n;
 
     PathListNodeType *visitList = NULL;

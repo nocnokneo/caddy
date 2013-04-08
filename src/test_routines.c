@@ -179,7 +179,7 @@ void seekBallTest( void )
      */
 
     bool justTurned = true;
-    NODE node;
+    GraphNodeType node;
 
     botNode = tempTweak1;                   // set path to next junction
     botHeading = tempTweak2; // tempTweak1 must be adjacent to junction at heading in tempTweak2

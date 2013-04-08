@@ -30,7 +30,7 @@ inline bool isBallNode(uint8_t nodeNum)
     return (nodeNum >= BALL_NODE_MIN && nodeNum <= BALL_NODE_MAX);
 }
 
-uint8_t getCostToNode(NODE *node, uint8_t nodeNum)
+uint8_t getCostToNode(GraphNodeType *node, uint8_t nodeNum)
 {
     uint8_t i;
     for (i = 0; i < node->numAdjNodes; i++)
@@ -43,7 +43,7 @@ uint8_t getCostToNode(NODE *node, uint8_t nodeNum)
     return 0;
 }
 
-uint8_t getNodeAtHeading(NODE *node, int8_t heading)
+uint8_t getNodeAtHeading(GraphNodeType *node, int8_t heading)
 {
     uint8_t i;
     for (i = 0; i < node->numAdjNodes; i++)
@@ -56,7 +56,7 @@ uint8_t getNodeAtHeading(NODE *node, int8_t heading)
     return 0;
 }
 
-void getNode(uint8_t nodeNum, NODE *node)
+void getNode(uint8_t nodeNum, GraphNodeType *node)
 {
     // Bounds check on input node number
     if (nodeNum >= NUM_NODES)

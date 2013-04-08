@@ -88,7 +88,7 @@
  *
  * Defines the directions and distances to adjacent nodes.
  */
-typedef struct nodeStruct
+typedef struct GraphNode
 {
     /**
      * number of nodes adjacent to this node
@@ -106,14 +106,14 @@ typedef struct nodeStruct
      * directions towards adjacent nodes in 8-bit @link brads
      */
     int8_t adjHeadings[MAX_ADJ_NODES];
-} NODE;
+} GraphNodeType;
 
 
 inline bool isJunction( uint8_t nodeNum );
-uint8_t getCostToNode(NODE *node, uint8_t nodeNum);
-uint8_t getNodeAtHeading(NODE *node, int8_t heading);
+uint8_t getCostToNode(GraphNodeType *node, uint8_t nodeNum);
+uint8_t getNodeAtHeading(GraphNodeType *node, int8_t heading);
 inline bool isBallNode( uint8_t nodeNum );
-void getNode( uint8_t nodeNum, NODE *node );
+void getNode( uint8_t nodeNum, GraphNodeType *node );
 
 
 #endif // #ifndef NODELIST_H_
