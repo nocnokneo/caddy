@@ -41,6 +41,9 @@ uint16_t tempTweak4;
 uint8_t lcdMode;  // <- need debugger menu for this, remove old init/toggling, and save in eeProm
 uint8_t testMode; // <- need to save this in eeProm
 
+static uint8_t EEPROM_read(unsigned int uiAddress);
+static void EEPROM_write(unsigned int uiAddress, uint8_t ucData);
+
 // Initializes constants that can be tweaked by debugger
 inline void loadTweakValues(void)
 {

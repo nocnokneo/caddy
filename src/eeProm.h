@@ -102,7 +102,5 @@ extern uint8_t testMode;
 
 inline void loadTweakValues( void );
 inline void storeTweakValues( void );
-uint8_t EEPROM_read(unsigned int uiAddress);
-void EEPROM_write(unsigned int uiAddress, uint8_t ucData);
 
 #endif // #ifndef EEPROM_H_
