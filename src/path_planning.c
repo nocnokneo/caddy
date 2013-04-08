@@ -304,11 +304,7 @@ inline uint8_t uniformCostSearch(uint8_t startNode, uint8_t goalNode)
         // visit next node w/ lowest cost, if one exists
         if (visitList == NULL )
         {
-#if DEBUGGING
-            lcdWriteStr("uniformCostSearc", 0, 0);
-            lcdWriteStr("error           ", 1, 0);
-            while (1) ;
-#endif
+            fatalError("uniformCostSearc", "error           ");
             return MAX_COST;  //  b/c path not found
         }
         else

@@ -252,13 +252,7 @@ inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
         tickWheels(0, 32, 255);                   //28
         break;
     default:
-#if DEBUGGING
-        lcdWriteStr("ERROR:          ", 0, 0);
-        lcdWriteStr("Turn Amt =      ", 1, 0);
-        lcdPrintDecS08(bbHeading - botHeading, 1, 11);
-        brake(BOTH_MOTORS);
-        while (1) ;
-#endif
+        fatalError("ERR: bonusBallPi", "ckUpManeuver: 1");
         break;
     }
 
@@ -310,14 +304,9 @@ inline void bonusBallPickUpManeuver(int8_t bbHeading, int8_t nextHeading)
     case -96:
         tankTurn(250, -90);
         break;
-    default:         // Error, this should only be 32, -32, or -96
-#if DEBUGGING
-        lcdWriteStr("ERROR:          ", 0, 0);
-        lcdWriteStr("nH - bbH =      ", 1, 0);
-        lcdPrintDecS08(bbHeading - botHeading, 1, 11);
-        brake(BOTH_MOTORS);
-        while (1) ;
-#endif
+    default:
+        // Error, this should only be 32, -32, or -96
+        fatalError("ERR: bonusBallPi", "ckUpManeuver: 2");
         break;
     }
 }
