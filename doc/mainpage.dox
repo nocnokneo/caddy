@@ -90,7 +90,7 @@ needed to be met in order to be successful:
 
 @li <b>Line following</b> - The corridors of the maze were constructed with a
 black electrical tape line down the center, meant as an aid for the autonomous
-navigation of the pathways - and we saw no reason not to take advantage of it.
+navigation of the pathways. We saw no reason not to take advantage of it.
 
 @li <b>Junction detection</b> - To navigate the maze, Caddy would need the
 ability to detect when a junction was reach and to identify the type of
@@ -111,8 +111,8 @@ comparatively simple to implement.
 
 In addition to this baseline set of goals, we decided to focus on the
 autonomous aspect of the Roborodentia competition. In particular we wanted a
-robot that could <em>actively adapt</em> to the random ball locations (unlike
-any previous entry had ever done). This was the driver for an additional two
+robot that could <em>actively adapt</em> to the random ball locations, unlike
+any previous entry had ever done. This was the driver for an additional two
 requirements:
 
 @li <b>Path planning</b> - Caddy needed a way to map the arena and a shortest
@@ -128,9 +128,9 @@ we needed a way to actively search for balls down untraveled corridors.
 The team for this project was formed from interested members of the the
 <a href="http://robotics.calpoly.edu/">Cal Poly Robotics Club</a>.
 
-To organize the tasks and identify critical paths in the (short) project
-time line, we used <a href="http://www.ganttproject.biz/">GanttProject</a>
-to create a Gantt chart.
+To organize the tasks and identify critical paths in the short project time
+line, we used <a href="http://www.ganttproject.biz/">GanttProject</a> to
+create a Gantt chart.
 
 For code control and collaboration we used Concurrent Versions System
 (CVS). Since this project had a competitive nature, we chose to setup and host
@@ -174,8 +174,8 @@ relatively small map even this could be handled by a low-end microcontroller.
 We opted to design and build our own power regulation and motor control
 circuitry over purchasing one of the more expensive off-the-shelf solutions.
 To ensure that we were not debugging software and electrical issues at the
-same time (difficult!) made sure to include robust regulation and decouple
-in the design. Our power sub-component power needs were:
+same time, we made sure to include robust regulation and decouple in the
+design. Our power sub-component power needs were:
 
 @li +5V regulated power for the ATMega32 and the rest of the electronics
 @li +6-15V unregulated power for the CMUcam2
@@ -216,8 +216,8 @@ additional diodes were connected as shown in the schematic below.
 The power regulation and motor control circuits were fabricated together on a
 single board using a copper-plated board, etching solution, and a laser print
 out of the circuit layout. We made sure to use polarized headers for all the
-connections to avoid making any reverse polarity mistakes (we still managed to
-make a couple!).
+connections to avoid making any reverse polarity mistakes — though we still
+managed to make a couple!.
 
 @subsection wheel_encoders Wheel Encoders
 
@@ -242,9 +242,9 @@ dual-threshold Schmitt trigger is needed. The precision of this wheel encoder
 system is equal to about one segment arc angle — 7.5° for a 48 segment
 pattern.
 
-The P5587 reflective IR sensor package chosen for Caddy was designed
-for exactly this type of high contrast edge detection and so came with built
-in Schmitt triggers and a logic-level output that could be easily read by GPIO
+The P5587 reflective IR sensor package chosen for Caddy was designed for
+exactly this type of high contrast edge detection and so came with built in
+Schmitt triggers and a logic-level output that could be easily read by a GPIO
 input port on the microcontroller.
 
 @subsection ir_break_beam IR Break Beam
@@ -347,7 +347,7 @@ By substitution, we get:
 c(t) = P_E \frac{dx}{dt} + P_I x(t) + P_D \frac{d^2x}{dt^2}
 @f]
 
-Broken down and interpretted for the task of line tracking, these terms are:
+Broken down and interpreted for the task of line tracking, these terms are:
 
 @li @f$ P_E \frac{dx}{dt} \leftarrow @f$ How fast are we drifting from the center line?
 @li @f$ P_I x(t) \leftarrow @f$ How far are we from from the center line?
@@ -502,7 +502,7 @@ right.
 The ball detection algorithm was implemented using the built-in color tracking
 and virtual window features of the CMUcam. As with the line tracking, it was
 important that all the data processing intensive operations be done on the
-CMUcam processor in order to have low execution time.
+CMUcam processor in order to achieve low execution time.
 
 At every junction, Caddy traversed all connected nodes in the graph extending
 to the left, for example. For any ground ball node encountered during this
@@ -564,18 +564,18 @@ node. This required two sub-algorithms:
 
 The permutation algorithm proved to be more challenging than originally
 expected because the limited stack space of the ATmega32 precluded the use of
-a recursive permuation algorithm. With some research we found a simple
-itertive implementation in the GNU C++ Standard Template Library
+a recursive permutation algorithm. With some research we found a simple
+iterative implementation in the GNU C++ Standard Template Library
 (STL). Adapting this templated code to C99 C code we had a solution for
-computing all permuations of any array of 8-bit values.
+computing all permutations of any array of 8-bit values.
 
 @page conclusion Conclusion
 
 The overall design of the robot proved to be a success. Caddy was able to
 perform all the tasks reliably and quickly. Unfortunately, the time
-constraints of the Robocompetition meant that full implemenation and debugging
-of all the features was not completed until just @em after the competition,
-when meant that Caddy did not rank as well as it have.
+constraints of the Roborodentia competition meant that full implementation and
+debugging of all the features was not completed until just @em after the
+competition so Caddy did not rank as well as it could have.
 
 The following section describes some of the technical aspects that, in
 hindsight, we would have chosen to do differently.
@@ -590,15 +590,12 @@ voltage. This allows for more consistent operation across fully charged and
 partially charged batteries, especially with low precision wheel encoders that
 do not sense direction.
 
-@subsection 16_pwm_motor_control 16-bit PWM Motor Control
+@subsection pwm_motor_control PWM Motor Control using a 16-bit Timer
 
 Since we were using timer 1 (a 16-bit timer) for PWM, we could have used
 16-bit PWM. 8-bit resolution seemed to be sufficient with the original 6 volts
 motors, but when we switched to 12 volt motors, more precise control of the
-PWM signal would likely have improved the PID line tracking. As it was, we had
-to use a PID offset constant of 1 which means that we would have required
-division to decrease the proportional coefficient parameter of our PID control
-algorithm.
+PWM signal would likely have improved the PID line tracking.
 
 @subsection quadrature_wheel_encoders Quadrature Wheel Encoders
 
@@ -624,7 +621,7 @@ easily and accurately.
 
 Caddy was a joint effort between Taylor Braun-Jones, Logan Kinde, Tyson
 Messori, Scott Barlow, Michael Shelley, and Patrick McCarty. Primary
-contributors were Taylor, Logan, and Tyson.
+contributors were Taylor Braun-Jones, Logan Kinde, and Tyson Messori.
 
 @image html  team_photo_medium.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty"
 @image latex team_photo.png "Team Photo. Left to right: Logan Kinde, Tyson Messori, Taylor Braun-Jones, Scott Barlow, Michael Shelley, Patrick McCarty" width=12cm
@@ -641,10 +638,10 @@ including:
 
 Taylor's electrical and mechanical contributions include:
 
-@li Custom-made battery packs from shrink wrap and five +1.2V rechargable NiMH
+@li Custom-made battery packs from shrink wrap and five +1.2V rechargeable NiMH
 AA batteries
 
-@li The design and implemenation of the bracket used to mount the CMUcam2 to
+@li The design and implementation of the bracket used to mount the CMUcam2 to
 the panning servo
 
 @li The concept and implementation of a detachable tethered remote for
