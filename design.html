@@ -81,7 +81,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><h1><a class="anchor" id="team_process"></a>
 Collaborative Team Process</h1>
 <p>The team for this project was formed from interested members of the the <a href="http://robotics.calpoly.edu/">Cal Poly Robotics Club</a>.</p>
-<p>To organize the tasks and identify critical paths in the (short) project time line, we used <a href="http://www.ganttproject.biz/">GanttProject</a> to create a Gantt chart.</p>
+<p>To organize the tasks and identify critical paths in the short project time line, we used <a href="http://www.ganttproject.biz/">GanttProject</a> to create a Gantt chart.</p>
 <p>For code control and collaboration we used Concurrent Versions System (CVS). Since this project had a competitive nature, we chose to setup and host our own private CVS server rather than use a free, Internet-based hosting service.</p>
 <p>Between face-to-face team meetings we used Drupal to host a private forum for discussing ideas, sharing progress, etc.</p>
 <p>The inline code documentation and this project report were both managed using <a href="http://doxygen.org">Doxygen</a>. Keeping the documentation in plain text and means that the documentation can be version controlled the very same way as the source code. The documentation also tends to stay more up to date since it can be more conveniently updated at the same time as the source code.</p>
@@ -97,7 +97,7 @@ Electronics block diagram</div></div>
 Electrical Design</h1>
 <h2><a class="anchor" id="power_motor"></a>
 Power Regulation and Motor Controller</h2>
-<p>We opted to design and build our own power regulation and motor control circuitry over purchasing one of the more expensive off-the-shelf solutions. To ensure that we were not debugging software and electrical issues at the same time (difficult!) made sure to include robust regulation and decouple in the design. Our power sub-component power needs were:</p>
+<p>We opted to design and build our own power regulation and motor control circuitry over purchasing one of the more expensive off-the-shelf solutions. To ensure that we were not debugging software and electrical issues at the same time, we made sure to include robust regulation and decouple in the design. Our power sub-component power needs were:</p>
 <ul>
 <li>+5V regulated power for the ATMega32 and the rest of the electronics </li>
 <li>+6-15V unregulated power for the CMUcam2 </li>
@@ -124,7 +124,7 @@ Power regulation circuit</div></div>
 <img src="motor_control_sch.png" alt="motor_control_sch.png"/>
 <div class="caption">
 Motor control circuit</div></div>
-<p>The power regulation and motor control circuits were fabricated together on a single board using a copper-plated board, etching solution, and a laser print out of the circuit layout. We made sure to use polarized headers for all the connections to avoid making any reverse polarity mistakes (we still managed to make a couple!).</p>
+<p>The power regulation and motor control circuits were fabricated together on a single board using a copper-plated board, etching solution, and a laser print out of the circuit layout. We made sure to use polarized headers for all the connections to avoid making any reverse polarity mistakes — though we still managed to make a couple!.</p>
 <h2><a class="anchor" id="wheel_encoders"></a>
 Wheel Encoders</h2>
 <div class="image">
@@ -137,7 +137,7 @@ Reflective IR sensors mounted on a bracket inside the left drive wheel</div></di
 <div class="caption">
 48 segment pattern for reflective IR wheel encoders</div></div>
 <p>The reflective IR sensors emit infrared light and measure the amount of infrared light that is reflected back with a photodiode. Since the white segments of the pattern reflect more light than the black segments, rotations of the wheel can be detected by thresholding the measured IR signal level. To guard against "chattering" when signals close to the threshold are applied a dual-threshold Schmitt trigger is needed. The precision of this wheel encoder system is equal to about one segment arc angle — 7.5° for a 48 segment pattern.</p>
-<p>The P5587 reflective IR sensor package chosen for Caddy was designed for exactly this type of high contrast edge detection and so came with built in Schmitt triggers and a logic-level output that could be easily read by GPIO input port on the microcontroller.</p>
+<p>The P5587 reflective IR sensor package chosen for Caddy was designed for exactly this type of high contrast edge detection and so came with built in Schmitt triggers and a logic-level output that could be easily read by a GPIO input port on the microcontroller.</p>
 <h2><a class="anchor" id="ir_break_beam"></a>
 IR Break Beam</h2>
 <p>In order to capture ground balls, Caddy needed a way to detect when a ball was within the grasp of its lift mechanism.</p>
@@ -189,7 +189,7 @@ PID Line Tracking</h2>
 <p class="formulaDsp">
 <img class="formulaDsp" alt="\[ c(t) = P_E \frac{dx}{dt} + P_I x(t) + P_D \frac{d^2x}{dt^2} \]" src="form_10.png"/>
 </p>
-<p>Broken down and interpretted for the task of line tracking, these terms are:</p>
+<p>Broken down and interpreted for the task of line tracking, these terms are:</p>
 <ul>
 <li><img class="formulaInl" alt="$ P_E \frac{dx}{dt} \leftarrow $" src="form_12.png"/> How fast are we drifting from the center line? </li>
 <li><img class="formulaInl" alt="$ P_I x(t) \leftarrow $" src="form_13.png"/> How far are we from from the center line? </li>
@@ -281,7 +281,7 @@ Caddy's connected graph representation of the arena</div></div>
 </div><!-- fragment --><h2><a class="anchor" id="ball_detection"></a>
 Ball Detection</h2>
 <p>Except for a couple special cases, all ball detection was done at junctions with the tilt servo oriented vertically and the panning servo oriented at a fixed angle to the left or to the right. This covered all junctions in which a ground ball could be located down a perpendicular corridor to the left or right.</p>
-<p>The ball detection algorithm was implemented using the built-in color tracking and virtual window features of the CMUcam. As with the line tracking, it was important that all the data processing intensive operations be done on the CMUcam processor in order to have low execution time.</p>
+<p>The ball detection algorithm was implemented using the built-in color tracking and virtual window features of the CMUcam. As with the line tracking, it was important that all the data processing intensive operations be done on the CMUcam processor in order to achieve low execution time.</p>
 <p>At every junction, Caddy traversed all connected nodes in the graph extending to the left, for example. For any ground ball node encountered during this graph traversal that had not yet been checked, the node number was recorded along with distance away from the Caddy's current node location. If there was at least one unchecked ball node to the left, Caddy would orient the camera pan/tilt servos to look in that direction and use a sliding window algorithm to search for the ball.</p>
 <p>As shown in the diagram below, the ball detection algorithm searched for the bottom of the ball by progressively moving a narrow image window through the image and using an upper and lower color intensity thresholds to determine if any orange pixels were within the image window.</p>
 <div class="image">
@@ -308,11 +308,11 @@ Path Planning</h2>
 <li>A method to compute the shortest path between any two nodes </li>
 <li>A method to compute all permutations of known goals</li>
 </ul>
-<p>The permutation algorithm proved to be more challenging than originally expected because the limited stack space of the ATmega32 precluded the use of a recursive permuation algorithm. With some research we found a simple itertive implementation in the GNU C++ Standard Template Library (STL). Adapting this templated code to C99 C code we had a solution for computing all permuations of any array of 8-bit values. </p>
+<p>The permutation algorithm proved to be more challenging than originally expected because the limited stack space of the ATmega32 precluded the use of a recursive permutation algorithm. With some research we found a simple iterative implementation in the GNU C++ Standard Template Library (STL). Adapting this templated code to C99 C code we had a solution for computing all permutations of any array of 8-bit values. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 7 2013 21:58:50 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Apr 10 2013 22:02:31 for Caddy by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
