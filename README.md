@@ -22,6 +22,18 @@ on the Atmega chip.
 TODO: Some high-level information about what our program does and how
 to configure, compile, load, and run on the chip.
 
+Documentation
+-------------
+
+* Doxygen-generated documenation ([html][doxygen-html], [pdf][doxygen-pdf])
+* Taylor Braun-Jones' [senior project][senior-project] report for B.S. Computer Engineering
+* Logan Kinde's [master's thesis][masters-thesis] for M.S. Electrical Engineering
+
+[doxygen-html]:   http://nocnokneo.github.io/caddy/
+[doxygen-pdf]:    http://nocnokneo.github.io/caddy/caddy.pdf
+[senior-project]: http://digitalcommons.calpoly.edu/cpesp/97/
+[masters-thesis]: http://poetry.lib.calpoly.edu/record=b1884407~S0
+
 Software Build Requirements
 ---------------------------
 
