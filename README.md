@@ -5,7 +5,7 @@ Robot control code for the Cal Poly Robotics Club's 2005 entry into the
 Roborodentia competition
 
 Authors
-=======
+-------
 
 * Taylor Braun-Jones
 * Logan Kinde
@@ -23,7 +23,7 @@ TODO: Some high-level information about what our program does and how
 to configure, compile, load, and run on the chip.
 
 Software Build Requirements
-===========================
+---------------------------
 
 * make (only tested with GNU make)
 * avr-gcc
@@ -48,7 +48,7 @@ following fuse bit configuration:
     BODLEVEL Brown-out level = 4.0 V
 
 Documentation Build Requirements
-================================
+--------------------------------
 
 Documenation in HTML and PDF format is generated using the following packages:
 
@@ -68,7 +68,7 @@ sudo apt-get install geda-gaf
 ```
 
 Documentation Build Instructions
-================================
+--------------------------------
 
 The first time you generate documenation in the `doc` directory a second clone
 of the caddy git repository will be created from the main GitHub-hosted
@@ -87,7 +87,7 @@ git push origin gh-pages
 ```
 
 LICENSE
-=======
+-------
 
 Caddy is released under GPLv3 license (see `COPYING`). This is by requirement
 because Caddy uses the GPL-licensed AVRlib library.
